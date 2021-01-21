@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- important meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Title -->
+    <title>MarketPlace</title>
+
+    <!-- Basic SEO -->
+    <meta name="description" content="Creative website development with html5, css3, jQuery & bootstrap framework">
+    <meta name="keywords" content="HTML5, CSS3, JQuery, Bootstrap, Web Design, Web Development, Responsive website, Creative website">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/home/favicon.ico">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <!-- Owl Carousel CSS -->
+    <!-- Responsive Tabs CSS -->
+    <link rel="stylesheet" href="css/responsive-tabs/responsive-tabs.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/admin-style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="65">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-fixed-top purple-nav-top">
+            <div class="container-fluid">
+                <div class="site-nav-wrapper">
+                    <div class="navbar-header">
+                        <!-- Mobile Menu Open Button -->
+                        <span id="mobile-nav-open-btn">&#9776;</span>
+                        <!-- Logo -->
+                        <a class="navbar-brand smooth-scroll" href="#home">
+                            <img src="img/home/logo.png" alt="logo">
+                        </a>
+                    </div>
+                    <!-- Main Menu -->
+                    <div class="container">
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav pull-right">
+                                <li><a class="smooth-scroll" href="#search-notes">Dashboard</a></li>
+                                <li><a class="smooth-scroll" href="#dashboard">Notes</a></li>
+                                <li><a class="smooth-scroll" href="#faq">Members</a></li>
+
+                                <li><a class="smooth-scroll" href="#faq">Reports</a></li>
+
+                                <li><a href="sys-config.html">Settings</a></li>
+                                <li>
+                                    <div id="user-photo" class="btn-group"> <img class="img-responsive img-circle dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/user-img.png" alt="user">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                             <a href="admin-profile.html" class=" text-left dropdown-item action-dropdown-item" type="">My profile</a>
+                                            <button class="text-left dropdown-item nav-dropdown-item" type="">My Downloads</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" type="">My Sold Notes</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" type="">My Rejected Notes</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" type="">Change Password</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" type=""> LOGOUT</button>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!--
+                                    <a class="smooth-scroll" href="#contact-us">Contact Us</a></li>
+                                    <li><a id="user-photo" >
+                                        <img class="img-responsive img-circle" src="img/dashboard/user-img.png" alt="user">
+                                    </a></li>
+                                    
+                                    -->
+                                <li><a href="login.html"><button type="button" class="btn btn-work btn-login smooth-scroll">logout</button></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div id="mobile-nav">
+                        <!-- Mobile Menu Close Button -->
+                        <span id="mobile-nav-close-btn">&times;</span>
+                        <div id="mobile-nav-content">
+                            <ul class="nav">
+                                <li><a class="smooth-scroll" href="#search-notes">Dashboard</a></li>
+                                <li><a class="smooth-scroll" href="#dashboard">Notes</a></li>
+                                <li><a class="smooth-scroll" href="#faq">Members</a></li>
+                                <li><a class="smooth-scroll" href="#contact-us">Reports</a></li>
+                                <li><a href="sys-config.html">Settings</a></li>
+                                <li><a href="javascript:void(0)" onclick="openLogin()" class="btn btn-general btn-login smooth-scroll" title="Login" role="button">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+
+    <!-- Add Admin section -->
+
+
+    <section class="add-admin">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="page-heading">Add Administrator</p>
+
+                </div>
+                <div class="col-md-6 inside-col">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p>First Name*</p>
+                            <input type="text" class="form-control" id="name" placeholder="Enter your first name">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p>Last Name*</p>
+                            <input type="text" class="form-control" id="name" placeholder="Enter your last name">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p>Email*</p>
+                            <input type="text" class="form-control" id="name" placeholder="Enter your email">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p>Phone Number</p>
+                            <div class="col-md-2 col-sm-2 col-xs-4 phone-no">
+                                <select class="form-control">
+                                    <option>+91</option>
+                                    <option>+1</option>
+                                    <option>+801</option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-10 col-sm-10 col-xs-8  phone-no">
+                                <input type="text" class="form-control" id="name" placeholder="Enter phone Number">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12">
+                        <a class="btn btn-general btn-work  smooth-scroll" href="#about" title="Sell Book" role="button">SUBMIt</a>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Add Admin Ends -->
+
+
+
+
+
+
+
+
+
+    <br><br><br><br><br><br><br>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <p>
+                        Copyright &copy; Tatvasoft All rights reserved.
+                    </p>
+                </div>
+                <div class="col-md-6 col-sm-6 text-right">
+                    <ul class="pagination social">
+
+                        <li><a href="#"><img src="img/footer/facebook.png" alt=""></a></li>
+                        <li><a href="#"><img src="img/footer/linkedin.png" alt=""></a></li>
+                        <li><a href="#"><img src="img/footer/twitter.png" alt=""></a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Back To Top -->
+        <!-- <a href="#home" id="back-to-top" class="btn btn-sm btn-general btn-back-to-top smooth-scroll hidden-sm hidden-xs" title="home" role="button">
+                <i class="fa fa-angle-up"></i>
+            </a> -->
+    </footer>
+    <!-- Footer Ends -->
+    <!-- JQuery -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- Owl Carousel JS -->
+    <script src="js/owl-carousel/owl.carousel.min.js"></script>
+    <!-- Waypoints -->
+    <script src="js/waypoints/jquery.waypoints.min.js"></script>
+    <!-- Responsive Tabs JS -->
+    <script src="js/responsive-tabs/jquery.responsiveTabs.min.js"></script>
+    <!-- Isotope -->
+    <script src="js/isotope/isotope.pkgd.min.js"></script>
+    <!-- Magnific Popup -->
+    <script src="js/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <!-- Counter -->
+    <script src="js/counter/jquery.counterup.min.js"></script>
+    <!-- Google Map JS -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9EdV2JfPG1Vfviw9gf_HlblIUfs7Ie2E"></script>
+    <!-- Easing -->
+    <script src="js/easing/jquery.easing.1.3.min.js"></script>
+    <!-- WOW JS -->
+    <script src="js/wow/wow.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/admin-script.js"></script>
+</body>
+
+</html>
