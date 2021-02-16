@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "SignUp";
+}
+
+
+<!-- SignUp Section -->
+<section id="signup" class="signup-overlay">
+    <div class="signup-parent">
+        <div class="signup-child">
+            <img class="img-responsive" src="img/home/top-logo.png" alt="">
+            <div class="signup-details">
+                <div class="text-center">
+                    <p>create an Account</p>
+                    <p>Enter your details to signup</p>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group dis">
+                                <p>First Name*</p>
+                                <input type="text" class="form-control" id="fname" placeholder="Enter your nirst name">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group dis">
+                                <p>Last Name*</p>
+                                <input type="text" class="form-control" id="email" placeholder="Enter  your last name">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group dis">
+                                <p>Email*</p>
+                                <input type="text" class="form-control" id="email" placeholder="Enter Email">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group dis">
+                                <p>Password</p>
+                                <input type="password" class="form-control" id="password" placeholder="Enter your Password">
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group dis">
+                                <p>Password</p>
+                                <input type="password" class="form-control" id="password" placeholder="Re-enter Password">
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group dis">
+
+                                <Button class="form-control">
+                                    signup
+                                </Button>
+                            </div>
+                        </div>
+                        <div class="col-md-12 no-account">
+                            <p>Allready have an account? <span>@Html.ActionLink("Login", "", "Login")</span></p>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+<!-- SignUp Section Ends -->
