@@ -6,6 +6,8 @@
 <!-- Login Section -->
 @using (Html.BeginForm())
 {
+    
+    @Html.AntiForgeryToken()
     <section id="login" class="login-overlay">
         <div class="login-parent">
             <div class="login-child">
@@ -36,11 +38,7 @@
                             <div class="col-md-12">
                                 <div class="form-group error">
 
-                                    @if (@ViewBag.NotValidPassword != null)
-                                    {
-
-                                        <label style="color:#A94442"> @ViewBag.NotValidPassword</label>
-                                    }
+                                    
 
                                     @if (@ViewBag.NotValidUser != null)
                                     {

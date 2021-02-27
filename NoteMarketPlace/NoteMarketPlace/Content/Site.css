@@ -285,7 +285,7 @@ ul.navbar-nav > li > a {
 .btn-login {
 
     text-align:center;
-    margin-top:1px;
+    margin-top:-4px;
     max-height:30px;
     background-color: #6255a5;
     font-weight: 700;
@@ -313,6 +313,9 @@ ul.navbar-nav > li > a {
 .btn-learn:hover {
     color: #f4c613;
 }
+.btn-search {
+    color: #fff;
+}
 
 /* =================== =====================
        Home
@@ -322,7 +325,7 @@ ul.navbar-nav > li > a {
     background: none;
     height: 100vh;
     width: 100%;
-    background: url("../../../img/home/banner-with-overlay.jpg");
+    background: url("../img/home/banner-with-overlay-home.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -608,6 +611,7 @@ ul.navbar-nav > li > a {
 }
 
 #myNav {
+    
     animation-name: slideInLeft;
     animation-duration: 1s;
     animation-fill-mode: both;
@@ -879,7 +883,7 @@ hr {
 }
 
 .contact-us-heading {
-    background-image: url('../../../img/home/banner-with-overlay-faq.jpg');
+    background-image: url('../img/home/banner-with-overlay-faq.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -1148,6 +1152,7 @@ td > a > img {
 }
 
 
+
 /*=================================
         Add Notes + user profile
 =====================================*/
@@ -1225,7 +1230,7 @@ td > a > img {
 ================ ===========*/
 
 #login {
-    background: url("../../../img/home/banner-with-overlay.jpg");
+    background: url("../img/home/banner-with-overlay.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -1427,7 +1432,7 @@ td > a > img {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    overflow: hidden;
+    overflow-x: hidden;
     position: fixed;
 }
 
@@ -1436,13 +1441,14 @@ td > a > img {
     height: 100%;
     width: 100%;
     display: block;
-    overflow-y: hidden;
+    overflow-y: scroll;
     z-index: 999999;
     top: 0;
     color: #000;
 }
 
 .signup-child {
+    margin-top: 25px;
     position: absolute;
     top: 50%;
     left: 50%;

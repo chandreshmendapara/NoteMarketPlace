@@ -22,16 +22,23 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 
     @Styles.Render("~/Content/css")
-
-    <!-- Fontawesome -->
-    <link rel="stylesheet" href="~/content/font-awesome/css/font-awesome.min.css">
-
     <!-- Responsive Tabs CSS -->
     <link rel="stylesheet" href="~/content/responsive-tabs/responsive-tabs.min.css">
     <!-- Animate CSS -->
+    <link rel="stylesheet" href="~/content/animate/animate.css">
+
     <link rel="stylesheet" href="~/content/animate/animate.min.css">
+
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="~/content/responsive.css">
+
+    <!--admin Custom style -->
+    <link rel="stylesheet" href="~/content/Site.css">
+
+    <!--bootstrap style -->
+    <link rel="stylesheet" href="~/content/bootstrap/bootstrap.css">
+
+    <link rel="stylesheet" href="~/content/bootstrap/bootstrap.min.css">
 
 
 </head>
@@ -76,9 +83,9 @@
                 <div class="col-md-6 col-sm-6 text-right">
                     <ul class="pagination social">
 
-                        <li><a href="#"><img src="../../img/footer/facebook.png" alt=""></a></li>
-                        <li><a href="#"><img src="../../img/footer/linkedin.png" alt=""></a></li>
-                        <li><a href="#"><img src="../../img/footer/twitter.png" alt=""></a></li>
+                        <li><a href="#" style="background-color:#6255a5"><img src="../img/footer/facebook.png" alt=""></a></li>
+                        <li><a href="#" style="background-color:#6255a5"><img src="../img/footer/linkedin.png" alt=""></a></li>
+                        <li><a href="#" style="background-color:#6255a5"><img src="../img/footer/twitter.png" alt=""></a></li>
 
                     </ul>
                 </div>
@@ -92,13 +99,18 @@
     <!-- Footer Ends -->
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/custom")
     @RenderSection("scripts", required: false)
 
     <script src='@Url.Content("~/Scripts/jquery-3.3.1.js")' type='text/javascript'></script>
     <script src='@Url.Content("~/Scripts/jquery.validate.js")' type='text/javascript'></script>
     <script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")' type='text/javascript'></script>
 
+
+    <script src="~/Scripts/custom/script.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/custom/admin-script.js"></script>
+    <script src="~/Scripts/responsive-tabs/jquery.responsiveTabs.min.js"></script>
 
 </body>
 </html>

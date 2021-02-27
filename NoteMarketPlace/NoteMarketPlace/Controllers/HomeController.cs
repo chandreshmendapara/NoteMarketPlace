@@ -27,8 +27,7 @@ namespace NoteMarketPlace.Controllers
             ModelState.Clear();
             return View();
         }
-       
-       [Authorize]
+    
         public ActionResult Faq()
         {
             ViewBag.Message = "Your faq page.";

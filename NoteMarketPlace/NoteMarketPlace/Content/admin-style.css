@@ -60,45 +60,60 @@ section {
 }
 
 /* DropDown */
+.mynav-dropdown-content {
+    display:none;
+    position:absolute;
+    background-color:#fff;
+     
+    box-shadow:0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index:1;
+}
+.mynav-dropdown {
+    cursor:pointer;
+}
 
+.mynav-dropdown:hover .mynav-dropdown-content{
+    display:block;
+    min-height:50px;
 
-.nav-dropdown-item,
-.action-dropdown-item {
-    display: flex;
-    width: 200px;
-    padding: 5px 0 10px 10px;
-    background-color: #fff;
+}
+    .mynav-dropdown:hover .menu{
+        width:230px;
+    }
+    .mynav-dropdown:hover .note-menu {
+        width: 180px;
+    }
+    .nav-dropdown-item {
+        width: 100%;
+        background-color: #fff;
+        border: none;
+        padding: 5px 15px;
+        
+        -webkit-transition: all 500ms linear;
+        transition: all 500ms linear;
+    }
+.nav-dropdown-item:hover{
+    background-color:#6255a5;
+    color:#fff;
+    border:none;
+
+}
+.nav-dropdown-item:focus {
     border: none;
-    -webkit-transition: all 500ms linear;
-    transition: all 500ms linear;
-
-
+    outline: none;
 }
-.nav-dropdown-item:hover,
-.action-dropdown-item:hover {
-    color: #fff;
-    background-color: #6255a5;
-}
-.nav-dropdown-item:last-of-type{
-    color: #6255a5;
-}
-.nav-dropdown-item:last-of-type:hover {
-    color: #fff;
-}
-
-/* =================== =====================
+    /* =================== =====================
                 Preloader
 =================== ===================== */
-
-#preloader {
-    background-color: #fff;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 9999;
-}
+    #preloader {
+        background-color: #fff;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+    }
 
 #status {
     background-image: url("../img/preloader/preloader.gif");
@@ -259,16 +274,20 @@ ul.navbar-nav>li>a:focus {
 .form-group textarea {
     height: 153px;
 }
+#admin-profile{
+    height: 153px;
+}
 
 .form-group label {
     font-weight: 400;
     margin-right: 20px;
 
 }
+#text-area {
+    height: 153px;
+}
 .upload-label {
-    padding-top: 20px;
-    height: 111px;
-    color: #d1d1d1;
+    
 }
 .form-group input[type=radio] {
 
@@ -281,7 +300,7 @@ ul.navbar-nav>li>a:focus {
   font-weight: 500;  
   }
 select {
-    max-width: 120px;
+    min-width: 85px;
 }
 
 .phone-no {
@@ -335,6 +354,7 @@ select {
     margin-top: 20px;
     border:1px solid #d1d1d1;
     padding: 0;
+    
     }
 
 
@@ -346,8 +366,11 @@ td>a>img {
     height: 15px;
     
 }
+thead>tr>th{
+    text-align:center;
+}
 td ,th {
-    font-size: 14px;
+    font-size: 12px;
     text-align: center;
 }
 
@@ -490,305 +513,6 @@ a:hover{
             login
 ================ ===========*/
 
-#login {
-background: url("../img/home/banner-with-overlay.jpg");
-    background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  overflow-y: hidden;
-}
-.login-overlay {
-  height: 100%;
-  width: 100%;
-  display: none;
-  position: fixed;
-  overflow-y: hidden;
-  z-index: 999999;
-  top: 0;
-  color: #000;
-}
-
-.login-child {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.login-child img {
-    top: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 25px;
-}
-.login-details {
-    background-color: #fff;
-    padding: 50px;
-    min-width: 300px;
-    max-width: 400px;
-
-}
-.login-details .text-center p {
-    line-height: 20px;
-}
-.login-details .text-center p:first-of-type {
-    font-size: 34px;
-    color: #6255a5;
-}
-
-.login-details .col-md-12 {
-    padding: 0;
-}
-.dis>p, .dis>input, .dis>button {
-    margin: 0;
-    font-size: 16px;
-    max-width: 300px;
-
-}
-.login-details input[type=text]:focus {
-  border: 1px solid #6255a5;
-  
-}
-.login-details input[type=password]:focus {
-  border: 1px solid #6255a5;
-  
-}
-.login-details input[type=password] .placeholder i {
-    float: right;
-}
-
-.login-details #forgot-pswd {
-    float: right;
-}
-
-.login-details input[type=checkbox] {
-  width: 20px;
-  height: 20px;
-  color: #333333;
-  
-}
-.login-details label {
-  color: #333333;
-  font-weight: 400;
-
-
-}
-.login-details button {
-    background-color: #6255a5;
-    color: #fff;
-    font-size: 16px;
-    border-radius: 3px;
-    text-transform: uppercase;
-
-}
-
-.no-account p {
-    font-size: 16px;
-    line-height: 20px;
-}
-.login-details p>span>a {
-    color: #6255a5;
-    font-size: 14px;
-}
-
-
-
-
-
-
-
-/* =========== ==========
-            Forgot
-=============== ======= */
-
-#forgot {
-background: url("../img/home/banner-with-overlay.jpg");
-    background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  overflow-y: hidden;
-}
-.forgot-overlay {
-  height: 100%;
-  width: 100%;
-  display: none;
-  position: fixed;
-  overflow-y: hidden;
-  z-index: 999999;
-  top: 0;
-  color: #000;
-}
-
-.forgot-child {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.forgot-child img {
-    top: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 25px;
-}
-.forgot-details {
-    background-color: #fff;
-    padding: 50px;
-    min-width: 300px;
-    max-width: 400px;
-
-}
-.forgot-details .text-center p {
-    line-height: 18px;
-}
-.forgot-details .text-center p:first-of-type {
-    font-size: 34px;
-    color: #6255a5;
-    line-height: 24px;
-}
-
-.forgot-details .col-md-12 {
-    padding: 0;
-}
-.dis>p, .dis>input, .dis>button {
-    margin: 0;
-    font-size: 16px;
-    max-width: 300px;
-
-}
-.forgot-details input[type=text]:focus {
-  border: 1px solid #6255a5;
-  
-}
-
-.forgot-details button {
-    background-color: #6255a5;
-    color: #fff;
-    font-size: 16px;
-    border-radius: 3px;
-    text-transform: uppercase;
-
-}
-
-.forgot-details p>span>a {
-    color: #6255a5;
-    font-size: 14px;
-}
-
-
-
-
-
-/*============== ============
-            signup
-================ ===========*/
-
-#signup {
-background: url("../img/home/banner-with-overlay.jpg");
-    background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  overflow: hidden;
-  position: fixed;
-}
-
-
-.signup-overlay {
-  height: 100%;
-  width: 100%;
-  display: none;
-  
-  overflow-y: hidden;
-  z-index: 999999;
-  top: 0;
-  color: #000;
-}
-
-.signup-child {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.signup-child img {
-    top: 50%;
-    margin-left: auto;
-    margin-right: auto;
-
-    margin-bottom: 25px;
-}
-.signup-details {
-    background-color: #fff;
-    padding: 50px;
-    min-width: 300px;
-    max-width: 400px;
-
-}
-.signup-details .text-center p {
-    line-height: 20px;
-}
-.signup-details .text-center p:first-of-type {
-    font-size: 34px;
-    color: #6255a5;
-}
-
-.signup-details .col-md-12 {
-    padding: 0;
-}
-.dis>p, .dis>input, .dis>button {
-    margin: 0;
-    font-size: 16px;
-    max-width: 300px;
-
-}
-.signup-details input[type=text]:focus {
-  border: 1px solid #6255a5;
-  
-}
-.signup-details input[type=password]:focus {
-  border: 1px solid #6255a5;
-  
-}
-.signup-details input[type=password] .placeholder i {
-    float: right;
-}
-
-.signup-details #forgot-pswd {
-    float: right;
-}
-
-.signup-details input[type=checkbox] {
-  width: 20px;
-  height: 20px;
-  color: #333333;
-  
-}
-.signup-details label {
-  color: #333333;
-  font-weight: 400;
-
-
-}
-.signup-details button {
-    background-color: #6255a5;
-    color: #fff;
-    font-size: 16px;
-    border-radius: 3px;
-    text-transform: uppercase;
-
-}
-
-.no-account p {
-    font-size: 16px;
-    line-height: 20px;
-}
-.signup-details p>span>a {
-    color: #6255a5;
-    font-size: 14px;
-}
-
-
-
-
 
 
 
@@ -801,6 +525,7 @@ background: url("../img/home/banner-with-overlay.jpg");
 ================== ======================= */
 
 footer {
+    margin-top:10px;
     background: #fff;
     
     -webkit-box-shadow: 0 4px 8px -9px #d1d1d1;
@@ -825,7 +550,9 @@ footer p {
 }
 
 
-
+.ficon{
+    background-color:#6255a5;
+}
 .social li a{
     margin-left: 10px;
     border-radius: 50% !important;
@@ -835,6 +562,8 @@ footer p {
     -webkit-transition: all 300ms linear;
     transition: all 300ms linear;
 }
+
+
 /*.btn-back-to-top {
     position: fixed;
     bottom: 20px;
@@ -858,4 +587,24 @@ footer p {
     background-color: #212226;
     border: 1px solid #212226;
 }
+
+
+
+$(function () {
+
+    $("a.smooth-scroll").click(function (event) {
+
+        event.preventDefault();
+
+        // get section id like #about, #servcies, #work, #team and etc.
+        var section_id = $(this).attr("href");
+
+        $("html, body").animate({
+            scrollTop: $(section_id).offset().top - 64
+        }, 1250, "easeInOutExpo");
+
+    });
+
+});
+
 */

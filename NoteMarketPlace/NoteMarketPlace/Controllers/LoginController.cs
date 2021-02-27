@@ -1,15 +1,17 @@
 ﻿using NoteMarketPlace.Models;
+using NoteMarketPlace.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace NoteMarketPlace.Controllers
 {
     public class LoginController : Controller
     {
-        private NotesMarketPlaceEntities2 _Context;
+        private NotesMarketPlaceEntities _Context;
 
         // GET: Login
         public ActionResult Index()
@@ -18,31 +20,50 @@ namespace NoteMarketPlace.Controllers
         }
         public LoginController()
         {
-            _Context = new NotesMarketPlaceEntities2();
+            _Context = new NotesMarketPlaceEntities();
         }
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(Login model)
         {
             
-            var connectionDB = new NotesMarketPlaceEntities2();
-            var result = connectionDB.tblUsers.Where(m => m.EmailID == model.Email).FirstOrDefault();
-            if (result == null)
+            bool isvalid = _Context.tblUsers.Any(m => m.EmailID == model.Email &&  m.Password == model.Password);
+           
+            if (isvalid)
             {
-                ViewBag.NotValidUser = "User Does Not Exists";
+                var result = _Context.tblUsers.Where(m => m.EmailID == model.Email).FirstOrDefault();
+                if (result.RoleID == 101 || result.RoleID == 102)
+
+                    return RedirectToAction("", "Admin");
+                else if (result.RoleID == 103)
+                    return RedirectToAction("", "User");
+                else
+                    ViewBag.NotValidUser = "Something went wrong";
             }
             else
             {
+                ViewBag.NotValidUser = "Incorrect Email or Password";
 
-                if (model.Password == result.Password)
+                /*if (model.Password == result.Password)
                 {
-                    return RedirectToAction("faq", "home");
+
+                  /*  if (User.Identity.IsAuthenticated)
+                    {
+                        string name = User.Identity.Name;
+
+
+                    }
+
+                    if()
+                    FormsAuthentication.SetAuthCookie(result.EmailID,true);
+                    return RedirectToAction("", "user");
                 }
                 else
                 {
-                    ViewBag.NotValidPassowrd = "Passowrd is Incorrect";
-                }
+                    ViewBag.NotValidPassword = "Passowrd is Incorrect";
+                }*/
             }
                 return View("Index");
             
