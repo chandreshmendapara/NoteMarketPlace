@@ -36,6 +36,13 @@
                                             <button class="text-left dropdown-item nav-dropdown-item" type=""> LOGOUT</button>
                                         </div>
                                     </div>
+
+                                    @if(User.Identity.IsAuthenticated)
+                                    {
+                                        <li></li>
+
+                                    }
+
                                 </li>
                                 <!--
                                     <a class="smooth-scroll" href="#contact-us">Contact Us</a></li>
