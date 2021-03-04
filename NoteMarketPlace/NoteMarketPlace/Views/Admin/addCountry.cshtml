@@ -8,56 +8,70 @@
 
 <!-- Add Country section -->
 
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <section class="add-country">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="page-heading">Add Country</p>
 
-<section class="add-country">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p class="page-heading">Add Country</p>
+                </div>
+                <div class="col-md-6 inside-col">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p>Country Name*</p>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Country name" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p>Country Code*</p>
+                            @Html.EditorFor(model => model.CountryCode, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Country Code" } })
+                            @Html.ValidationMessageFor(model => model.CountryCode, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group error">
 
-            </div>
-            <div class="col-md-6 inside-col">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <p>Country Name*</p>
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Country name" } })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            @if (@ViewBag.Message != null)
+                            {
+
+                                <label style="color:#A94442"> @ViewBag.Message</label>
+                            }
+
+                        </div>
+
                     </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <p>Country Code*</p>
-                        @Html.EditorFor(model => model.CountryCode, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Country Code" } })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    <div class="col-md-12">
+                        <button class="btn btn-work">Submit</button>
                     </div>
-                </div>
-                <div class="col-md-12">
-                    <a class="btn btn-general btn-work  smooth-scroll" href="#about" title="Submit" role="button">SUBMIt</a>
+
                 </div>
 
             </div>
 
         </div>
 
-    </div>
+    </section>
+}
 
-</section>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
 
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<!-- add country ends -->
+    <!-- add country ends -->

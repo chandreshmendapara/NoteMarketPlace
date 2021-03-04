@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<NoteMarketPlace.Models.MultipleData>
+
 @{
     ViewBag.Title = "ManageCountry";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
@@ -15,7 +16,7 @@
 
             </div>
             <div class="col-md-6 col-sm-6">
-                <a class="btn btn-general btn-work" href="add-country.html" title="Add Admin" role="button">Add Country</a>
+                <a class="btn btn-general btn-work" href="/admin/AddCountry" title="Add Country" role="button">Add Country</a>
 
             </div>
 
@@ -46,110 +47,71 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>India</td>
-                                <td>11</td>
-                                <td>09-09-19, 10:10</td>
-                                <td>Khayati Patel</td>
-                                <td>Yes</td>
-                                <td class="dropdown">
-                                    <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="../img/dashboard/delete.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete Administrator</button>
 
 
-                                        </div>
-                                    </div>
 
-                                </td>
-                            </tr>
-                            <tr>
+                            @{ int i = 0; }
+                            @foreach (var item in Model)
+                            {
+                                string a = "";
 
-                                <td>2</td>
-                                <td>Australia</td>
-                                <td>24</td>
-                                <td>09-09-19, 10:10</td>
-                                <td>Rahul Patel</td>
-                                <td>Yes</td>
-                                <td class="dropdown">
-                                    <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="../img/dashboard/delete.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete Administrator</button>
+                                i = i + 1;
+                                <tr>
+                                    <td>
+                                        @i
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Country.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Country.CountryCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Country.CreatedDate)
+                                    </td>
 
+                                    <td>
+                                        @{
+                                            a = item.User.FirstName;
+                                            a += " ";
+                                            a += item.User.LastName;
+                                        }
+                                        @a
+                                    </td>
+                                    @{
 
-                                        </div>
-                                    </div>
+                                        bool isActive = item.Country.IsActive;
+                                        if (isActive)
+                                        {
+                                            <td>Yes</td>
 
-                                </td>
-                            </tr>
-                            <tr>
+                                        }
+                                        else
+                                        {
+                                            <td>No</td>
+                                        }
 
-                                <td>3</td>
-                                <td>USA</td>
-                                <td>04</td>
-                                <td>09-09-19, 10:10</td>
-                                <td>Suman Trivedi</td>
-                                <td>Yes</td>
-                                <td class="dropdown">
-                                    <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="../img/dashboard/delete.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete Administrator</button>
-
-
-                                        </div>
-                                    </div>
-
-                                </td>
-                            </tr>
-                            <tr>
-
-                                <td>4</td>
-                                <td>United Kingdom</td>
-                                <td>12</td>
-                                <td>09-09-19, 10:10</td>
-                                <td>Khayati Patel</td>
-                                <td>Yes</td>
-                                <td class="dropdown">
-                                    <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="../img/dashboard/delete.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete Administrator</button>
+                                    }
 
 
-                                        </div>
-                                    </div>
+                                    <td>
+                                        <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a> &nbsp;&nbsp;
+                                        <a class="link-margin" href="#"><img src="../img/dashboard/delete.png"></a>
 
-                                </td>
-                            </tr>
-                            <tr>
-
-                                <td>5</td>
-                                <td>Canada</td>
-                                <td>13</td>
-                                <td>09-09-19, 10:10</td>
-                                <td>Khayati Patel</td>
-                                <td>Yes</td>
-                                <td class="dropdown">
-                                    <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="../img/dashboard/delete.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete Administrator</button>
+                                </tr>
+                            }
 
 
-                                        </div>
-                                    </div>
 
-                                </td>
-                            </tr>
+
+
+
+
+
+
+
+
+
 
                             <!-- </thead> -->
                         </tbody>
@@ -175,6 +137,19 @@
     </div>
 
 </section>
-<br /><br /><br /><br /><br />
-
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <!-- manage country Ends -->

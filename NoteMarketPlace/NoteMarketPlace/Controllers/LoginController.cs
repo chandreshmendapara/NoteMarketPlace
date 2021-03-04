@@ -35,10 +35,20 @@ namespace NoteMarketPlace.Controllers
             {
                 var result = _Context.tblUsers.Where(m => m.EmailID == model.Email).FirstOrDefault();
                 if (result.RoleID == 101 || result.RoleID == 102)
-
+                {
+                    FormsAuthentication.SetAuthCookie(model.Email, false);
                     return RedirectToAction("", "Admin");
+
+
+                }
+
                 else if (result.RoleID == 103)
+                {
+                    FormsAuthentication.SetAuthCookie(model.Email, false);
                     return RedirectToAction("", "User");
+
+
+                }
                 else
                     ViewBag.NotValidUser = "Something went wrong";
             }

@@ -11,7 +11,8 @@ namespace NoteMarketPlace.Context
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tblUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,9 +29,24 @@ namespace NoteMarketPlace.Context
     
         public int ID { get; set; }
         public int RoleID { get; set; }
+
+        [Required]
+        [StringLength(50, MinimumLength = 2)]
         public string FirstName { get; set; }
+
+
+        [Required]
+        [StringLength(50, MinimumLength = 2)]
         public string LastName { get; set; }
+
+
+        [Required]
+        [StringLength(50, MinimumLength = 2)]
         public string EmailID { get; set; }
+
+
+        [Required]
+        [StringLength(50, MinimumLength = 8)]
         public string Password { get; set; }
 
 

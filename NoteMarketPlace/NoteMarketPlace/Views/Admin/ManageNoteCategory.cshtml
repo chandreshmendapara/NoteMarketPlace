@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<NoteMarketPlace.Models.MultipleData>
+
 @{
     ViewBag.Title = "ManageNoteCategory";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
@@ -45,112 +46,60 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>IT</td>
-                                <td>lorem sorem porem it.</td>
-                                <td>09-09-19, 10:10</td>
-                                <td>Khayati Patel</td>
-                                <td>Yes</td>
-                                <td class="dropdown">
+                            @{ int i = 0; }
+                            @foreach (var item in Model)
+                            {
+                                string a = "";
+
+                                i = i + 1;
+                                <tr>
+                                    <td>
+                                        @i
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NoteCategory.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NoteCategory.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NoteCategory.CreatedDate)
+                                    </td>
+
+                                    <td>
+                                        @{
+                                            a = item.User.FirstName;
+                                            a += " ";
+                                            a += item.User.LastName;
+                                        }
+                                        @a
+                                    </td>
+                                    @{
+
+                                        bool isActive = item.NoteCategory.IsActive;
+                                        if (isActive)
+                                        {
+                                            <td>Yes</td>
+
+                                        }
+                                        else
+                                        {
+                                            <td>No</td>
+                                        }
+
+                                    }
+
+
+                                <td>
                                     <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="../img/dashboard/delete.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete Administrator</button>
+                                    <a class="link-margin" href="#"><img src="../img/dashboard/delete.png"></a>
+
+                                </tr>
+                            }
 
 
-                                        </div>
-                                    </div>
-
-                                </td>
-                            </tr>
-                            <tr>
-
-                                <td>2</td>
-                                <td>Computer</td>
-                                <td>lorem sorem porem it.</td>
-                                <td>09-09-19, 10:10</td>
-                                <td>Rahul Patel</td>
-                                <td>Yes</td>
-                                <td class="dropdown">
-                                    <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="../img/dashboard/delete.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete Administrator</button>
 
 
-                                        </div>
-                                    </div>
-
-                                </td>
-                            </tr>
-                            <tr>
-
-                                <td>3</td>
-                                <td>Science</td>
-                                <td>lorem sorem porem it.</td>
-                                <td>09-09-19, 10:10</td>
-                                <td>Suman Trivedi</td>
-                                <td>Yes</td>
-                                <td class="dropdown">
-                                    <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="../img/dashboard/delete.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete Administrator</button>
-
-
-                                        </div>
-                                    </div>
-
-                                </td>
-                            </tr>
-                            <tr>
-
-                                <td>4</td>
-                                <td>History</td>
-                                <td>lorem sorem porem it.</td>
-                                <td>09-09-19, 10:10</td>
-                                <td>Khayati Patel</td>
-                                <td>Yes</td>
-                                <td class="dropdown">
-                                    <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="../img/dashboard/delete.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete Administrator</button>
-
-
-                                        </div>
-                                    </div>
-
-                                </td>
-                            </tr>
-                            <tr>
-
-                                <td>5</td>
-                                <td>Account</td>
-                                <td>lorem sorem porem it.</td>
-                                <td>09-09-19, 10:10</td>
-                                <td>Khayati Patel</td>
-                                <td>Yes</td>
-                                <td class="dropdown">
-                                    <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="../img/dashboard/delete.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete Administrator</button>
-
-
-                                        </div>
-                                    </div>
-
-                                </td>
-                            </tr>
-
-                            <!-- </thead> -->
                         </tbody>
                     </table>
 
@@ -175,5 +124,20 @@
 
 </section>
 
-<br /><br /><br /><br /><br /><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <!-- manage book category Ends -->

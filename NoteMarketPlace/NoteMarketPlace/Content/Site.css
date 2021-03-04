@@ -1421,18 +1421,20 @@ td > a > img {
 
 
 
-
-
+span.field-validation-error {
+    
+    max-width:120px;
+  
+}
 /*============== ============
             signup
 ================ ===========*/
-
 #signup {
     background: url("../../../img/home/banner-with-overlay.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    overflow-x: hidden;
+    
     position: fixed;
 }
 
@@ -1441,7 +1443,6 @@ td > a > img {
     height: 100%;
     width: 100%;
     display: block;
-    overflow-y: scroll;
     z-index: 999999;
     top: 0;
     color: #000;
@@ -1548,6 +1549,7 @@ td > a > img {
 ================== ======================= */
 
 footer {
+    margin-top:20px;
     background: #fff;
     -webkit-box-shadow: 0 4px 8px -9px #d1d1d1;
     box-shadow: 0 4px 8px 5px #d1d1d1;

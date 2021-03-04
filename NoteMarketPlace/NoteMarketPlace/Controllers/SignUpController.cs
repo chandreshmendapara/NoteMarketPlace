@@ -87,13 +87,12 @@ namespace NoteMarketPlace.Controllers
 
                         }
 
-                        return RedirectToAction("faq", "home");
 
                     }
 
                     else
                     {
-                        ViewBag.UserExist = "This Email is already exists";
+                        ViewBag.NotValidEmail = "This Email is already exists";
 
                     }
 

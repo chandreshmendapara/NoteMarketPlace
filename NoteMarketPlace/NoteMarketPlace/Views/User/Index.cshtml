@@ -37,20 +37,21 @@
                                         </div>
                                     </div>
 
-                                    @if(User.Identity.IsAuthenticated)
-                                    {
-                                        <li></li>
-
-                                    }
 
                                 </li>
-                                <!--
-                                    <a class="smooth-scroll" href="#contact-us">Contact Us</a></li>
-                                    <li><a id="user-photo" >
-                                        <img class="img-responsive img-circle" src="../../img/dashboard/user-img.png" alt="user">
-                                    </a></li>
 
-                                    -->
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li>@User.Identity.Name</li>
+
+                                }
+                                <!--
+        <a class="smooth-scroll" href="#contact-us">Contact Us</a></li>
+        <li><a id="user-photo" >
+            <img class="img-responsive img-circle" src="../../img/dashboard/user-img.png" alt="user">
+        </a></li>
+
+        -->
                                 <li><a href="login.html"><button type="button" class="btn btn-work btn-login smooth-scroll">logout</button></a></li>
                             </ul>
                         </div>

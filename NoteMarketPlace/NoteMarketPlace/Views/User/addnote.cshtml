@@ -12,7 +12,7 @@
                     <span id="mobile-nav-open-btn">&#9776;</span>
                     <!-- Logo -->
                     <a class="navbar-brand" href="home.html">
-                        <img src="../../img/home/top-logo.png" alt="logo">
+                        <img src="../img/home/top-logo.png" alt="logo">
                     </a>
                 </div>
                 <!-- Main Menu -->
@@ -69,7 +69,7 @@
 <!--      Add Notes Section -->
 <section id="add-note">
     <div class="add-heading">
-        <img src="../img/home/banner-with-overlay.jpg" class="add-img img-responsive" alt="">
+        <img src="../img/home/banner-with-overlay-home.jpg" class="add-img img-responsive" alt="">
         <div class="centered">Add Notes</div>
     </div>
     <form action="">
@@ -91,12 +91,14 @@
                     <div class="col-md-6 col-sm-6">
                         <div class="form-group">
                             <p>Category*</p>
-                            <select class="form-control">
+                           <!-- <select class="form-control">
                                 <option>Select your category</option>
                                 <option>2</option>
                                 <option>3</option>
                                 <option>4</option>
                             </select>
+                               -->
+                            @Html.DropDownList("NoteCategory", ViewBag.NoteCategory as SelectList, "Select Note Category" ,new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6">
@@ -144,6 +146,7 @@
                             <input type="text" class="form-control" id="name" placeholder="Enter number of note pages">
                         </div>
                     </div>
+
                     <div class="col-md-12">
                         <div class="form-group">
                             <p>Description*</p>

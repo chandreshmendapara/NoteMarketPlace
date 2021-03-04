@@ -11,7 +11,8 @@ namespace NoteMarketPlace.Context
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tblCountry
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,8 +21,17 @@ namespace NoteMarketPlace.Context
             this.tblSellerNotes = new HashSet<tblSellerNote>();
         }
     
+
+
         public int ID { get; set; }
+
+
+        [Required]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Use letters only please")]
         public string Name { get; set; }
+
+
+        [Required]
         public string CountryCode { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
