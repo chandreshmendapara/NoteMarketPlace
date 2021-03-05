@@ -1,4 +1,4 @@
-﻿
+﻿@model NoteMarketPlace.Context.tblSellerNote
 @{
     ViewBag.Title = "addnote";
 }
@@ -86,19 +86,23 @@
                         <div class="form-group">
                             <p>Title*</p>
                             <input type="text" class="form-control" id="name" placeholder="Enter your notes title">
+
+
+                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Your Note Title" } })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6">
                         <div class="form-group">
                             <p>Category*</p>
-                           <!-- <select class="form-control">
-                                <option>Select your category</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                            </select>
-                               -->
-                            @Html.DropDownList("NoteCategory", ViewBag.NoteCategory as SelectList, "Select Note Category" ,new { @class = "form-control" })
+                            <!-- <select class="form-control">
+                                 <option>Select your category</option>
+                                 <option>2</option>
+                                 <option>3</option>
+                                 <option>4</option>
+                             </select>
+                                -->
+                            @Html.DropDownList("NoteCategory", ViewBag.NoteCategory as SelectList, "Select Note Category", new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6">

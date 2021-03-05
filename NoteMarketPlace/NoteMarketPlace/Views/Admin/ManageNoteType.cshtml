@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<NoteMarketPlace.Models.MultipleData>
 @{
     ViewBag.Title = "ManageNoteType";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
@@ -15,7 +15,7 @@
 
             </div>
             <div class="col-md-6 col-sm-6">
-                <a class="btn btn-general btn-work" href="/admin/addType" title="Add Admin" role="button">Add type</a>
+                <a class="btn btn-general btn-work" href="/admin/addNoteType" title="Add Admin" role="button">Add type</a>
 
             </div>
 
@@ -46,112 +46,60 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>val1</td>
-                                <td>lorem sorem porem it.</td>
-                                <td>09-09-19, 10:10</td>
-                                <td>Khayati Patel</td>
-                                <td>Yes</td>
-                                <td class="dropdown">
-                                    <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="../img/dashboard/delete.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item"  >Delete Administrator</button>
+                            @{ int i = 0; }
+                            @foreach (var item in Model)
+                            {
+                                string a = "";
+
+                                i = i + 1;
+                                <tr>
+                                    <td>
+                                        @i
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NoteType.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NoteType.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NoteCategory.CreatedDate)
+                                    </td>
+
+                                    <td>
+                                        @{
+                                            a = item.User.FirstName;
+                                            a += " ";
+                                            a += item.User.LastName;
+                                        }
+                                        @a
+                                    </td>
+                                    @{
+
+                                        bool isActive = item.NoteType.IsActive;
+                                        if (isActive)
+                                        {
+                                            <td>Yes</td>
+
+                                        }
+                                        else
+                                        {
+                                            <td>No</td>
+                                        }
+
+                                    }
 
 
-                                        </div>
-                                    </div>
+                                    <td>
+                                        <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>&nbsp;&nbsp;
+                                        <a class="link-margin" href="#"><img src="../img/dashboard/delete.png"></a>
 
-                                </td>
-                            </tr>
-                            <tr>
-
-                                <td>2</td>
-                                <td>val2</td>
-                                <td>lorem sorem porem it.</td>
-                                <td>09-09-19, 10:10</td>
-                                <td>Rahul Patel</td>
-                                <td>Yes</td>
-                                <td class="dropdown">
-                                    <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="../img/dashboard/delete.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item"  >Delete Administrator</button>
+                                </tr>
+                            }
 
 
-                                        </div>
-                                    </div>
-
-                                </td>
-                            </tr>
-                            <tr>
-
-                                <td>3</td>
-                                <td>val3</td>
-                                <td>lorem sorem porem it.</td>
-                                <td>09-09-19, 10:10</td>
-                                <td>Suman Trivedi</td>
-                                <td>Yes</td>
-                                <td class="dropdown">
-                                    <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="../img/dashboard/delete.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item"  >Delete Administrator</button>
 
 
-                                        </div>
-                                    </div>
-
-                                </td>
-                            </tr>
-                            <tr>
-
-                                <td>4</td>
-                                <td>val4</td>
-                                <td>lorem sorem porem it.</td>
-                                <td>09-09-19, 10:10</td>
-                                <td>Khayati Patel</td>
-                                <td>Yes</td>
-                                <td class="dropdown">
-                                    <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="../img/dashboard/delete.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item"  >Delete Administrator</button>
-
-
-                                        </div>
-                                    </div>
-
-                                </td>
-                            </tr>
-                            <tr>
-
-                                <td>5</td>
-                                <td>val5</td>
-                                <td>lorem sorem porem it.</td>
-                                <td>09-09-19, 10:10</td>
-                                <td>Khayati Patel</td>
-                                <td>Yes</td>
-                                <td class="dropdown">
-                                    <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
-                                    <div id="dots" class="btn-group">
-                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="../img/dashboard/delete.png">
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                            <button class=" text-left dropdown-item action-dropdown-item"  >Delete Administrator</button>
-
-
-                                        </div>
-                                    </div>
-
-                                </td>
-                            </tr>
-
-                            <!-- </thead> -->
                         </tbody>
                     </table>
 
@@ -177,4 +125,18 @@
 </section>
 
 <!-- manage type  Ends -->
-<br /><br /><br /><br /><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

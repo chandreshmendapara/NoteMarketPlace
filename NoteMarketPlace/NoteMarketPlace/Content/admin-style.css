@@ -61,20 +61,22 @@ section {
 
 /* DropDown */
 .mynav-dropdown-content {
-    display:none;
-    position:absolute;
-    background-color:#fff;
-     
-    box-shadow:0 8px 16px 0 rgba(0,0,0,0.2);
-    z-index:1;
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+   
 }
 .mynav-dropdown {
     cursor:pointer;
+
 }
 
 .mynav-dropdown:hover .mynav-dropdown-content{
     display:block;
     min-height:50px;
+
 
 }
     .mynav-dropdown:hover .menu{

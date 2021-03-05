@@ -35,11 +35,97 @@ namespace NoteMarketPlace.Controllers
             return View(contacts);
         }
 
+
+
+
+
+
         public ActionResult addNoteType()
         {
             return View();
 
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult addNoteType(tblNoteType model)
+        {
+
+            if (User.Identity.IsAuthenticated)
+            {
+
+                string name = User.Identity.Name;
+                int u = (from user in _Context.tblUsers where user.EmailID == name select user.ID).Single();
+
+                bool isvalid = _Context.tblNoteTypes.Any(m => m.Name == model.Name);
+
+                if (!isvalid)
+                {
+
+
+
+                    tblNoteType obj = new tblNoteType();
+                    obj.Name = model.Name;
+                    obj.Description = model.Description;
+                    obj.CreatedDate = DateTime.Now;
+                    obj.CreatedBy = u;
+                    obj.IsActive = true;
+
+
+
+
+                    if (ModelState.IsValid)
+                    {
+                        _Context.tblNoteTypes.Add(obj);
+                        try
+                        {
+                            // Your code...
+                            // Could also be before try if you know the exception occurs in SaveChanges
+
+                            _Context.SaveChanges();
+
+                            ModelState.Clear();
+
+                            return View();
+
+                        }
+                        catch (DbEntityValidationException e)
+                        {
+                            foreach (var eve in e.EntityValidationErrors)
+                            {
+                                Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                                foreach (var ve in eve.ValidationErrors)
+                                {
+                                    Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                        ve.PropertyName, ve.ErrorMessage);
+                                }
+                            }
+                        }
+
+                    }
+
+
+                }
+
+                else
+                    ViewBag.Message = "Note Type already exists";
+
+
+            }
+
+
+            return View();
+
+        }
+
+
+
+
+
+
+
 
 
         public ActionResult addNoteCategory()
@@ -197,11 +283,17 @@ namespace NoteMarketPlace.Controllers
 
 
 
-
-
         public ActionResult ManageNoteType()
         {
-            return View();
+            List<tblNoteType> tblNoteTypesList = _Context.tblNoteTypes.ToList(); //new List<tblNoteCategory>();
+            List<tblUser> tblUser = _Context.tblUsers.ToList(); //new List<tblNoteCategory>();
+
+            var multiple = from c in tblNoteTypesList
+                           join t1 in tblUser on c.CreatedBy equals t1.ID
+                           select new MultipleData { NoteType = c, User = t1 };
+
+
+            return View(multiple);
 
         }
 
@@ -241,9 +333,71 @@ namespace NoteMarketPlace.Controllers
 
         public ActionResult addAdmin()
         {
+            NotesMarketPlaceEntities entities = new NotesMarketPlaceEntities();
+            var CountryCode = entities.tblCountries.ToList();
+            SelectList list = new SelectList(CountryCode, "CountryCode", "CountryCode");
+            ViewBag.CountryCode = list;
             return View();
 
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles ="Super Admin")]
+        public ActionResult addAdmin(UserDetails model)
+        {
+            NotesMarketPlaceEntities entities = new NotesMarketPlaceEntities();
+            var CountryCode = entities.tblCountries.ToList();
+            SelectList list = new SelectList(CountryCode, "CountryCode", "CountryCode");
+            ViewBag.CountryCode = list;
+
+            string name = User.Identity.Name;
+            int u = (from user in _Context.tblUsers where user.EmailID == name select user.ID).Single();
+
+
+            if (User.Identity.IsAuthenticated)
+            {
+
+                NotesMarketPlaceEntities dbobj = new NotesMarketPlaceEntities();
+                tblUser obj = new tblUser();
+                obj.FirstName = model.FirstName;
+                obj.LastName = model.LastName;
+                obj.EmailID = model.EmailID;
+                obj.Password = "Admin@123";
+                obj.CreatedDate = DateTime.Now;
+                obj.CreatedBy = u;
+                obj.IsActive = true;
+                obj.IsEmailVerified = true;
+                obj.RoleID = 102;
+
+                    dbobj.tblUsers.Add(obj);
+                    dbobj.SaveChanges();
+                   
+
+                int id = (from record in dbobj.tblUsers orderby record.ID descending select record.ID).First();
+
+                tblUserProfile userobj = new tblUserProfile();
+                userobj.UserID = id;
+                userobj.PhoneNumber_CountryCode = model.CountryCode;
+                userobj.PhoneNumber = model.PhnNo;
+                userobj.AddressLine1 = "addressline1";
+                userobj.AddressLine2 = "addressline2";
+                userobj.City = "city";
+                userobj.State = "State";
+                userobj.ZipCode = "123321";
+                userobj.Country = "India";
+                dbobj.tblUserProfiles.Add(userobj);
+                dbobj.SaveChanges();
+                ModelState.Clear();
+                return RedirectToAction("ManageAdmin", "Admin");
+
+
+            }
+                return View();
+
+
+        }
+
 
         public ActionResult systemConfig()
         {
@@ -253,3 +407,5 @@ namespace NoteMarketPlace.Controllers
 
     }
 }
+
+
