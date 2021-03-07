@@ -978,6 +978,9 @@ hr {
     height: 111px;
     color: #d1d1d1;
 }
+.upload {
+    min-height: 80px;
+}
 
 .form-group input[type=radio] {
     width: 18px;

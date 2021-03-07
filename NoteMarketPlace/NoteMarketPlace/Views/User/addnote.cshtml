@@ -68,11 +68,16 @@
 <!-- Header Ends -->
 <!--      Add Notes Section -->
 <section id="add-note">
+    @using(Html.BeginForm("addnote", "User",FormMethod.Post, new
+    {
+        enctype = "multipart/form-data"
+    })) { 
+        @Html.AntiForgeryToken()
     <div class="add-heading">
         <img src="../img/home/banner-with-overlay-home.jpg" class="add-img img-responsive" alt="">
         <div class="centered">Add Notes</div>
     </div>
-    <form action="">
+    
         <div class="basic-note">
 
 
@@ -85,7 +90,6 @@
                     <div class="col-md-6 col-sm-6">
                         <div class="form-group">
                             <p>Title*</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your notes title">
 
 
                             @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Your Note Title" } })
@@ -96,13 +100,15 @@
                         <div class="form-group">
                             <p>Category*</p>
                             <!-- <select class="form-control">
-                                 <option>Select your category</option>
-                                 <option>2</option>
-                                 <option>3</option>
-                                 <option>4</option>
-                             </select>
-                                -->
-                            @Html.DropDownList("NoteCategory", ViewBag.NoteCategory as SelectList, "Select Note Category", new { @class = "form-control" })
+                                <option>Select your category</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                               -->
+                            @Html.DropDownListFor(model => model.Category, ViewBag.NoteCategory as SelectList, "--Select Note Category--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6">
@@ -110,10 +116,12 @@
 
 
                             <p>Upload Notes*</p>
-                            <input type="file" style="display: none" id="dispic">
-                            <label for="dispic" class="form-control upload-label text-center" style="cursor:pointer">
+
+                            <input type="file" name="uploadNote" style="display:none" class="form-control" id="upload-note" />
+                            
+                            <label for="upload-note" class="form-control upload-label text-center upload" style="cursor:pointer">
                                 <img src="../img/Dashboard/upload-file.png" alt="Upload" />
-                                <p>Upload Picture</p>
+                                <p>Upload Note</p>
                             </label>
                         </div>
 
@@ -126,35 +134,49 @@
 
 
                             <p>Display Picture</p>
-                            <input type="file" style="display: none" id="upload-note">
-                            <label for="upload-note" class="form-control upload-label text-center" style="cursor:pointer">
+                            <input type="file" style="display: none" id="display-note-pic" class="form-control" name="displayPic">
+                            @Html.ValidationMessageFor(model => model.displayPic, "", new { @class = "text-danger" })
+                            <label for="display-note-pic" class="form-control upload-label text-center upload" style="cursor:pointer">
                                 <img src="../img/Dashboard/upload-note.svg" alt="Upload" />
-                                <p>Upload your notes</p>
+                                <p>Upload Display picture</p>
                             </label>
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @if (@ViewBag.Message != null)
+                            {
+
+                                <label style="color:#A94442"> @ViewBag.Message</label>
+                            }
+                        </div>
+
+                    </div>
+
                     <div class="col-md-6 col-sm-6">
                         <div class="form-group">
                             <p>Type</p>
-                            <select class="form-control">
-                                <option>Select your note type</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                            </select>
+
+
+                            @Html.DropDownListFor(model => model.NoteType, ViewBag.NoteType as SelectList, "--Select Note Type--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.NoteType, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6">
                         <div class="form-group">
                             <p>Number of Pages</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter number of note pages">
+
+                            @Html.EditorFor(model => model.NumberofPages, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Number of paages" } })
+                            @Html.ValidationMessageFor(model => model.NumberofPages, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="col-md-12">
                         <div class="form-group">
                             <p>Description*</p>
-                            <textarea class="form-control" id="message" placeholder="Comments..."></textarea>
+
+                            @Html.TextAreaFor(model => model.Description, new { style = "min-height:200px", @class = "form-control", placeholder = "Comments.." })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                         </div>
 
                     </div>
@@ -175,18 +197,18 @@
                     <div class="col-md-6 col-sm-6">
                         <div class="form-group">
                             <p>Country</p>
-                            <select class="form-control">
-                                <option>Select your Country</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                            </select>
+
+                            @Html.DropDownListFor(model => model.Country, ViewBag.Country as SelectList, "--Select Country--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6">
                         <div class="form-group">
                             <p>Institution Name</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your Institution name">
+
+
+                            @Html.EditorFor(model => model.UniversityName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter University name" } })
+                            @Html.ValidationMessageFor(model => model.UniversityName, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -208,20 +230,29 @@
                     <div class="col-md-6 col-sm-6">
                         <div class="form-group">
                             <p>Course Name</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your course name">
+
+
+                            @Html.EditorFor(model => model.Course, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Course name" } })
+                            @Html.ValidationMessageFor(model => model.Course, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6">
                         <div class="form-group">
                             <p>Course Code</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your course code">
+
+
+                            @Html.EditorFor(model => model.CourseCode, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Course Code" } })
+                            @Html.ValidationMessageFor(model => model.CourseCode, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="col-md-6 col-sm-6">
                         <div class="form-group">
                             <p>Professor/Lecturer</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your Professor name">
+
+
+                            @Html.EditorFor(model => model.Professor, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Professor Name" } })
+                            @Html.ValidationMessageFor(model => model.Professor, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -243,16 +274,21 @@
                             <div class="form-group">
                                 <p>Sell For*</p>
 
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="free">
+                                <!--<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="free">-->
+                                @Html.RadioButtonFor(model => model.IsPaid, false, new { htmlAttributes = new { @class = "form-control", @id = "inlineRadio1" } })
                                 <label class="form-check-label" for="inlineRadio1">Free</label>
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="paid">
-                                <label class="form-check-label" for="inlineRadio1">Paid</label>
+                                @Html.RadioButtonFor(model => model.IsPaid, true, new { htmlAttributes = new { @class = "form-control", @id = "inlineRadio2" } })
+
+                                <label class="form-check-label" for="inlineRadio2">Paid</label>
+                                @Html.ValidationMessageFor(model => model.IsPaid, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <p>Professor/Lecturer</p>
-                                <input type="text" class="form-control" id="name" placeholder="Enter your Professor name">
+                                <p>Selling Price</p>
+
+                                @Html.EditorFor(model => model.SellingPrice, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Your Price" } })
+                                @Html.ValidationMessageFor(model => model.SellingPrice, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
@@ -263,24 +299,33 @@
 
 
                             <p>Note Preview</p>
-                            <input type="file" style="display: none" id="upload-preview">
-                            <label for="upload-preview" class="form-control upload-label text-center" style="cursor:pointer">
+                            @Html.TextBoxFor(model => model.notePreview, new { @id = "upload-preview", type = "file", style = "display:none", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.notePreview, "", new { @class = "text-danger" })
+
+                            <label for="upload-preview" class=" upload form-control upload-label text-center" style="cursor:pointer">
                                 <img src="../img/Dashboard/upload-note.svg" alt="Upload" />
                                 <p>Upload a file</p>
                             </label>
                         </div>
 
                     </div>
+                    
 
                 </div>
             </div>
         </div>
+
+       
         <div class="add-note-action">
             <div class="container">
                 <div class="row">
+                    
                     <div class="col-md-12">
                         <a class="btn btn-general btn-work btn-add-note smooth-scroll" href="#about" title="Sell Book" role="button">SAVE</a>
-                        <a class="btn btn-general btn-work btn-add-note smooth-scroll" href="#about" title="Sell Book" role="button">PUBLISH</a>
+                        <div class="col-md-12">
+                            <button class="btn btn-work">Submit</button>
+                        </div>
+
                     </div>
 
                 </div>
@@ -288,7 +333,7 @@
             </div>
 
         </div>
-    </form>
-
+    
+    }
 </section>
 <!--      Add Notes Section Ends -->

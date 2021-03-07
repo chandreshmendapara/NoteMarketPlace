@@ -54,6 +54,7 @@ namespace NoteMarketPlace.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
+            var connectionDB = new NotesMarketPlaceEntities();
 
                 string name = User.Identity.Name;
                 int u = (from user in _Context.tblUsers where user.EmailID == name select user.ID).Single();
