@@ -1,0 +1,89 @@
+﻿@model NoteMarketPlace.Models.UserDetails
+@{
+    ViewBag.Title = "addAdmin";
+
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+
+<!-- Add Admin section -->
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <section class="add-admin">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="page-heading">Add Administrator</p>
+
+                </div>
+                <div class="col-md-6 inside-col">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p>First Name*</p>
+
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter First Name" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p>Last Name*</p>
+
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Last Name" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p>Email*</p>
+
+                            @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Email" } })
+                            @Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p>Phone Number</p>
+                            <div class="col-md-2 col-sm-2 col-xs-4 phone-no">
+
+
+                                @Html.DropDownListFor(model => model.CountryCode, ViewBag.CountryCode as SelectList, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CountryCode, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-10 col-sm-10 col-xs-8  phone-no">
+
+                                @Html.EditorFor(model => model.PhnNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Last Name" } })
+                                @Html.ValidationMessageFor(model => model.PhnNo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12">
+                        <button class="btn btn-work">Submit</button>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+}
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <!-- Add Admin Ends -->

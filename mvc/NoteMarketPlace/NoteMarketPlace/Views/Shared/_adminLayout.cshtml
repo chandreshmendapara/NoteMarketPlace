@@ -1,0 +1,194 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <!--
+     <meta charset="utf-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>@ViewBag.Title - My ASP.NET Application</title>
+    important meta tags -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Title -->
+    <title>MarketPlace</title>
+
+    <!-- Basic SEO -->
+    <meta name="description" content="Creative website development with html5, css3, jQuery & bootstrap framework">
+    <meta name="keywords" content="HTML5, CSS3, JQuery, Bootstrap, Web Design, Web Development, Responsive website, Creative website">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/favicon.ico">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+    @Styles.Render("~/Content/css")
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="~/content/font-awesome/css/font-awesome.min.css">
+
+    <!-- Responsive Tabs CSS -->
+    <link rel="stylesheet" href="~/content/responsive-tabs/responsive-tabs.min.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="~/content/animate/animate.css">
+
+    <link rel="stylesheet" href="~/content/animate/animate.min.css">
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/content/responsive.css">
+
+    <!--admin Custom style -->
+    <link rel="stylesheet" href="~/content/admin-style.css">
+
+    <!--bootstrap style -->
+    <link rel="stylesheet" href="~/content/bootstrap/bootstrap.css">
+
+    <link rel="stylesheet" href="~/content/bootstrap/bootstrap.min.css">
+
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="65">
+
+    <header>
+        <nav class="navbar navbar-fixed-top purple-nav-top">
+            <div class="container-fluid">
+                <div class="site-nav-wrapper">
+                    <div class="navbar-header">
+                        <!-- Mobile Menu Open Button -->
+                        <span id="mobile-nav-open-btn">&#9776;</span>
+                        <!-- Logo -->
+                        <a class="navbar-brand smooth-scroll" href="#home">
+                            <img src="../img/home/logo.png" alt="logo">
+                        </a>
+                    </div>
+                    <!-- Main Menu -->
+                    <div class="container">
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav pull-right">
+                                <li><a class="smooth-scroll" href="#manage-spam">Dashboard</a></li>
+                                <li class="mynav-dropdown">
+
+                                    <a class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Notes</a>
+                                    <div class="dropdown-menu note-menu mynav-dropdown-content">
+                                        <button class="text-center dropdown-item nav-dropdown-item" onclick="location.href='/admin/systemconfig'">Notes Under Review</button>
+                                        <button class="text-center dropdown-item nav-dropdown-item" onclick="location.href='/admin/manageAdmin'">Published Notes</button>
+                                        <button class="text-center dropdown-item nav-dropdown-item" onclick="location.href='/admin/manageNoteCategory'">Downloaded Notes</button>
+                                        <button class="text-center dropdown-item nav-dropdown-item" onclick="location.href='/admin/manageNoteType'">Rejected Notes</button>
+                                    </div>
+
+                                </li>
+                                <li><a class="smooth-scroll" href="#faq">Members</a></li>
+
+                                <li class="mynav-dropdown">
+
+                                    <a class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Report</a>
+                                    <div class="dropdown-menu note-menu mynav-dropdown-content">
+                                        <button class="text-center dropdown-item nav-dropdown-item" onclick="location.href='/admin/systemconfig'">Spam Reports</button>
+                                    </div>
+
+                                </li>
+
+                                <li class="mynav-dropdown">
+
+                                    <a class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Settings</a>
+                                    <div class="dropdown-menu menu mynav-dropdown-content dropdown-menu-right">
+                                        <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/admin/systemconfig'">Manage System Configuration</button>
+                                        <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/admin/manageAdmin'">Manage Administrator</button>
+                                        <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/admin/manageNoteCategory'">Manage Category</button>
+                                        <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/admin/manageNoteType'">Manage Type</button>
+                                        <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/admin/manageCountry'"> Manage Countries</button>
+                                    </div>
+
+                                </li>
+                                <li>
+                                    <div id="user-photo" class="mynav-dropdown">
+                                        <img class="img-responsive img-circle dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="../img/dashboard/user-img.png" alt="user">
+                                        <div class="dropdown-menu mynav-dropdown-content">
+                                            <button class="text-left dropdown-item nav-dropdown-item">My Downloads</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item">My Sold Notes</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item">My Rejected Notes</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item">Change Password</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item"> LOGOUT</button>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!--
+    <a class="smooth-scroll" href="#contact-us">Contact Us</a></li>
+    <li><a id="user-photo" >
+        <img class="img-responsive img-circle" src="img/dashboard/user-img.png" alt="user">
+    </a></li>
+
+    -->
+                                <li><a href="login.html"><button type="button" class="btn btn-work btn-login smooth-scroll">logout</button></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div id="mobile-nav">
+                        <!-- Mobile Menu Close Button -->
+                        <span id="mobile-nav-close-btn">&times;</span>
+                        <div id="mobile-nav-content">
+                            <ul class="nav">
+                                <li><a class="smooth-scroll" href="#search-notes">Dashboard</a></li>
+                                <li><a class="smooth-scroll" href="#dashboard">Notes</a></li>
+                                <li><a class="smooth-scroll" href="#faq">Members</a></li>
+                                <li><a class="smooth-scroll" href="#contact-us">Reports</a></li>
+                                <li><a href="sys-config.html">Settings</a></li>
+                                <li><a href="javascript:void(0)" onclick="openLogin()" class="btn btn-general btn-login smooth-scroll" title="Login" role="button">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <div>
+        <div id="preloader">
+            <div id="status">&nbsp;</div>
+        </div>
+        @RenderBody()
+    </div>
+    <!-- footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <p>
+                        Copyright &copy; Tatvasoft All rights reserved.
+                    </p>
+                </div>
+                <div class="col-md-6 col-sm-6 text-right">
+                    <ul class="pagination social">
+
+                        <li><a class="ficon" href="#" style="background-color:#6255a5;"><img src="../img/footer/facebook.png" alt=""></a></li>
+                        <li><a class="ficon" href="#" style="background-color:#6255a5;"><img src="../img/footer/linkedin.png" alt=""></a></li>
+                        <li><a class="ficon" href="#" style="background-color:#6255a5;"><img src="../img/footer/twitter.png" alt=""></a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Back To Top -->
+        <!-- <a href="#home" id="back-to-top" class="btn btn-sm btn-general btn-back-to-top smooth-scroll hidden-sm hidden-xs" title="home" role="button">
+                <i class="fa fa-angle-up"></i>
+            </a> -->
+    </footer>
+    <!-- Footer Ends -->
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+
+    <script src='@Url.Content("~/Scripts/jquery-3.3.1.js")' type='text/javascript'></script>
+    <script src='@Url.Content("~/Scripts/jquery.validate.js")' type='text/javascript'></script>
+    <script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")' type='text/javascript'></script>
+
+
+    <script src="~/Scripts/custom/admin-script.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/custom/admin-script.js"></script>
+    <script src="~/Scripts/responsive-tabs/jquery.responsiveTabs.min.js"></script>
+
+</body>
+</html>
