@@ -1,0 +1,1425 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+
+
+
+
+
+
+<!-- manage member  -->
+
+
+<section id="manage-member">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 col-sm-6">
+                <p class="page-heading">Members</p>
+            </div>
+
+
+            <div class="col-md-6 col-sm-6 search-div">
+                <div class="col-md-8 col-sm-8 col-xs-8">
+
+                    <input class="form-control search-input" placeholder="Search..." type="text">
+
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                    <a class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="all-members-table table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">SR NO.</th>
+                                <th scope="col">FIRST NAME</th>
+                                <th scope="col">LAST NAME</th>
+                                <th scope="col">EMAIL</th>
+                                <th scope="col" style="width:120px">JOINING DATE</th>
+                                <th scope="col">UNDER REVIEW NOTES</th>
+                                <th scope="col">PUBLISHED NOTES</th>
+
+                                <th scope="col">DOWNLOADED NOTES</th>
+
+                                <th scope="col">TOTAL EXPENSES</th>
+                                <th scope="col">TOTAL EARNING</th>
+
+                                <th scope="col"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Khayati</td>
+                                <td>Patel</td>
+                                <td>testing123@gmail.com</td>
+
+                                <td>09-09-19, 10:10</td>
+                                <td>19</td>
+                                <td>10</td>
+                                <td>22</td>
+                                <td>$220</td>
+                                <td>$177</td>
+
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <a href="member-details.html" class=" text-left dropdown-item action-dropdown-item" type="">View More details</a>
+
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Deactivate</button>
+
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td>2</td>
+                                <td>Rahul</td>
+                                <td>Sain</td>
+                                <td>rahul123@gmail.com</td>
+                                <td>09-09-19, 10:10</td>
+                                <td>19</td>
+                                <td>10</td>
+                                <td>23</td>
+                                <td>$240</td>
+                                <td>$167</td>
+
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <a href="member-details.html" class=" text-left dropdown-item action-dropdown-item" type="">View More details</a>
+
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Deactivate</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+
+                                <td>3</td>
+                                <td>Suman</td>
+                                <td>Trivedi</td>
+                                <td>trivediS@gmail.com</td>
+                                <td>09-09-19, 10:10</td>
+                                <td>19</td>
+                                <td>10</td>
+                                <td>23</td>
+                                <td>$240</td>
+                                <td>$167</td>
+
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <a href="member-details.html" class=" text-left dropdown-item action-dropdown-item" type="">View More details</a>
+
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Deactivate</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+
+                                <td>4</td>
+                                <td>Raj</td>
+                                <td>Malhotra</td>
+                                <td>Raj@gmail.com</td>
+                                <td>09-09-19, 10:10</td>
+                                <td>19</td>
+                                <td>10</td>
+                                <td>23</td>
+                                <td>$240</td>
+                                <td>$167</td>
+
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <a href="member-details.html" class=" text-left dropdown-item action-dropdown-item" type="">View More details</a>
+
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Deactivate</button>
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+
+                                <td>5</td>
+                                <td>Niya</td>
+                                <td>Patel</td>
+                                <td>niyapatel@gmail.com</td>
+                                <td>09-09-19, 10:10</td>
+                                <td>19</td>
+                                <td>10</td>
+                                <td>23</td>
+                                <td>$240</td>
+                                <td>$167</td>
+
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <a href="member-details.html" class=" text-left dropdown-item action-dropdown-item" type="">View More details</a>
+
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Deactivate</button>
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                            <!-- </thead> -->
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="text-center" aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="disabled"><a href="#">«</a></li>
+                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<!-- manage member Ends -->
+<!-- spam reports Profile -->
+
+
+<section id="manage-spam">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 col-sm-6">
+                <p class="page-heading"> Spam Reports </p>
+
+            </div>
+
+
+            <div class="col-md-6 col-sm-6 search-div">
+                <div class="col-md-8 col-sm-8 col-xs-8">
+
+                    <input class="form-control search-input" placeholder="Search..." type="text">
+
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                    <a class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="all-spam-table table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">SR NO.</th>
+                                <th scope="col">REPORTED BY</th>
+                                <th scope="col">NOTE TITLE</th>
+                                <th scope="col">CATEGORY</th>
+                                <th scope="col">DATE EDITED</th>
+                                <th scope="col">REMARK</th>
+                                <th scope="col">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Khayati Patel</td>
+                                <td>Software Development.</td>
+                                <td>IT</td>
+                                <td>09-10-2020, 10:10</td>
+                                <td>Lorem sorem korem</td>
+                                <td class="dropdown">
+                                    <a class="link-margin" href="#"><img src="img/dashboard/delete.png"></a>
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td>2</td>
+                                <td>Rahul Shah</td>
+                                <td>Computer Baisc</td>
+                                <td>Computer</td>
+                                <td>11-10-2020, 10:10</td>
+                                <td>Lorem sorem korem</td>
+                                <td class="dropdown">
+                                    <a class="link-margin" href="#"><img src="img/dashboard/delete.png"></a>
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td>3</td>
+                                <td>Suman Trivedi</td>
+                                <td>Human Body</td>
+                                <td>Science</td>
+                                <td>12-10-2020, 10:10</td>
+                                <td>Lorem sorem korem</td>
+                                <td class="dropdown">
+                                    <a class="link-margin" href="#"><img src="img/dashboard/delete.png"></a>
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td>4</td>
+                                <td>Raj Malhotra</td>
+                                <td>World War 2</td>
+                                <td>History</td>
+                                <td>12-10-2020, 10:10</td>
+                                <td>Lorem sorem korem</td>
+                                <td class="dropdown">
+                                    <a class="link-margin" href="#"><img src="img/dashboard/delete.png"></a>
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td>5</td>
+                                <td>Niya Patel</td>
+                                <td>Accounting</td>
+                                <td>Account</td>
+                                <td>12-10-2020, 10:10</td>
+                                <td>Lorem sorem korem</td>
+                                <td class="dropdown">
+                                    <a class="link-margin" href="#"><img src="img/dashboard/delete.png"></a>
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                            <!-- </thead> -->
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="text-center" aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="disabled"><a href="#">«</a></li>
+                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<!-- spam report Ends -->
+<!-- note under review-->
+<section id="under-review">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="page-heading">Notes Under Review</p>
+                <p>Seller</p>
+
+            </div>
+            <div class="col-md-6 col-sm-6">
+
+                <select class="form-control" style=" max-width: 150px; margin-top: -5px">
+
+                    <option>
+                        Khyati
+                    </option>
+                    <option>
+                        Raj
+                    </option>
+                    <option>
+                        Rahul
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="col-md-6 col-sm-6 search-div">
+                <div class="col-md-8 col-sm-8 col-xs-8">
+
+                    <input class="form-control search-input" placeholder="Search..." type="text">
+
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                    <a class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="all-admin-table table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">SR NO.</th>
+                                <th scope="col">NOTE TITLE</th>
+                                <th scope="col">CATEGORY</th>
+                                <th scope="col">SELLER</th>
+                                <th scope="col"> </th>
+                                <th scope="col">DATE ADDED</th>
+                                <th scope="col">STATUS</th>
+                                <th scope="col">ACTION</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Software Engineer</td>
+                                <td>IT</td>
+                                <td>Khyati Patel</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>09-09-19, 10:10</td>
+                                <td>InReview</td>
+                                <td><button class="btn btn-success tbl-action-btn">Approve </button><button class="btn btn-danger tbl-action-btn">Reject </button><button class="btn btn-light tbl-action-btn">InReview </button></td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Computer Basic</td>
+                                <td>Computer</td>
+                                <td>Khyati Patel</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>09-09-19, 10:10</td>
+                                <td>Submitted For Review</td>
+                                <td><button class="btn btn-success tbl-action-btn">Approve </button><button class="btn btn-danger tbl-action-btn">Reject </button><button class="btn btn-light tbl-action-btn">InReview </button></td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Human Body</td>
+                                <td>Science</td>
+                                <td>Khyati Patel</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>09-09-19, 10:10</td>
+                                <td>InReview</td>
+                                <td><button class="btn btn-success tbl-action-btn">Approve </button><button class="btn btn-danger tbl-action-btn">Reject </button><button class="btn btn-light tbl-action-btn">InReview </button></td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>World War 2</td>
+                                <td>History</td>
+                                <td>Khyati Patel</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>17-09-19, 10:10</td>
+                                <td>InReview</td>
+                                <td><button class="btn btn-success tbl-action-btn">Approve </button><button class="btn btn-danger tbl-action-btn">Reject </button><button class="btn btn-light tbl-action-btn">InReview </button></td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Accounting</td>
+                                <td>Account</td>
+                                <td>Khyati Patel</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>10-09-19, 10:10</td>
+                                <td>InReview</td>
+                                <td><button class="btn btn-success tbl-action-btn">Approve </button><button class="btn btn-danger tbl-action-btn">Reject </button><button class="btn btn-light tbl-action-btn">InReview </button></td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Delete</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+
+
+
+
+
+                            <!-- </thead> -->
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="text-center" aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="disabled"><a href="#">«</a></li>
+                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- note under review ends-->
+<!-- published note -->
+<section id="a-published-note">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="page-heading">Dashboard</p>
+
+            </div>
+
+            <div class="col-md-4 col-sm-4">
+                <div class="earning">
+                    <div class="div-content text-center">
+                        <p>20</p>
+                        <p>Numbers of Notes in Review for Publish</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="earning">
+                    <div class="div-content text-center">
+                        <p>103</p>
+                        <p>Numbers of New Notes Downloaded</p>
+                        <p>(Last 7 Days)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="earning">
+                    <div class="div-content text-center">
+                        <p>233</p>
+                        <p>Numbers of New Registration</p>
+                        <p>(Last 7 Days)</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12">
+                <p class="page-heading">Published Note</p>
+                <p>Seller</p>
+
+            </div>
+            <div class="col-md-4 col-sm-4">
+
+                <select class="form-control" style=" max-width: 150px; margin-top: -5px">
+
+                    <option>
+                        Khyati
+                    </option>
+                    <option>
+                        Raj
+                    </option>
+                    <option>
+                        Rahul
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="col-md-8 col-sm-8 search-div  download-search-div">
+                <div class="col-md-5 col-sm-5">
+
+                    <input class="form-control " placeholder="Search..." type="text">
+
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <select name="" id="" class="form-control">
+                        <option value="">
+                            January
+                        </option>
+                        <option value="">
+                            february
+                        </option>
+                        <option value="">
+                            March
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <a class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
+
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <div class="all-admin-table table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">SR NO.</th>
+                                <th scope="col">NOTE TITLE</th>
+                                <th scope="col">CATEGORY</th>
+                                <th scope="col">SELL TYPE</th>
+                                <th scope="col">PRICE</th>
+                                <th scope="col">SELLER</th>
+                                <th scope="col"></th>
+                                <th scope="col">PUBLISHED DATE</th>
+                                <th scope="col">APPROVED BY</th>
+                                <th scope="col">NUMBER OF DOWNLOADS</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Software Engineer</td>
+                                <td>IT</td>
+                                <td>Paid</td>
+                                <td>$123</td>
+                                <td>Khyati Patel</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>09-09-19, 10:10</td>
+                                <td>Raj Sheth</td>
+                                <td>23</td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Unpublish</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Computer Basic</td>
+                                <td>Computer</td>
+                                <td>Free</td>
+                                <td>$0</td>
+                                <td>Rahul Shah</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>09-09-19, 10:10</td>
+                                <td>Raj Sheth</td>
+                                <td>22</td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Unpublish</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Human Body</td>
+                                <td>Science</td>
+                                <td>Paid</td>
+                                <td>$120</td>
+                                <td>Rahul Shah</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>09-09-19, 10:10</td>
+                                <td>Niya Patel</td>
+                                <td>22</td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Unpublish</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>World War 2</td>
+                                <td>History</td>
+                                <td>Paid</td>
+                                <td>$123</td>
+                                <td>Rahul Shah</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>09-09-19, 10:10</td>
+                                <td>Raj Sheth</td>
+                                <td>102</td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Unpublish</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Accounting</td>
+                                <td>Account</td>
+                                <td>Free</td>
+                                <td>$0</td>
+                                <td>Rahul Shah</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>09-09-19, 10:10</td>
+                                <td>Raj Sheth</td>
+                                <td>12</td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Unpublish</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+
+
+
+
+
+                            <!-- </thead> -->
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="text-center" aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="disabled"><a href="#">«</a></li>
+                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+</section>
+
+<!-- published notes ends-->
+<!-- a downloaded note -->
+<section id="a-downloaded-note">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="page-heading">Downloaded Note</p>
+
+
+            </div>
+            <div>
+
+            </div>
+            <div class="col-md-2 col-sm-2 form-group">
+                <p>Note</p>
+                <select class="form-control" style=" max-width: 150px; margin-top: -5px">
+                    <option>
+                        Selet note
+                    </option>
+                    <option>
+                        Khyati
+                    </option>
+                    <option>
+                        Raj
+                    </option>
+                    <option>
+                        Rahul
+                    </option>
+
+                </select>
+
+            </div>
+            <div class="col-md-2 col-sm-2 form-group">
+                <p>Seller</p>
+                <select class="form-control" style=" max-width: 150px; margin-top: -5px">
+                    <option>
+                        Selet Seller
+                    </option>
+                    <option>
+                        Khyati
+                    </option>
+                    <option>
+                        Raj
+                    </option>
+                    <option>
+                        Rahul
+                    </option>
+
+                </select>
+
+            </div>
+            <div class="col-md-2 col-sm-2 form-group">
+                <p>Buyer</p>
+                <select class="form-control" style=" max-width: 150px; margin-top: -5px">
+                    <option>
+                        Selet Buyer
+                    </option>
+                    <option>
+                        Khyati
+                    </option>
+                    <option>
+                        Raj
+                    </option>
+                    <option>
+                        Rahul
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <div class="col-md-6 col-sm-6 search-div download-search-div">
+                <div class="col-md-8 col-sm-8 col-xs-8">
+
+                    <input class="form-control search-input" placeholder="Search..." type="text">
+
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                    <a class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12"></div>
+            <div class="col-md-12">
+                <div class="all-admin-table table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">SR NO.</th>
+                                <th scope="col">NOTE TITLE</th>
+                                <th scope="col">CATEGORY</th>
+                                <th scope="col">SELL TYPE</th>
+                                <th scope="col">PRICE</th>
+                                <th scope="col">SELLER</th>
+                                <th scope="col"></th>
+                                <th scope="col">PUBLISHED DATE</th>
+                                <th scope="col">APPROVED BY</th>
+                                <th scope="col">NUMBER OF DOWNLOADS</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Software Engineer</td>
+                                <td>IT</td>
+                                <td>Paid</td>
+                                <td>$123</td>
+                                <td>Khyati Patel</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>09-09-19, 10:10</td>
+                                <td>Raj Sheth</td>
+                                <td>23</td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Computer Basic</td>
+                                <td>Computer</td>
+                                <td>Free</td>
+                                <td>$0</td>
+                                <td>Rahul Shah</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>09-09-19, 10:10</td>
+                                <td>Raj Sheth</td>
+                                <td>22</td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Human Body</td>
+                                <td>Science</td>
+                                <td>Paid</td>
+                                <td>$120</td>
+                                <td>Rahul Shah</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>09-09-19, 10:10</td>
+                                <td>Niya Patel</td>
+                                <td>22</td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>World War 2</td>
+                                <td>History</td>
+                                <td>Paid</td>
+                                <td>$123</td>
+                                <td>Rahul Shah</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>09-09-19, 10:10</td>
+                                <td>Raj Sheth</td>
+                                <td>102</td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Accounting</td>
+                                <td>Account</td>
+                                <td>Free</td>
+                                <td>$0</td>
+                                <td>Rahul Shah</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>09-09-19, 10:10</td>
+                                <td>Raj Sheth</td>
+                                <td>12</td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+
+
+
+
+
+                            <!-- </thead> -->
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="text-center" aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="disabled"><a href="#">«</a></li>
+                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- a-downloaded notes ends-->
+<!-- a-rejected note -->
+<section id="a-rejected-note">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="page-heading">Rejected Notes</p>
+                <p>Seller</p>
+
+            </div>
+            <div class="col-md-6 col-sm-6">
+
+                <select class="form-control" style=" max-width: 150px; margin-top: -5px">
+
+                    <option>
+                        Khyati
+                    </option>
+                    <option>
+                        Raj
+                    </option>
+                    <option>
+                        Rahul
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="col-md-6 col-sm-6 search-div">
+                <div class="col-md-8 col-sm-8 col-xs-8">
+
+                    <input class="form-control search-input" placeholder="Search..." type="text">
+
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                    <a class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="all-admin-table table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">SR NO.</th>
+                                <th scope="col">NOTE TITLE</th>
+                                <th scope="col">CATEGORY</th>
+                                <th scope="col">SELLER</th>
+                                <th scope="col"></th>
+                                <th scope="col">DATE ADDED</th>
+                                <th scope="col">REJECTED BY</th>
+                                <th scope="col">REMARK</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Software Engineer</td>
+                                <td>IT</td>
+                                <td>Khyati Patel</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>09-09-19, 10:10</td>
+                                <td>Raj Sheth</td>
+
+                                <td>Lorem ipsum is dummy text.</td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Approve</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Computer Basic</td>
+                                <td>Computer</td>
+                                <td>Khyati Patel</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>09-09-19, 10:10</td>
+                                <td>Raj Malhotra</td>
+
+                                <td>Lorem ipsum is dummy text.</td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Approve</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Human Body</td>
+                                <td>Science</td>
+                                <td>Khyati Patel</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>09-09-19, 10:10</td>
+                                <td>Raj Seth</td>
+
+                                <td>Lorem ipsum is dummy text.</td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Approve</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>World War 2</td>
+                                <td>History</td>
+                                <td>Khyati Patel</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>09-09-19, 10:10</td>
+                                <td>Rahul</td>
+
+                                <td>Lorem ipsum is dummy text.</td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Approve</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Accounting</td>
+                                <td>Account</td>
+                                <td>Khyati Patel</td>
+                                <td><a class="link-margin" href="#"><img src="img/dashboard/eye.png"></a></td>
+                                <td>09-09-19, 10:10</td>
+                                <td>Rahul</td>
+
+                                <td>Lorem ipsum is dummy text.</td>
+
+                                <td class="dropdown">
+
+                                    <div id="dots" class="btn-group">
+                                        <img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Approve</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">Download Notes</button>
+                                            <button class=" text-left dropdown-item action-dropdown-item" type="">View More Details</button>
+
+
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+
+
+
+
+
+                            <!-- </thead> -->
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="text-center" aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="disabled"><a href="#">«</a></li>
+                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- published notes ends-->
+
+
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

@@ -1,0 +1,83 @@
+﻿@model NoteMarketPlace.Models.Login
+
+@{
+    ViewBag.Title = "Index";
+}
+<!-- Login Section -->
+@using (Html.BeginForm())
+{
+    
+    @Html.AntiForgeryToken()
+    <section id="login" class="login-overlay">
+        <div class="login-parent">
+            <div class="login-child">
+                <img class="img-responsive" src="img/home/top-logo.png" alt="">
+                <div class="login-details">
+                    <div class="text-center">
+                        <p>Login</p>
+                        <p>Enter your email address and password to login</p>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group dis">
+                                    <p>Email*</p>
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @id = "email", @class = "form-control", @placeholder = "Enter your email" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group dis">
+                                    <p>Password* <span>@Html.ActionLink("Forgot Password?", "", "ForgotPswd", null, new { @id = "forgot-pswd" })</span></p>
+
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @id = "pswd", @class = "form-control", @placeholder = "Enter your Password" } })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group error">
+
+                                    
+
+                                    @if (@ViewBag.NotValidUser != null)
+                                    {
+
+                                        <label style="color:#A94442"> @ViewBag.NotValidUser</label>
+                                    }
+                                </div>
+
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group dis">
+
+                                    <label>
+                                        <input type="checkbox" name="remember"> Remember me
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group dis">
+
+                                    <Button class="form-control">
+                                        Login
+                                    </Button>
+                                </div>
+                            </div>
+                            <div class="col-md-12 no-account">
+                                <p>Don't have an account? <span>@Html.ActionLink("SignUp", "", "SignUp")</span></p>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+}
+<!-- login section ends -->

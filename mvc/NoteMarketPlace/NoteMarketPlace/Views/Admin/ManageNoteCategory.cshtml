@@ -1,0 +1,143 @@
+﻿@model IEnumerable<NoteMarketPlace.Models.MultipleData>
+
+@{
+    ViewBag.Title = "ManageNoteCategory";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+<!-- manage Book Category Profile -->
+
+
+<section id="manage-category">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="page-heading"> Manage Category</p>
+
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <a class="btn btn-general btn-work" href="/admin/AddNoteCategory" title="Add Admin" role="button">Add Category</a>
+
+            </div>
+
+
+            <div class="col-md-6 col-sm-6 search-div">
+                <div class="col-md-8 col-sm-8 col-xs-8">
+
+                    <input class="form-control search-input" placeholder="Search..." type="text">
+
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                    <a class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="all-category-table table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">SR NO.</th>
+                                <th scope="col">CATEGORY</th>
+                                <th scope="col">DESCRIPTION</th>
+                                <th scope="col">DATE ADDED</th>
+                                <th scope="col">ADDED BY</th>
+                                <th scope="col">ACTIVE</th>
+                                <th scope="col">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int i = 0; }
+                            @foreach (var item in Model)
+                            {
+                                string a = "";
+
+                                i = i + 1;
+                                <tr>
+                                    <td>
+                                        @i
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NoteCategory.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NoteCategory.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NoteCategory.CreatedDate)
+                                    </td>
+
+                                    <td>
+                                        @{
+                                            a = item.User.FirstName;
+                                            a += " ";
+                                            a += item.User.LastName;
+                                        }
+                                        @a
+                                    </td>
+                                    @{
+
+                                        bool isActive = item.NoteCategory.IsActive;
+                                        if (isActive)
+                                        {
+                                            <td>Yes</td>
+
+                                        }
+                                        else
+                                        {
+                                            <td>No</td>
+                                        }
+
+                                    }
+
+
+                                <td>
+                                    <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
+                                    <a class="link-margin" href="#"><img src="../img/dashboard/delete.png"></a>
+
+                                </tr>
+                            }
+
+
+
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="text-center" aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="disabled"><a href="#">«</a></li>
+                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<!-- manage book category Ends -->
