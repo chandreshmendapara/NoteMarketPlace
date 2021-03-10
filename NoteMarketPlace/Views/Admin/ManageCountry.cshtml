@@ -1,0 +1,155 @@
+﻿@model IEnumerable<NoteMarketPlace.Models.MultipleData>
+
+@{
+    ViewBag.Title = "ManageCountry";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+<!-- manage  Country -->
+
+
+<section id="manage-country">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="page-heading"> Manage Country</p>
+
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <a class="btn btn-general btn-work" href="/admin/AddCountry" title="Add Country" role="button">Add Country</a>
+
+            </div>
+
+
+            <div class="col-md-6 col-sm-6 search-div">
+                <div class="col-md-8 col-sm-8 col-xs-8">
+
+                    <input class="form-control search-input" placeholder="Search..." type="text">
+
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                    <a class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="all-category-table table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center" scope="col">SR NO.</th>
+                                <th class="text-center" scope="col">COUNTRY NAME</th>
+                                <th class="text-center" scope="col">COUNTRY CODE</th>
+                                <th class="text-center" scope="col">DATE ADDED</th>
+                                <th class="text-center" scope="col">ADDED BY</th>
+                                <th class="text-center" scope="col">ACTIVE</th>
+                                <th class="text-center" scope="col">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+
+                            @{ int i = 0; }
+                            @foreach (var item in Model)
+                            {
+                                string a = "";
+
+                                i = i + 1;
+                                <tr>
+                                    <td>
+                                        @i
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Country.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Country.CountryCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Country.CreatedDate)
+                                    </td>
+
+                                    <td>
+                                        @{
+                                            a = item.User.FirstName;
+                                            a += " ";
+                                            a += item.User.LastName;
+                                        }
+                                        @a
+                                    </td>
+                                    @{
+
+                                        bool isActive = item.Country.IsActive;
+                                        if (isActive)
+                                        {
+                                            <td>Yes</td>
+
+                                        }
+                                        else
+                                        {
+                                            <td>No</td>
+                                        }
+
+                                    }
+
+
+                                    <td>
+                                        <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a> &nbsp;&nbsp;
+                                        <a class="link-margin" href="#"><img src="../img/dashboard/delete.png"></a>
+
+                                </tr>
+                            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <!-- </thead> -->
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="text-center" aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="disabled"><a href="#">«</a></li>
+                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</section>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<!-- manage country Ends -->

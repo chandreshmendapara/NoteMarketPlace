@@ -1,0 +1,180 @@
+﻿@model IEnumerable<NoteMarketPlace.Models.MultipleData>
+@{
+    ViewBag.Title = "showBook";
+}
+
+
+<section id="myNav">
+
+    @foreach (var item in Model)
+    {
+        <div class="note-details">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p id="note-details">Notes Details</p>
+                    <div class="row">
+                        <div class="col-md-5 col-sm-5">
+                            <img class="img-responsive book-cover-photo" style="height:210px" src="~/img/home/banner.jpg" alt="xyz">
+                        </div>
+                        <div class="col-md-7 col-sm-7">
+                            <p id="note-name">@item.sellerNote.Title</p>
+                            <p id="sub-name">@item.NoteCategory.Name</p>
+                            <p id="discription">@item.sellerNote.Description</p>
+                             <a class="btn btn-general btn-work smooth-scroll" href="javascript:void(0)" title="Download" role="button" onclick="openThanku()">Download/ $ @item.sellerNote.SellingPrice</a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="row notes-right">
+                        <div class="row">
+                            <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                                <p>Institution:</p>
+                            </div>
+                            <div class="text-right col-md-7 col-sm-7 col-xs-7">
+                                <p id="uni-name" class="note-ans">University Name</p>
+                            </div>
+                            <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                                <p>Country:</p>
+                            </div>
+                            <div class="text-right col-md-7 col-sm-7 col-xs-7">
+                                <p id="country-name" class="note-ans">Country Name</p>
+                            </div>
+                            <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                                <p>Course Name:</p>
+                            </div>
+                            <div class="text-right col-md-7 col-sm-7 col-xs-7">
+                                <p id="course-name" class="note-ans">Course Name</p>
+                            </div>
+                            <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                                <p>Course Code:</p>
+                            </div>
+                            <div class="text-right col-md-7 col-sm-7 col-xs-7">
+                                <p id="course-code" class="note-ans">Code</p>
+                            </div>
+                            <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                                <p>Professor:</p>
+                            </div>
+                            <div class="text-right col-md-7 col-sm-7 col-xs-7">
+                                <p id="prof-name" class="note-ans">Mr. John</p>
+                            </div>
+                            <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                                <p>Pages:</p>
+                            </div>
+                            <div class="text-right col-md-7 col-sm-7 col-xs-7">
+                                <p id="num-pages" class="note-ans">000</p>
+                            </div>
+                            <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                                <p>Approved Date:</p>
+                            </div>
+                            <div class="text-right col-md-7 col-sm-7 col-xs-7">
+                                <p id="date" class="note-ans">Not Found</p>
+                            </div>
+                            <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                                <p>Rating:</p>
+                            </div>
+                            <div class="text-right col-md-7 col-sm-7 col-xs-7">
+                                <p id="Rating" class="note-ans"> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="false"></i> Review</p>
+                            </div>
+                            <div id="user-report-book" class="text-left col-md-12 col-sm-12 col-xs-12">
+                                <p><span>5</span> User marked this note as inappropriate</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="col-md-5">
+                <div class="col-md-12">
+                    <p class="note-preview">Notes Preview</p>
+                </div>
+                <div class="col-md-12">
+                    <div class="preview-page text-center">
+                        <p>1/13</p>
+                        <img class="img-responsive" src="~/img/home/banner.jpg" alt="book preview">
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="col-md-12">
+                    <p class="note-preview">Customers Review</p>
+                </div>
+                <div class="col-md-12 review-page">
+
+                    <div class="col-md-2">
+                        <img class="img-responsive img-circle" src="~/img/home/customer-1.png" alt="custoer-photo">
+                    </div>
+
+                    <div class="col-md-10">
+                        <div class="rating-info">
+                            <p>
+                                Name <br>
+                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="false"></i>
+                                <br>
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis fugiat maxime distinctio eius blanditiis.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                    <div class="col-md-2">
+                        <img class="img-responsive img-circle" src="~/img/home/customer-1.png" alt="custoer-photo">
+                    </div>
+
+                    <div class="col-md-10">
+                        <div class="rating-info">
+                            <p>
+                                Name <br>
+                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="false"></i>
+                                <br>
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis fugiat maxime distinctio eius blanditiis.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                    <div class="col-md-2">
+                        <img class="img-responsive img-circle" src="~/img/home/customer-1.png" alt="custoer-photo">
+                    </div>
+
+                    <div class="col-md-10">
+                        <div class="rating-info">
+                            <p>
+                                Name <br>
+                                <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="false"></i>
+                                <br>
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis fugiat maxime distinctio eius blanditiis.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+        break;
+
+    }
+
+
+
+    <div id="thank-you">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeThanku()">&times;</a>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto molestiae ab, autem incidunt ut porro excepturi, rerum! Eaque ratione nihil sed exercitationem inventore amet, odio porro itaque, architecto, pariatur natus.
+        </p>
+    </div>
+</section>

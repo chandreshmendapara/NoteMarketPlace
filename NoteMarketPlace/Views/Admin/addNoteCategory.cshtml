@@ -1,0 +1,77 @@
+﻿@model NoteMarketPlace.Context.tblNoteCategory
+@{
+    ViewBag.Title = "addNoteCategory";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+
+
+
+<!-- Add Book Category section -->
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <section class="add-category">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="page-heading">Add Category</p>
+
+                </div>
+                <div class="col-md-6 inside-col">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p>Category Name*</p>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter note Category" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p>Description*</p>
+                            @Html.TextAreaFor(model => model.Description, new { @id = "text-area", @class = "form-control", placeholder = "Description" })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group error">
+
+                            @if (@ViewBag.Message != null)
+                            {
+
+                                <label style="color:#A94442"> @ViewBag.Message</label>
+                            }
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group dis">
+
+                            <div class="col-md-12">
+                                <button class="btn btn-work">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+}
+    <!-- add book category ends -->
