@@ -209,5 +209,25 @@ namespace NoteMarketPlace.Controllers
             return View(multiple);
         }
 
+
+        public ActionResult download(int? id)
+        {
+
+            string path =  (from sa in dbobj.tblSellerNotesAttachements where sa.NoteID == id select sa.FilePath).First().ToString();
+
+            string filename = (from sa in dbobj.tblSellerNotesAttachements where sa.NoteID == id select sa.FileName).First().ToString();
+            filename += ".pdf";
+            byte[] fileBytes = System.IO.File.ReadAllBytes(path);
+            
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, filename);
+            
+
+
+
+            
+
+        }
+
+
     }
 }

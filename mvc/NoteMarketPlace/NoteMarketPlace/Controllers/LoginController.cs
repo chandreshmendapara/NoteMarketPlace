@@ -26,7 +26,7 @@ namespace NoteMarketPlace.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(Login model)
+        public ActionResult Index(Login model, string returnUrl)
         {
             
             bool isvalid = _Context.tblUsers.Any(m => m.EmailID == model.Email &&  m.Password == model.Password);
@@ -36,8 +36,18 @@ namespace NoteMarketPlace.Controllers
                 var result = _Context.tblUsers.Where(m => m.EmailID == model.Email).FirstOrDefault();
                 if (result.RoleID == 101 || result.RoleID == 102)
                 {
+
+
                     FormsAuthentication.SetAuthCookie(model.Email, false);
-                    return RedirectToAction("", "Admin");
+
+                     returnUrl = Request.QueryString["ReturnUrl"];
+
+                    if (!string.IsNullOrEmpty(returnUrl))
+                    {
+                        Response.Redirect(returnUrl);
+                    }
+
+                    return RedirectToAction("","Admin");
 
 
                 }
@@ -45,6 +55,10 @@ namespace NoteMarketPlace.Controllers
                 else if (result.RoleID == 103)
                 {
                     FormsAuthentication.SetAuthCookie(model.Email, false);
+                    if (!string.IsNullOrEmpty(returnUrl))
+                    {
+                        Response.Redirect(returnUrl);
+                    }
                     return RedirectToAction("", "User");
 
 

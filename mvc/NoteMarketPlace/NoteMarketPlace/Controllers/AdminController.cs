@@ -332,6 +332,9 @@ namespace NoteMarketPlace.Controllers
 
         }
 
+
+
+        [Authorize(Roles = "Super Admin")]
         public ActionResult addAdmin()
         {
             NotesMarketPlaceEntities entities = new NotesMarketPlaceEntities();
