@@ -92,5 +92,13 @@ namespace NoteMarketPlace.Controllers
                 return View("Index");
             
         }
+
+
+        [Authorize]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("","Login");
+        }
     }
 }

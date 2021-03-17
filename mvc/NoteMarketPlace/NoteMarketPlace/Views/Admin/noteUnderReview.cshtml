@@ -1,0 +1,233 @@
+﻿@model IEnumerable<NoteMarketPlace.Models.MultipleData>
+@{
+
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+    ViewBag.Title = "noteUnderReview";
+}
+
+<!-- note under review-->
+    <section id="under-review">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="page-heading">Notes Under Review</p>
+                    <p>Seller</p>
+
+                </div>
+                <div class="col-md-6 col-sm-6">
+
+                    <select class="form-control" style=" max-width: 150px; margin-top: -5px">
+
+                        <option>
+                            Khyati
+                        </option>
+                        <option>
+                            Raj
+                        </option>
+                        <option>
+                            Rahul
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="col-md-6 col-sm-6 search-div">
+                    <div class="col-md-8 col-sm-8 col-xs-8">
+
+                        <input class="form-control search-input" placeholder="Search..." type="text">
+
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                        <a class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
+
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="all-admin-table table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">SR NO.</th>
+                                    <th scope="col">NOTE TITLE</th>
+                                    <th scope="col">CATEGORY</th>
+                                    <th scope="col">SELLER</th>
+                                    <th scope="col"> </th>
+                                    <th scope="col">DATE ADDED</th>
+                                    <th scope="col">STATUS</th>
+                                    <th scope="col">ACTION</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int i = 0; }
+                                @foreach (var item in Model)
+                                {
+                                    string a = "";
+
+                                    i = i + 1;
+
+                                    <tr>
+                                        <td style="display:none;">@item.sellerNote.ID</td>
+                                        <td>
+                                            @i
+                                        </td>
+                                        <td class="title">
+                                            @Html.DisplayFor(modelItem => item.sellerNote.Title)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NoteCategory.Name)
+                                        </td>
+
+                                        <td>
+                                            @{
+                                                a = item.User.FirstName;
+                                                a += " ";
+                                                a += item.User.LastName;
+                                            }
+                                            @a
+                                        </td>
+
+                                        <td><a class="link-margin" href="#"><img src="~/img/dashboard/eye.png"></a></td>
+
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.sellerNote.CreatedDate)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.referenceData.Values)
+                                        </td>
+
+                                        <td><button class="btn btn-success approve-btn tbl-action-btn">Approve </button> &nbsp;&nbsp;<button class="btn btn-danger reject-btn tbl-action-btn">Reject </button> &nbsp;&nbsp;<button class="btn btn-light InReview-btn tbl-action-btn">InReview </button></td>
+
+
+
+                                        <td class="dropdown">
+
+                                            <div id="dots" class="mynav-dropdown ">
+                                                <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
+                                                <div class="dropdown-menu action-menu mynav-dropdown-content dropdown-menu-right ">
+                                                    <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/showBook/@item.sellerNote.ID '">View More Details</button>
+                                                    <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/Admin/AdminDownload/@item.sellerNote.ID'">Download Note</button>
+                                                </div>
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+                                }
+
+
+
+
+
+
+
+
+
+                                <!-- #CodeByChandreshMendapara -->
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    <div class="text-center" aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="disabled"><a href="#">«</a></li>
+                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">»</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- The Modal -->
+        <div id="reject-popup" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p class="popup-heading">Some text in the Modal..</p>
+                <form action="/Admin/Rejected" method="post">
+                    <input type="hidden" name="noteId" value="27" />
+                    <p>Remark<span class="required">*</span></p>
+                    <textarea placeholder="Write Remark" class="form-control" id="text-area" name="rejectRemark" required></textarea>
+
+
+
+
+                    <br />
+                    <div class="text-right">
+                        <Button class="btn btn-danger">&nbsp;Reject&nbsp;</Button>
+
+                        <a class="btn btn-default close-btn">&nbsp;Cancel&nbsp;</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+
+        <div id="Approve-popup" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+
+                <p class="popup-heading">Some text in the Modal..</p>
+                <form action="/Admin/Approved" method="post">
+                    <input type="hidden" name="noteId" value="" />
+                    <p>Please Press Yes to Continue</p>
+
+                    <div class="text-right">
+                        <Button class="btn btn-success">&nbsp;Yes&nbsp;</Button>
+
+                        <a class="btn btn-default close-btn">&nbsp;No&nbsp;</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <div id="InReview-popup" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+
+                <p class="popup-heading">Some text in the Modal..</p>
+                <form action="/Admin/InReview" method="post">
+                    <input type="hidden" name="noteId" value="" />
+                    <p>Please Press Yes to Continue</p>
+
+                    <div class="text-right">
+                        <Button class="btn btn-success">&nbsp;Yes&nbsp;</Button>
+
+                        <a class="btn btn-default close-btn">&nbsp;No&nbsp;</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+
+    </section>
+    
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/custom/script.js"></script>
+<!-- note under review ends-->
+   

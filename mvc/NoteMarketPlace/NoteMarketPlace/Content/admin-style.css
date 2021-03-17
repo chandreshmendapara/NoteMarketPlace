@@ -21,7 +21,11 @@
       
     }
 
-
+  .required {
+      color:red;
+      font-weight :600;
+      
+  }
 
 
 body {
@@ -76,6 +80,7 @@ section {
 .mynav-dropdown:hover .mynav-dropdown-content{
     display:block;
     min-height:50px;
+    margin-top:-15px;
 
 
 }
@@ -85,6 +90,11 @@ section {
     .mynav-dropdown:hover .note-menu {
         width: 180px;
     }
+    .mynav-dropdown:hover .action-menu {
+        width: 120px;
+    }
+   
+    
     .nav-dropdown-item {
         width: 100%;
         background-color: #fff;
@@ -379,7 +389,7 @@ td ,th {
 
 .tbl-action-btn {
     font-size: 12px;
-    width: 70px;
+    width: 80px;
     margin: 3px;
     font-weight: 500;
 }
@@ -565,47 +575,44 @@ footer p {
 }
 
 
-/*.btn-back-to-top {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 3px 15px;
-    border-radius: 4px;
-    font-size: 22px;
-    display: none;
+
+
+/*         Pop Up          */
+.modal-content {
+    padding: 20px;
+    border: 1px solid #888;
+    max-width: 30%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
 }
 
-*//*.btn-purple {
-    height: 50px;
-    color: #fff;
-    border: 1px solid #6255a5;
-    background-color: #6255a5;
-}*/
-/*
-.btn-purple:hover,
-.btn-purple:focus {
-    color: #fff;
-    background-color: #212226;
-    border: 1px solid #212226;
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
 }
 
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .popup-heading {
+        font-size:24px;
+        color: #6255a5;
+    }
 
 
-$(function () {
 
-    $("a.smooth-scroll").click(function (event) {
-
-        event.preventDefault();
-
-        // get section id like #about, #servcies, #work, #team and etc.
-        var section_id = $(this).attr("href");
-
-        $("html, body").animate({
-            scrollTop: $(section_id).offset().top - 64
-        }, 1250, "easeInOutExpo");
-
-    });
-
-});
-
-*/
+@media (max-width: 480px) {
+    .modal-content {
+        max-width: 80%;
+    }
+}

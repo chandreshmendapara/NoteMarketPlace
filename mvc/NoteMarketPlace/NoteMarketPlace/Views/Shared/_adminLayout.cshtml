@@ -74,7 +74,7 @@
 
                                     <a class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Notes</a>
                                     <div class="dropdown-menu note-menu mynav-dropdown-content">
-                                        <button class="text-center dropdown-item nav-dropdown-item" onclick="location.href='/admin/systemconfig'">Notes Under Review</button>
+                                        <button class="text-center dropdown-item nav-dropdown-item" onclick="location.href='/admin/noteUnderReview'">Notes Under Review</button>
                                         <button class="text-center dropdown-item nav-dropdown-item" onclick="location.href='/admin/manageAdmin'">Published Notes</button>
                                         <button class="text-center dropdown-item nav-dropdown-item" onclick="location.href='/admin/manageNoteCategory'">Downloaded Notes</button>
                                         <button class="text-center dropdown-item nav-dropdown-item" onclick="location.href='/admin/manageNoteType'">Rejected Notes</button>
@@ -174,10 +174,7 @@
                 </div>
             </div>
         </div>
-        <!-- Back To Top -->
-        <!-- <a href="#home" id="back-to-top" class="btn btn-sm btn-general btn-back-to-top smooth-scroll hidden-sm hidden-xs" title="home" role="button">
-                <i class="fa fa-angle-up"></i>
-            </a> -->
+   
     </footer>
     <!-- Footer Ends -->
     @Scripts.Render("~/bundles/modernizr")
@@ -187,7 +184,6 @@
     <script src='@Url.Content("~/Scripts/jquery-3.3.1.js")' type='text/javascript'></script>
     <script src='@Url.Content("~/Scripts/jquery.validate.js")' type='text/javascript'></script>
     <script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")' type='text/javascript'></script>
-
 
     <script src="~/Scripts/custom/admin-script.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>

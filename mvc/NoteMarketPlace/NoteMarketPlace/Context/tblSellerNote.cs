@@ -53,8 +53,8 @@ namespace NoteMarketPlace.Context
         [Required]
         public bool IsPaid { get; set; }
 
-        [DefaultValue(0.00)]
-        [RegularExpression(@"^[0-9]+(\.[0-9]{1,2})$", ErrorMessage = "Valid Decimal number with maximum 2 decimal places.")]
+        [DefaultValue(0)]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "Valid Decimal number with maximum 0 decimal places.")]
         public Nullable<decimal> SellingPrice { get; set; }
         public string NotesPreview { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }

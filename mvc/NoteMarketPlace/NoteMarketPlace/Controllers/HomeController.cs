@@ -91,9 +91,12 @@ namespace NoteMarketPlace.Controllers
 
             var multiple = from c in tblSellerNotes
                            join t1 in tblCountries on c.Country equals t1.ID
+                           where c.Status == 9
                            select new MultipleData { sellerNote = c, Country=t1};
 
-
+            ViewBag.Count = (from c in tblSellerNotes
+                             join t1 in tblCountries on c.Country equals t1.ID
+                             where c.Status == 9 select c).Count();
 
             return View(multiple);
         }

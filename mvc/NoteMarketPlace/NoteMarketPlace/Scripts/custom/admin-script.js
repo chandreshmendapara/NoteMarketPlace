@@ -1,10 +1,11 @@
+
 /* =========================================
                 Preloader
 ============================================ */
 $(window).on('load', function () { // makes sure that whole site is loaded
     $('#status').fadeOut();
     $('#preloader').delay(350).fadeOut('slow');
-   
+
 
 });
 
@@ -89,170 +90,116 @@ $(function () {
 });
 
 
-/* ================= ======================
-         Book Discription In details
-=================== =======================*/
-function openNav() {
-  document.getElementById("myNav").style.display = "block";
-   $('body').css({"overflow": "hidden"});
-
-
-}
-
-function closeNav() {
-  document.getElementById("myNav").style.display = "none";
-  $('body').css({"overflow-y": "scroll"});
-}
-
-/* close popup when click outside*/
-$(document).mouseup(function(e) 
-{
-    var container = $("#myNav");
-
-    // if the target of the click isn't the container nor a descendant of the container
-    if (!container.is(e.target) && container.has(e.target).length === 0) 
-    {
-        container.hide();
-        document.getElementById("thank-you").style.display = "none";
-        $('body').css({"overflow-y": "scroll"});
-    }
-});
-var fixed = document.getElementById('myNav');
-
-fixed.addEventListener('touchmove', function(e) {
-
-        e.preventDefault();
-
-}, false);
-
-
-/* Thank you */
-function openThanku() {
-  document.getElementById("thank-you").style.display = "block";
-   $('body').css({"overflow": "hidden"});
-   
-
-}
-
-function closeThanku() {
-  document.getElementById("thank-you").style.display = "none";
-   $('body').css({"overflow": "hidden"});
-   
-
-}
-
-
-
-/* ============== =============
-                FAQ
- ============= ===============*/
- var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.maxHeight) {
-      panel.style.maxHeight = null;
-      
-
-    } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-      panel.style.border ="1px solid #d1d1d1";
-
-    } 
-  });
-}
-
-
 /* ============= ==========
-            My Downloads
+           Pop up Action
   ============= ========== */
+// Get the modal
+var modal1 = document.getElementById("reject-popup");
+var modal2 = document.getElementById("Approve-popup");
+var modal3 = document.getElementById("InReview-popup");
+// Get the button that opens the modal
+//var btn = document.getElementsByClassName("reject-btn");
 
-function openReview() {
-  document.getElementById("download-review").style.display = "block";
-   $('body').css({"overflow": "hidden"});
-    
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+var span2 = document.getElementsByClassName("close-btn")[0];
+// When the user clicks the button, open the modal
+
+var span3 = document.getElementsByClassName("close")[1];
+
+var span4 = document.getElementsByClassName("close-btn")[1];
+
+var span5 = document.getElementsByClassName("close")[2];
+
+var span6 = document.getElementsByClassName("close-btn")[2];
+
+
+
+$('.reject-btn').unbind('click').click(function () {
+
+    var $title = $(this).parents("tr").find('td').eq(2).text();
+    $title += " - "
+    $title += $(this).parents("tr").find('td').eq(3).text();
+    var $id = $(this).parents("tr").find('td').eq(0).text();
+
+    $(".popup-heading").html($title);
+
+    $("input[name='noteId']").val($id);
+
+    modal1.style.display = "block";
+
+
+
+
+});
+$('.approve-btn').unbind('click').click(function () {
+
+    var $title = $(this).parents("tr").find('td').eq(2).text();
+    $title += " - "
+    $title += $(this).parents("tr").find('td').eq(3).text();
+    var $id = $(this).parents("tr").find('td').eq(0).text();
+
+    $(".popup-heading").html($title);
+
+    $("input[name='noteId']").val($id);
+
+    modal2.style.display = "block";
+
+
+
+
+
+});
+
+$('.InReview-btn').unbind('click').click(function () {
+
+    var $title = $(this).parents("tr").find('td').eq(2).text();
+    $title += " - "
+    $title += $(this).parents("tr").find('td').eq(3).text();
+    var $id = $(this).parents("tr").find('td').eq(0).text();
+
+    $(".popup-heading").html($title);
+
+    $("input[name='noteId']").val($id);
+
+    modal3.style.display = "block";
+
+
+
+
+
+});
+
+
+hide_btn(span, modal1);
+hide_btn(span2, modal1);
+hide_btn(span3, modal2);
+hide_btn(span4, modal2);
+hide_btn(span5, modal3);
+hide_btn(span6, modal3);
+hide_outside(modal1);
+hide_outside(modal2);
+hide_outside(modal3);
+
+
+//when user click outside popup
+function hide_outside(modal) {
+    window.addEventListener("click", function (event) {
+
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    });
 }
 
-function closeReview() {
-  document.getElementById("download-review").style.display = "none";
-  $('body').css({"overflow-y": "scroll"});
-    
-}
 
-/* close popup when click outside*/
-$(document).mouseup(function(e) 
-{
-    var container = $("#download-review");
 
-    // if the target of the click isn't the container nor a descendant of the container
-    if (!container.is(e.target) && container.has(e.target).length === 0) 
-    {
-        container.hide();
-        $('body').css({"overflow-y": "scroll"});
+// When the user clicks on <span> (x), close the modal
+
+function hide_btn(span, modal) {
+    span.onclick = function () {
+        modal.style.display = "none";
     }
-});
-var fixed = document.getElementById('download-review');
-
-fixed.addEventListener('touchmove', function(e) {
-
-        e.preventDefault();
-
-}, false);
-
-
-
-
-
-
-
-
-/* ============ =========== ============ 
-             Login-Forgot-SignUp
-============== ========== ===========*/
-
-function openLogin() {
-  document.getElementById("login").style.display = "block";
-  document.getElementById("forgot").style.display = "none";
-  document.getElementById("signup").style.display = "none";
-  $('body').css({"overflow": "hidden"});
-   
-
 }
-
-function openForgot() {
-  document.getElementById("forgot").style.display = "block";
-  document.getElementById("login").style.display = "none";
-  $('body').css({"overflow": "hidden"});
-   
-
-}
-
-
-function openSignUp() {
-  document.getElementById("login").style.display = "none";
-  document.getElementById("signup").style.display = "block";
-   
-  $('body').css({"overflow": "hidden"});
-   
-
-}
-
-var scrollHandler = function(){
-    myScroll = $(window).scrollTop();
-}
-
-$("body").click(function(){
-    $(window).scroll(scrollHandler);
-}).click(); // .click() will execute this handler immediately
-
-$("body").click(function(){
-    $(window).off("scroll", scrollHandler);
-});
-
-
-
-
 

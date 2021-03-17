@@ -78,3 +78,7 @@ F:\2021\NoteMarketPlace\NoteMarketPlace\bin\Microsoft.CodeDom.Providers.DotNetCo
 F:\2021\NoteMarketPlace\NoteMarketPlace\obj\Debug\NoteMarketPlace.csproj.CopyComplete
 F:\2021\NoteMarketPlace\NoteMarketPlace\obj\Debug\NoteMarketPlace.dll
 F:\2021\NoteMarketPlace\NoteMarketPlace\obj\Debug\NoteMarketPlace.pdb
+F:\2021\NoteMarketPlace\NoteMarketPlace\bin\PagedList.dll
+F:\2021\NoteMarketPlace\NoteMarketPlace\bin\PagedList.xml
+F:\2021\NoteMarketPlace\NoteMarketPlace\bin\PagedList.Mvc.dll
+F:\2021\NoteMarketPlace\NoteMarketPlace\bin\PagedList.Mvc.xml

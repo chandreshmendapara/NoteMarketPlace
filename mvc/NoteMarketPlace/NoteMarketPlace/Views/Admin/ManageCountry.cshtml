@@ -1,5 +1,5 @@
-﻿@model IEnumerable<NoteMarketPlace.Models.MultipleData>
-
+﻿@model PagedList.IPagedList<NoteMarketPlace.Models.MultipleData>
+@using PagedList.Mvc
 @{
     ViewBag.Title = "ManageCountry";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
@@ -104,31 +104,27 @@
 
 
 
-
-
-
-
-
-
-
-
-
                             <!-- </thead> -->
                         </tbody>
                     </table>
 
 
+
                 </div>
-                <div class="text-center" aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="disabled"><a href="#">«</a></li>
-                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">»</a></li>
-                    </ul>
+                <div class="text-center">
+                    Page @(Model.PageCount < Model.PageNumber ? 1 : Model.PageNumber) of @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action("manageCountry", new { page }))
+                    <!-- <ul class="pagination">
+        <li class="disabled"><a href="#">«</a></li>
+        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">»</a></li>
+    </ul>
+       -->
                 </div>
 
             </div>

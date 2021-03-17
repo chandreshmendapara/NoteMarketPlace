@@ -46,7 +46,9 @@ html, body {
 
 
 
-
+.selected a {
+    color: #75bf40;
+}
 body {
     max-width: 100%;
     overflow-x: hidden;
@@ -73,7 +75,7 @@ p {
 }
 
 section {
-    padding-top: 55px;
+    padding-top: 73px;
     background: #fff;
     overflow: hidden;
 }
@@ -84,33 +86,71 @@ section {
 
 /* DropDown */
 
+/* DropDown */
+photo-dropdown,
+    .mynav-dropdown-content  {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
 
-.nav-dropdown-item,
-.action-dropdown-item {
-    display: flex;
-    width: 200px;
-    padding: 5px 0 10px 10px;
+.mynav-dropdown {
+    cursor: pointer;
+}
+
+    .mynav-dropdown:hover .mynav-dropdown-content {
+        display: block;
+        min-height: 50px;
+        margin-top: -25px;
+        margin-right:20px;
+    }
+    .mynav-dropdown:hover .photo-dropdown {
+        display: block;
+        min-height: 50px;
+    }
+
+    .mynav-dropdown:hover .menu {
+        width: 230px;
+    }
+
+    .mynav-dropdown:hover .note-menu {
+        width: 180px;
+    }
+
+    .mynav-dropdown:hover .action-menu,
+    .mynav-dropdown:hover .photo-dropdown {
+        width: 120px;
+    }
+    
+
+
+.nav-dropdown-item {
+    width: 100%;
     background-color: #fff;
     border: none;
+    padding: 5px 15px;
     -webkit-transition: all 500ms linear;
     transition: all 500ms linear;
 }
 
-    .nav-dropdown-item:hover,
-    .action-dropdown-item:hover {
-        color: #fff;
+    .nav-dropdown-item:hover {
         background-color: #6255a5;
+        color: #fff;
+        border: none;
     }
 
-    .nav-dropdown-item:last-of-type {
-        color: #6255a5;
+    .nav-dropdown-item:focus {
+        border: none;
+        outline: none;
     }
-
-        .nav-dropdown-item:last-of-type:hover {
-            color: #fff;
-        }
-
-/* =================== =====================
+    .dd-logout{
+        color:#6255a5;
+        font-weight:500;
+    }
+    
+    /* =================== =====================
                 Preloader
 =================== ===================== */
 
@@ -769,7 +809,7 @@ hr {
             FAQ 
 ==============  ===============*/
 #faq {
-    margin: 20px 0;
+    padding: 0;
 }
 
 .faq-heading {
@@ -855,7 +895,7 @@ hr {
 ================ =========*/
 
 #contact-us {
-    margin: 22px 0;
+    padding-top: 30px;
 }
 
 .contact-us-heading {
@@ -902,7 +942,7 @@ hr {
 
 
 
-
+/*
 .modal {
     position: fixed;
     z-index: 99999;
@@ -1084,7 +1124,9 @@ tbody > tr:hover {
     -webkit-box-shadow: 0 4px 8px -9px #d1d1d1;
     box-shadow: 0 4px 8px 5px #d1d1d1;
 }
-
+thead > tr > th, td {
+    text-align: center;
+}
 td > a > img {
     height: 15px;
 }
@@ -1558,27 +1600,374 @@ footer {
     -webkit-transition: all 300ms linear;
     transition: all 300ms linear;
 }
-/*.btn-back-to-top {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 3px 15px;
-    border-radius: 4px;
+
+
+
+
+
+
+
+
+/*         Pop Up          */
+.modal-content {
+    padding: 20px;
+    border: 1px solid #888;
+    max-width: 30%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+.popup-heading {
+    font-size: 24px;
+    color: #6255a5;
+}
+
+#seller-name{
+    font-weight:700;
+}
+
+.page-heading {
+    color: #6255a5;
+    font-size: 28px;
+    font-weight: 600;
+}
+.page-sub-heading {
+    color: #6255a5;
     font-size: 22px;
+    font-weight: 500;    
+}
+#buyer-request{
+    margin-top:30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================
+                Mobile Menu
+============================================ */
+
+
+.navbar-header {
+    position: relative;
+}
+
+#mobile-nav-open-btn {
+    font-size: 30px;
+    color: #f4c613;
+    cursor: pointer;
+    z-index: 2;
+    position: absolute;
+    right: 0;
+    top: 6px;
+    /* hide mobile nav open btn */
     display: none;
 }
 
-*/ /*.btn-purple {
-    height: 50px;
-    color: #fff;
-    border: 1px solid #6255a5;
-    background-color: #6255a5;
-}*/
-/*
-.btn-purple:hover,
-.btn-purple:focus {
-    color: #fff;
-    background-color: #212226;
-    border: 1px solid #212226;
+#mobile-nav {
+    /* by default, mobile nav will be hidden with height 0% */
+    height: 0%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    background-color: rgba(255, 255, 255, .9);
+    -webkit-transition: all 300ms linear;
+    transition: all 300ms linear;
+    overflow-y: hidden;
 }
-*/
+
+#mobile-nav-close-btn {
+    font-family: "Raleway", sans-serif;
+    font-size: 70px;
+    color: #212226;
+    font-weight: 400;
+    cursor: pointer;
+    position: absolute;
+    top: -9px;
+    right: 13px;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+
+#mobile-nav-content {
+    text-align: center;
+    width: 100%;
+    margin-top: 30px;
+    position: relative;
+    top: 10%;
+}
+
+#mobile-nav ul li {
+    margin-bottom: 20px;
+}
+
+#mobile-nav a {
+    font-family: "Raleway", sans-serif;
+    font-size: 18px;
+    color: #212226;
+    font-weight: 400;
+    text-transform: uppercase;
+    display: inline;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+
+    #mobile-nav a:hover,
+    #mobile-nav a:focus,
+    #mobile-nav-close-btn:hover,
+    #mobile-nav-close-btn:focus {
+        color: #f4c613;
+        background: none;
+    }
+
+
+/* Mobile nav scroll spy active state */
+
+.white-nav-top #mobile-nav ul.nav > li.active > a {
+    color: #f4c613;
+    font-weight: 500;
+}
+
+
+/*==================================================
+			Bootstrap 3 Media Queries        
+==================================================*/
+
+
+/* Large Devices (Desktops & Laptops) */
+
+@media (min-width: 1200px) and (max-width: 1299px) {
+    /* Navigation */
+    .site-nav-wrapper {
+        padding: 0 20px;
+    }
+}
+
+
+
+
+
+/* Small Devices (Portrait Tablets & Small Desktops) */
+
+@media (min-width: 768px) and (max-width: 991px) {
+    /* Navigation */
+    .site-nav-wrapper {
+        padding: 0;
+    }
+    /* Home */
+    #home-heading h1 {
+        font-size: 41px;
+    }
+
+    #home-text p {
+        font-size: 13px;
+    }
+    /* Generic */
+    .btn-general {
+        padding: 8px 35px 8px 35px;
+        font-size: 10px;
+    }
+    /* Generic */
+    .vertical-heading h2 {
+        font-size: 29px;
+    }
+    /* Tech Statement */
+    #tech-statement h3 {
+        font-size: 20px;
+        line-height: 30px;
+    }
+    /* Services 02 */
+    .r-tabs-accordion-title {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+        .r-tabs-accordion-title a {
+            font-family: "Raleway", sans-serif;
+            font-size: 13px;
+            color: #212226;
+            text-transform: uppercase;
+            font-weight: 400;
+            padding: 0;
+            text-decoration: none;
+        }
+        /* Tab active state */
+        .r-tabs-accordion-title.r-tabs-state-active a {
+            color: #f4c613;
+            font-weight: 700;
+            border-bottom: 3px solid #f4c613;
+            padding-bottom: 5px;
+            -webkit-transition: border-color 300ms linear;
+            transition: border-color 300ms linear;
+        }
+    /* Pricing */
+    .pricing-table .price h2 {
+        margin: 0 0 0 6px;
+        font-size: 35px;
+    }
+    /* Stats */
+    .stats-item p {
+        line-height: 18px;
+    }
+    /* Blog */
+    .blog-post .post-meta p {
+        line-height: 14px;
+    }
+    /* Contact */
+    ul.office-details li {
+        margin-right: 15px;
+    }
+
+        ul.office-details li i {
+            width: 25px;
+        }
+}
+
+
+/* Extra Small Devices (Landscape Phones & Portrait Tablets) */
+
+@media (max-width: 767px) {
+    /* Navigaiton */
+    .navbar {
+        padding: 20px 0;
+    }
+
+    .site-nav-wrapper,
+    .white-nav-top {
+        padding: 0;
+    }
+    /* show mobile nav open btn */
+    #mobile-nav-open-btn {
+        display: block;
+    }
+    /* Home */
+    #home-heading h1 {
+        font-size: 22px;
+    }
+
+    #home-text p {
+        font-size: 13px;
+        line-height: 18px;
+        margin: 8px 2px 30px 2px;
+    }
+    /* Generic */
+    .btn-general {
+        padding: 8px 25px 6px 25px;
+        font-size: 10px;
+    }
+    /* About 01 */
+    /* Large Content Box */
+    .content-box-lg {
+        padding: 90px 0;
+    }
+    /* Vertical heading */
+    .vertical-heading {
+        text-align: center;
+    }
+
+        .vertical-heading h5 {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+            display: block;
+            position: static;
+            margin-bottom: 15px;
+        }
+
+        .vertical-heading h2 {
+            font-size: 29px;
+            line-height: normal;
+            margin: 0;
+        }
+
+    #about-left {
+        margin-bottom: 50px;
+    }
+
+    #about-right {
+        text-align: center;
+    }
+   
+    /* Stats */
+    .stats-item {
+        margin-bottom: 20px;
+        padding: 25px 5px;
+    }
+
+        .stats-item i {
+            font-size: 30px;
+        }
+
+        .stats-item h3 {
+            font-size: 24px;
+        }
+   
+
+    ul.social-list {
+        margin-bottom: 40px;
+    }
+}
+
+
+/* Extra Small Devices (Portrait Phones & Smaller Devices) */
+
+@media (max-width: 480px) {
+    /* Home */
+    #home-heading h1 {
+        font-size: 18px;
+    }
+
+    #home-text p {
+        font-size: 11px;
+        line-height: 16px;
+        margin: 8px 10px 25px 10px;
+    }
+    /* Generic */
+    .vertical-heading h2 {
+        font-size: 22px;
+    }
+  
+}
+
+
+/* Extra Small Devices (Portrait Phones & Smaller Devices) */
+
+@media (max-width: 320px) {
+
+
+
+
+
+    @media (max-width: 480px) {
+        .modal-content {
+            max-width: 80%;
+        }
+    }
+}
