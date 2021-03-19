@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <!-- important meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Title -->
+    <title>MarketPlace</title>
+
+    <!-- Basic SEO -->
+    <meta name="description" content="Creative website development with html5, css3, jQuery & bootstrap framework">
+    <meta name="keywords" content="HTML5, CSS3, JQuery, Bootstrap, Web Design, Web Development, Responsive website, Creative website">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/home/favicon.ico">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="css/owl-carousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl-carousel/owl.theme.default.min.css">
+    <!-- Responsive Tabs CSS -->
+    <link rel="stylesheet" href="css/responsive-tabs/responsive-tabs.min.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="css/magnific-popup/magnific-popup.min.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="css/animate/animate.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+    <body data-spy="scroll" data-target=".navbar" data-offset="65">
+       
+         <header>
+        <nav class="navbar navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="site-nav-wrapper">
+                    <div class="navbar-header">
+                        <!-- Mobile Menu Open Button -->
+                        <span id="mobile-nav-open-btn">&#9776;</span>
+                        <!-- Logo -->
+                        <a class="navbar-brand" href="home.html">
+                            <img src="img/home/top-logo.png" alt="logo">
+                        </a>
+                    </div>
+                    <!-- Main Menu -->
+                    <div class="container">
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav pull-right">
+                                 <li><a  href="search-notes.html" >Search Notes</a></li>
+                                <li><a  href="dashboard.html" style="color: #6255a5";>Sell Your Notes</a></li>
+                                <li><a  href="faq.html">FAQ</a></li>
+                                <li><a href="contact-us.html">Contact Us</a></li>
+                                <li>
+                                    <div id="user-photo" class="btn-group"> <img class="img-responsive img-circle dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/user-img.png" alt="user">
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                            <button class=" text-left dropdown-item nav-dropdown-item" type="" onclick="location.href='profile.html'">My Profile</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" type=""onclick="location.href='download.html'">My Downloads</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" type=""onclick="location.href='sold-notes.html'">My Sold Notes</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" type="" onclick="location.href='rejected.html'">My Rejected Notes</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" type=""onclick="location.href='login.html'">Change Password</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" type="" onclick="location.href='login.html'"> LOGOUT</button>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!--
+                                    <a class="smooth-scroll" href="#contact-us">Contact Us</a></li>
+                                    <li><a id="user-photo" >
+                                        <img class="img-responsive img-circle" src="img/dashboard/user-img.png" alt="user">
+                                    </a></li>
+                                    
+                                    -->
+                                <li><a href="login.html"><button type="button" class="btn btn-work btn-login smooth-scroll">logout</button></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div id="mobile-nav">
+                        <!-- Mobile Menu Close Button -->
+                        <span id="mobile-nav-close-btn">&times;</span>
+                        <div id="mobile-nav-content">
+                            <ul class="nav">
+                                 <li><a  href="search-notes.html" >Search Notes</a></li>
+                                <li><a  href="dashboard.html" style="color: #6255a5";>Sell Your Notes</a></li>
+                                <li><a  href="faq.html">FAQ</a></li>
+                                <li><a href="contact-us.html">Contact Us</a></li>
+                                <li><a href="login.html"><button type="button" class="btn btn-work btn-login smooth-scroll">Logout</button></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+       <section>
+       <div class="container">
+          
+            <div class="rejected-notes">
+                <div class="row">
+                    <div class="col-md-7 col-sm-7 col-xs-12">
+                        <p>My Rejected Notes</p>
+
+                    </div>
+                    <div class="col-md-5 col-sm-5 col-xs-12 text-right">
+                        <div class="dashboard-search">
+                            <div class="col-md-8 col-sm-8 col-xs-8">
+                                <div class="form-group">
+                                    <input class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                                <a class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="rejected-notes-table table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                       <th scope="col">SR NO.</th>
+                                        <th scope="col">NOTE TITLE</th>
+                                        <th scope="col">CATAGORY</th>
+                                        
+                                        <th scope="col">REMARKS</th>
+                                        <th scope="col">CLONE</th>
+                            
+                                        <th scope="col">ACTION</th>
+                                            
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        
+                                        <td>Data Science</td>
+                                        <td>Science</td>
+                                        <td>Lorem sorem porem it now.</td>
+                                        
+                                        <td>Clone</td>
+                                        
+                                        
+                                        <td class="dropdown">
+                                            
+                                            <div id="dots" class="btn-group"><img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                                    <button class=" text-left dropdown-item action-dropdown-item" type="">Download Note</button>
+                                                    
+
+                                                </div>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                       <td>2</td>
+                                        
+                                        <td>Accounts</td>
+                                        <td>Commerce</td>
+                                        <td>Lorem sorem porem it now.</td>
+                                        
+                                        <td>Clone</td>
+                                        
+                                        
+                                        <td class="dropdown">
+                                            
+                                            <div id="dots" class="btn-group"><img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                                    <button class=" text-left dropdown-item action-dropdown-item" type="">Download Note</button>
+                                                    
+
+                                                </div>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        
+                                        <td>Social Studies</td>
+                                        <td>Social</td>
+                                        <td>Lorem sorem porem it now.</td>
+                                        
+                                        <td>Clone</td>
+                                        
+                                        
+                                        <td class="dropdown">
+                                            
+                                            <div id="dots" class="btn-group"><img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                                    <button class=" text-left dropdown-item action-dropdown-item" type="">Download Note</button>
+                                                    
+
+                                                </div>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        
+                                        <td>AI</td>
+                                        <td>IT</td>
+                                        <td>Lorem sorem porem it now.</td>
+                                        
+                                        <td>Clone</td>
+                                        
+                                        
+                                        <td class="dropdown">
+                                            
+                                            <div id="dots" class="btn-group"><img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                                    <button class=" text-left dropdown-item action-dropdown-item" type="">Download Note</button>
+                                                    
+
+                                                </div>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        
+                                        <td>Data Science</td>
+                                        <td>Science</td>
+                                        <td>Lorem sorem porem it now.</td>
+                                        
+                                        <td>Clone</td>
+                                        
+                                        
+                                        <td class="dropdown">
+                                            
+                                            <div id="dots" class="btn-group"><img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                                    <button class=" text-left dropdown-item action-dropdown-item" type="">Download Note</button>
+                                                    
+
+                                                </div>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        
+                                        <td>Data Science</td>
+                                        <td>Science</td>
+                                        <td>Lorem sorem porem it now.</td>
+                                        
+                                        <td>Clone</td>
+                                        
+                                        
+                                        <td class="dropdown">
+                                            
+                                            <div id="dots" class="btn-group"><img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                                    <button class=" text-left dropdown-item action-dropdown-item" type="">Download Note</button>
+                                                    
+
+                                                </div>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        
+                                        <td>AI</td>
+                                        <td>IT</td>
+                                        <td>Lorem sorem porem it now.</td>
+                                        
+                                        <td>Clone</td>
+                                        
+                                        
+                                        <td class="dropdown">
+                                            
+                                            <div id="dots" class="btn-group"><img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                                    <button class=" text-left dropdown-item action-dropdown-item" type="">Download Note</button>
+                                                    
+
+                                                </div>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        
+                                        <td>AI</td>
+                                        <td>IT</td>
+                                        <td>Lorem sorem porem it now.</td>
+                                        
+                                        <td>Clone</td>
+                                        
+                                        
+                                        <td class="dropdown">
+                                            
+                                            <div id="dots" class="btn-group"><img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                                    <button class=" text-left dropdown-item action-dropdown-item" type="">Download Note</button>
+                                                    
+
+                                                </div>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        
+                                        <td>AI</td>
+                                        <td>IT</td>
+                                        <td>Lorem sorem porem it now.</td>
+                                        
+                                        <td>Clone</td>
+                                        
+                                        
+                                        <td class="dropdown">
+                                            
+                                            <div id="dots" class="btn-group"><img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                                    <button class=" text-left dropdown-item action-dropdown-item" type="">Download Note</button>
+                                                    
+
+                                                </div>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        
+                                        <td>AI</td>
+                                        <td>IT</td>
+                                        <td>Lorem sorem porem it now.</td>
+                                        
+                                        <td>Clone</td>
+                                        
+                                        
+                                        <td class="dropdown">
+                                            
+                                            <div id="dots" class="btn-group"><img class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="img/dashboard/dots.png">
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                                    <button class=" text-left dropdown-item action-dropdown-item" type="">Download Note</button>
+                                                    
+
+                                                </div>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                    <!-- </thead> -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center" aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="disabled"><a href="#">«</a></li>
+                                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">»</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+           </div>
+        </section>            
+        
+    <!--      User Profile Section -->
+     <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <p>
+                        Copyright &copy; Tatvasoft All rights reserved.
+                    </p>
+                </div>
+                <div class="col-md-6 col-sm-6 text-right">
+                    <ul class="pagination social">
+
+                        <li><a href="#"><img src="img/footer/facebook.png" alt=""></a></li>
+                        <li><a href="#"><img src="img/footer/linkedin.png" alt=""></a></li>
+                        <li><a href="#"><img src="img/footer/twitter.png" alt=""></a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+    </footer>
+    <!-- Footer Ends -->
+    <!-- JQuery -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- Owl Carousel JS -->
+    <script src="js/owl-carousel/owl.carousel.min.js"></script>
+    <!-- Waypoints -->
+    <script src="js/waypoints/jquery.waypoints.min.js"></script>
+    <!-- Responsive Tabs JS -->
+    <script src="js/responsive-tabs/jquery.responsiveTabs.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+    </body>
+    
+</html>
+    
