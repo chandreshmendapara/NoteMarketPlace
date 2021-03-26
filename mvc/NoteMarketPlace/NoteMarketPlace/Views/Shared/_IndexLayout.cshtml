@@ -32,7 +32,7 @@
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="~/content/responsive.css">
 
-    <!--admin Custom style -->
+    <!-- Custom style -->
     <link rel="stylesheet" href="~/content/Site.css">
 
     <!--bootstrap style -->
@@ -87,7 +87,7 @@
                                         <div class="dropdown-menu dropdown-menu-right photo-dropdown">
                                             <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/Profile'">MY Profile</button>
                                             <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/downloads'">My Downloads</button>
-                                            <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/soldNotes'">My Sold Note</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/soldNote'">My Sold Note</button>
                                             <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/admin/manageNoteType'">My Rejected Notes</button>
                                             <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/admin/manageCountry'"> Change Password</button>
 
@@ -95,7 +95,7 @@
                                         </div>
 
                                     </li>
-                                    <li><Button class="btn btn-work" onclick="location.href='Login/Logout'" style="margin-top:8px">Logout</Button></li>
+                                    <li><Button class="btn btn-work" onclick="location.href='/Login/Logout'" style="margin-top:8px">Logout</Button></li>
 
 
                                 }
@@ -168,8 +168,21 @@
 
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/custom/admin-script.js"></script>
     <script src="~/Scripts/responsive-tabs/jquery.responsiveTabs.min.js"></script>
+    <script>
+        /* =========================================
+                Preloader
+============================================ */
+$(window).on('load', function () { // makes sure that whole site is loaded
+    $('#status').fadeOut();
+    $('#preloader').delay(350).fadeOut('slow');
+   
+
+});
+
+
+
+    </script>
 
 </body>
 </html>

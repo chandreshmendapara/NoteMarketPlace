@@ -1,14 +1,12 @@
 ﻿using NoteMarketPlace.Context;
 using NoteMarketPlace.Models;
 using PagedList;
+using PagedList.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Data.Entity.Validation;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace NoteMarketPlace.Controllers
@@ -286,51 +284,76 @@ namespace NoteMarketPlace.Controllers
 
 
 
-        public ActionResult ManageNoteType()
+        public ActionResult ManageNoteType(int? page)
         {
+            int pageSize = 5;
+            if (page != null)
+                ViewBag.Count = page * pageSize - pageSize +1;
+            else
+                ViewBag.Count = 1;
             List<tblNoteType> tblNoteTypesList = _Context.tblNoteTypes.ToList(); //new List<tblNoteCategory>();
             List<tblUser> tblUser = _Context.tblUsers.ToList(); //new List<tblNoteCategory>();
 
-            var multiple = from c in tblNoteTypesList
+            var multiple = (from c in tblNoteTypesList
                            join t1 in tblUser on c.CreatedBy equals t1.ID
-                           select new MultipleData { NoteType = c, User = t1 };
+                           select new MultipleData { NoteType = c, User = t1 }).ToList().ToPagedList(page ?? 1, pageSize);
+            ;
 
 
             return View(multiple);
 
         }
 
-        public ActionResult ManageNoteCategory()
+        public ActionResult ManageNoteCategory(int? page)
         {
             List<tblNoteCategory> tblNoteCategoriesList = _Context.tblNoteCategories.ToList(); //new List<tblNoteCategory>();
             List<tblUser> tblUser = _Context.tblUsers.ToList(); //new List<tblNoteCategory>();
-
-            var multiple = from c in tblNoteCategoriesList
+            int pageSize = 5;
+            if (page != null)
+                ViewBag.Count = page * pageSize - pageSize+1;
+            else
+                ViewBag.Count = 1;
+            var multiple = (from c in tblNoteCategoriesList
                            join t1 in tblUser on c.CreatedBy equals t1.ID
-                           select new MultipleData { NoteCategory = c, User = t1 };
+                           select new MultipleData { NoteCategory = c, User = t1 }).ToList().ToPagedList(page ?? 1, pageSize);
+            ;
 
 
             return View(multiple);
 
         }
 
-        public ActionResult ManageCountry(int? i)
+        public ActionResult ManageCountry(int? page)
         {
+            
             List<tblCountry> tblCountriesList = _Context.tblCountries.ToList(); //new List<tblNoteCategory>();
             List<tblUser> tblUser = _Context.tblUsers.ToList(); //new List<tblNoteCategory>();
-
-            var multiple = from c in tblCountriesList
+            int pageSize = 5;
+            if (page != null)
+                ViewBag.Count = page * pageSize - pageSize +1;
+            else
+                ViewBag.Count = 1;
+            var multiple = (from c in tblCountriesList
                            join t1 in tblUser on c.CreatedBy equals t1.ID
-                           select new MultipleData { Country = c, User = t1 };
+                           select new MultipleData { Country = c, User = t1 }).ToList().ToPagedList(page ?? 1, pageSize);
 
-
-            return View(multiple.ToPagedList(i ?? 3,1));
+           
+            return View(multiple);
 
         }
 
-        public ActionResult ManageAdmin()
+        public ActionResult ManageAdmin(int ? page)
         {
-            return View();
+            int pageSize = 5;
+            List<tblCountry> tblCountriesList = _Context.tblCountries.ToList(); //new List<tblNoteCategory>();
+            List<tblUser> tblUser = _Context.tblUsers.ToList(); //new List<tblNoteCategory>();
+            ViewBag.count = page * pageSize - pageSize +1;
+            var multiple = (from c in tblCountriesList
+                            join t1 in tblUser on c.CreatedBy equals t1.ID
+                            select new MultipleData { Country = c, User = t1 }).ToList().ToPagedList(page ?? 1, pageSize);
+
+
+            return View(multiple);
 
         }
 
@@ -406,26 +429,31 @@ namespace NoteMarketPlace.Controllers
 
 
 
-        public ActionResult noteUnderReview()
+        public ActionResult noteUnderReview(int ? page)
         {
-
+            int pageSize = 5;
             var SellerList = _Context.tblUsers.ToList();
             SelectList list = new SelectList(SellerList, "Id", "FirstName");
             ViewBag.SellerList = list;
-
+            if (page != null)
+                ViewBag.Count = page * pageSize - pageSize +1;
+            else
+                ViewBag.Count = 1;
 
             List<tblSellerNote> tblSellerNotesList = _Context.tblSellerNotes.ToList(); 
             List<tblUser> tblUserList = _Context.tblUsers.ToList();
             List<tblNoteCategory> tblNoteCategoriesList = _Context.tblNoteCategories.ToList();
             List<tblReferenceData> tblReferenceDataList = _Context.tblReferenceDatas.ToList();
 
-            var multiple = from c in tblSellerNotesList
+            var multiple = (from c in tblSellerNotesList
                            join t1 in tblUserList on c.SellerID equals t1.ID
 
                            join t2 in tblReferenceDataList on c.Status equals t2.ID
                            join t3 in tblNoteCategoriesList on c.Category equals t3.ID
                            where c.Status == 7 || c.Status == 8
-                           select new MultipleData { sellerNote = c, User = t1, referenceData = t2, NoteCategory = t3  };
+                           select new MultipleData { sellerNote = c, User = t1, referenceData = t2, NoteCategory = t3  }).ToList().ToPagedList(page ?? 1, pageSize);
+
+            ;
 
             return View(multiple);
         }
@@ -544,7 +572,33 @@ namespace NoteMarketPlace.Controllers
 
 
 
+        public ActionResult showMember(int? page)
+        {
+            int pageSize = 5;
+            if (page != null)
+                ViewBag.Count = page * pageSize - pageSize +1;
+            else
+                ViewBag.Count = 1;
 
+            var SellerList = _Context.tblUsers.ToList();
+            SelectList list = new SelectList(SellerList, "Id", "FirstName");
+            ViewBag.SellerList = list;
+            
+
+            List<tblSellerNote> tblSellerNotesList = _Context.tblSellerNotes.ToList();
+            List<tblUser> tblUserList = _Context.tblUsers.ToList();
+            List<tblNoteCategory> tblNoteCategoriesList = _Context.tblNoteCategories.ToList();
+            List<tblReferenceData> tblReferenceDataList = _Context.tblReferenceDatas.ToList();
+
+            var multiple = (from c in tblSellerNotesList
+                           join t1 in tblUserList on c.SellerID equals t1.ID
+                           join t3 in tblNoteCategoriesList on c.Category equals t3.ID
+                           where c.Status == 7 || c.Status == 8
+                           select new MultipleData { sellerNote = c, User = t1, NoteCategory = t3 }).ToList().ToPagedList(page ?? 1, pageSize); 
+
+            return View(multiple);
+          
+        }
 
         public ActionResult systemConfig()
         {

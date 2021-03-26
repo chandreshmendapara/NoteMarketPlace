@@ -189,6 +189,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ChangePswdController.cs" />
     <Compile Include="Controllers\ForgotPswdController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -198,7 +199,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\ImgtoStr.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\Mailer.cs" />
     <Compile Include="Models\MultipleData.cs" />
     <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -321,6 +324,10 @@
     <Content Include="Views\Admin\noteUnderReview.cshtml" />
     <Content Include="Views\User\BuyerRequest.cshtml" />
     <Content Include="Views\User\downloads.cshtml" />
+    <Content Include="Views\User\soldNote.cshtml" />
+    <Content Include="Views\Admin\showMember.cshtml" />
+    <Content Include="Views\User\rejectedNotes.cshtml" />
+    <Content Include="Views\ChangePswd\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

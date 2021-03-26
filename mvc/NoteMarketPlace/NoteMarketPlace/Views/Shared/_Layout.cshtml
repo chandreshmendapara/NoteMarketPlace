@@ -81,19 +81,19 @@
                                     <li class="mynav-dropdown" style="margin-top:3px; margin-right:10px; padding:0px">
 
 
-                                        <img class="img-responsive img-circle dropdown-toggle" src="../img/dashboard/user-img.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" alt="user" />
+                                        <img class="img-responsive img-circle dropdown-toggle" src="~/img/dashboard/user-img.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" alt="user" />
                                         <div class="dropdown-menu dropdown-menu-right photo-dropdown">
                                             <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/Profile'">MY Profile</button>
                                             <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/downloads'">My Downloads</button>
-                                            <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/soldNotes'">My Sold Note</button>
-                                            <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/admin/manageNoteType'">My Rejected Notes</button>
-                                            <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/admin/manageCountry'"> Change Password</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/soldNote'">My Sold Note</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/rejectedNotes'">My Rejected Notes</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/home/changePswd'"> Change Password</button>
 
                                             <button class="text-left dropdown-item nav-dropdown-item dd-logout" onclick="location.href='/admin/manageCountry'">LOGOUT</button>
                                         </div>
 
                                     </li>
-                                    <li><Button class="btn btn-work" onclick="location.href='Login/Logout'" style="margin-top:8px">Logout</Button></li>
+                                    <li><Button class="btn btn-work" onclick="location.href='/Login/Logout'" style="margin-top:8px">Logout</Button></li>
 
 
                                 }
@@ -110,12 +110,41 @@
                         <!-- Mobile Menu Close Button -->
                         <span id="mobile-nav-close-btn">&times;</span>
                         <div id="mobile-nav-content">
-                            <ul class="nav">
-                                <li><a href="search-notes.html">Search Notes</a></li>
-                                <li><a href="dashboard.html">Sell Your Notes</a></li>
-                                <li><a href="faq.html" style="color: #6255a5;">FAQ</a></li>
-                                <li><a href="contact-us.html">Contact Us</a></li>
-                                <li><a href="login.html"><button type="button" class="btn btn-work btn-login smooth-scroll">Login</button></a></li>
+                            <ul ><li><a href="/home/searchnote">Search Notes</a></li>
+                                <li><a href="/user">Sell Your Notes</a></li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li><a href="/User/BuyerRequest">Buyer Request</a></li>
+
+                                }
+                                <li>@Html.ActionLink("faq", "faq", "Home")</li>
+                                <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li class="mynav-dropdown" style="margin-top:3px; margin-right:10px; padding:0px">
+
+
+                                        <img class="img-responsive img-circle dropdown-toggle" src="~/img/dashboard/user-img.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" alt="user" />
+                                        <div class="dropdown-menu dropdown-menu-right photo-dropdown">
+                                            <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/Profile'">MY Profile</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/downloads'">My Downloads</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/soldNote'">My Sold Note</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/rejectedNotes'">My Rejected Notes</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/home/changePswd'"> Change Password</button>
+
+                                            <button class="text-left dropdown-item nav-dropdown-item dd-logout" onclick="location.href='/admin/manageCountry'">LOGOUT</button>
+                                        </div>
+
+                                    </li>
+                                    <li><Button class="btn btn-work" onclick="location.href='/Login/Logout'" style="margin-top:8px">Logout</Button></li>
+
+
+                                }
+                                else
+                                {
+                                    <li><Button class="btn btn-work" onclick="location.href='/Login'" style="margin-top:8px">Login</Button></li>
+                                }
+
                             </ul>
                         </div>
                     </div>
@@ -158,7 +187,7 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
 
-    @Scripts.Render("~/bundles/ajax")
+    <!--Scripts.Render("~/bundles/ajax")-->
     @RenderSection("scripts", required: false)
 
     <script src='@Url.Content("~/Scripts/jquery-3.3.1.js")' type='text/javascript'></script>
@@ -167,7 +196,6 @@
 
 
     <script src="~/Scripts/custom/script.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/responsive-tabs/jquery.responsiveTabs.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>

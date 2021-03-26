@@ -1,0 +1,114 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<NoteMarketPlace.Models.MultipleData>
+@{
+    ViewBag.Title = "rejectedNotes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section id="rejected-note">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="page-heading">My Rejected Notes</p>
+
+            </div>
+
+
+
+            <div class="col-md-6 col-sm-6 search-div">
+                <div class="col-md-8 col-sm-8 col-xs-8">
+
+                    <input class="form-control search-input" placeholder="Search..." type="text">
+
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                    <a class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="all-type-table table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">SR NO.</th>
+                                <th scope="col">Note Title</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Remarks</th>
+                                <th scope="col">Clone</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int i = ViewBag.Count - 1; }
+                            @foreach (var item in Model)
+                            {
+                                string a = "";
+
+                                i = i + 1;
+                                <tr>
+                                    <td>
+                                        @i
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.sellerNote.Title)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NoteCategory.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.sellerNote.AdminRemarks)
+                                    </td>
+
+                                    <td>
+                                        <a href="#">clone</a>
+                                    </td>
+
+
+
+                                    <td class="dropdown">
+
+                                        <div id="dots" class="mynav-dropdown ">
+                                            <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
+                                            <div class="dropdown-menu buyer-request-menu mynav-dropdown-content dropdown-menu-right ">
+                                                <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/rejecteddownload/@item.sellerNote.ID'">Download Note</button>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            }
+
+
+
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="text-center">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action("rejectedNotes", new { page }))
+                    <!--
+                        <div class="text-center" aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="disabled"><a href="#">«</a></li>
+                                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">»</a></li>
+                            </ul>-->
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+

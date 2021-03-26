@@ -1,4 +1,6 @@
-﻿@model IEnumerable<NoteMarketPlace.Models.MultipleData>
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<NoteMarketPlace.Models.MultipleData>
 @{
     ViewBag.Title = "downloads";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,144 +8,188 @@
 
 
 
-<section id="my-downloads">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p class="page-heading">My Downloads</p>
+    <section id="my-downloads">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <p class="page-heading">My Downloads</p>
 
-            </div>
-
-
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-8 col-sm-8 col-xs-8">
-
-                        <input class="form-control search-input" placeholder="Search..." type="text">
-
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4 text-right" id="search">
-                        <a class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
-
-                    </div>
                 </div>
 
-            </div>
-            <div class="col-md-12">
-                <div class="all-category-table table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="text-center" scope="col">SR NO.</th>
-                                <th class="text-center" scope="col">NOTE TITLE</th>
-                                <th class="text-center" scope="col">CATEGORY</th>
-                                <th class="text-center" scope="col">BUYER</th>
-                                <th class="text-center" scope="col">PHONE NO.</th>
-                                <th class="text-center" scope="col">SELL TYPE</th>
-                                <th class="text-center" scope="col">PRICE</th>
 
-                                <th class="text-center" scope="col">DOWNLOADED DATE/TIME</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-8 col-xs-8">
 
-                        </thead>
-                        <tbody>
+                            <input class="form-control search-input" placeholder="Search..." type="text">
 
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-4 text-right" id="search">
+                            <a class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
 
+                        </div>
+                    </div>
 
-                            @{ int i = 0; }
-                            @foreach (var item in Model)
-                            {
-                                string a = "";
-
-                                i = i + 1;
+                </div>
+                <div class="col-md-12">
+                    <div class="all-category-table table-responsive">
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        @i
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.download.NoteTitle)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.download.NoteCategory)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.User.EmailID)
-                                    </td>
+                                    <th class="text-center" scope="col">SR NO.</th>
+                                    <th class="text-center" scope="col">NOTE TITLE</th>
+                                    <th class="text-center" scope="col">CATEGORY</th>
+                                    <th class="text-center" scope="col">BUYER</th>
+                                    <th class="text-center" scope="col">SELL TYPE</th>
+                                    <th class="text-center" scope="col">PRICE</th>
 
-                                    <td>
-                                        @{
-                                            a = item.userProfile.PhoneNumber_CountryCode;
-                                            a += "-";
-                                            a += item.userProfile.PhoneNumber;
-                                        }
-                                        @a
-                                    </td>
-                                    @{
-
-                                        bool isPaid = item.download.IsPaid;
-                                        if (isPaid)
-                                        {
-                                            <td>Paid</td>
-
-                                        }
-                                        else
-                                        {
-                                            <td>Free</td>
-                                        }
-
-                                    }
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.download.PurchasedPrice)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.download.CreatedDate)
-                                    </td>
-
-                                    <td>
-
-                                        <a class="link-margin" href="#"><img src="../img/dashboard/eye.png"></a>
-                                    </td>
-                                    <td class="dropdown">
-
-                                        <div id="dots" class="mynav-dropdown ">
-                                            <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
-                                            <div class="dropdown-menu buyer-request-menu mynav-dropdown-content dropdown-menu-right ">
-                                                <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/BuyerAllowed/@item.download.ID'">Yes, I Received</button>
-                                            </div>
-                                        </div>
-
-                                    </td>
-
+                                    <th class="text-center" scope="col">DOWNLOADED DATE/TIME</th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
-                            }
+
+                            </thead>
+                            <tbody>
+
+
+
+                                @{ int i = ViewBag.Count - 1; }
+                                @foreach (var item in Model)
+                                {
+                                    string a = "";
+
+                                    i = i + 1;
+                                    <tr>
+                                        <td>
+                                            @i
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.download.NoteTitle)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.download.NoteCategory)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.User.EmailID)
+                                        </td>
+
+                                        @{
+
+                                            bool isPaid = item.download.IsPaid;
+                                            if (isPaid)
+                                            {
+                                                <td>Paid</td>
+
+                                            }
+                                            else
+                                            {
+                                                <td>Free</td>
+                                            }
+
+                                        }
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.download.PurchasedPrice)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.download.CreatedDate)
+                                        </td>
+
+                                        <td>
+
+                                            <a class="link-margin" href="#"><img src="../img/dashboard/eye.png"></a>
+                                        </td>
+                                        <td class="dropdown">
+
+                                            <div id="dots" class="mynav-dropdown ">
+                                                <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
+                                                <div class="dropdown-menu downloaded-ation mynav-dropdown-content dropdown-menu-right ">
+                                                    <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/downloadBook/@item.download.ID'">Download Note</button>
+                                                    <button class="text-left dropdown-item nav-dropdown-item" onclick="addReview(@item.download.ID)">Add Reviews/Feedback</button>
+                                                    <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/BuyerAllowed/@item.download.ID'">Report as Inappropriate</button>
+                                                </div>
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+                                }
 
 
 
 
-                            <!-- </thead> -->
-                        </tbody>
-                    </table>
+                                <!--  #codebyChandreshMendapara -->
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    <div class="text-center">
+                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                        @Html.PagedListPager(Model, page => Url.Action("downloads", new { page }))
+
+                    </div>
 
 
                 </div>
-                <div class="text-center">
-                    <ul class="pagination">
-                        <li class="disabled"><a href="#">«</a></li>
-                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">»</a></li>
-                    </ul>
 
+            </div>
+        </div>
+
+        <div id="Buying-popup" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+
+                <p class="popup-heading">Some text in the Modal..</p>
+                <input type="hidden" name="Id" value="" />
+                <p>
+                    Are you
+                    sure you want to download this Paid note? Please confirm.
+                </p>
+
+                <div class="text-right">
+                    <input type="button" class="btn btn-success" id="confirm-download" value="Yes">
+
+                    <a class="btn btn-default close-btn">&nbsp;No&nbsp;</a>
                 </div>
 
             </div>
 
         </div>
-    </div>
 
-</section>
+        <div id="download-review" class="modal">
+            <div class="modal-content">
+                <span class="close" id="close">&times;</span>
+
+                <p id="review-heading"> Add Review</p>
+
+
+
+
+                <p id="add-book-review-star" class="book-review-star"> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="false"></i></p>
+
+
+                <div class="form-group">
+                    <p>Comments*</p>
+                    <textarea placeholder="Comments..." class="form-control" id="text-area" name="rejectRemark" required style="max-width:400px; height:150px"></textarea>
+
+
+
+                </div>
+                <div>
+                    <Button class="btn btn-work">&nbsp;Submit&nbsp;</Button>
+                </div>
+
+            </div>
+        </div>
+
+                
+
+
+
+
+    </section>
+
+

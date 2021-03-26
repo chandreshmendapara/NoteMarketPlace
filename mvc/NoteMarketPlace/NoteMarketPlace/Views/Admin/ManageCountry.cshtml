@@ -1,5 +1,6 @@
-﻿@model PagedList.IPagedList<NoteMarketPlace.Models.MultipleData>
+﻿@using PagedList
 @using PagedList.Mvc
+@model IPagedList<NoteMarketPlace.Models.MultipleData>
 @{
     ViewBag.Title = "ManageCountry";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
@@ -50,7 +51,7 @@
 
 
 
-                            @{ int i = 0; }
+                            @{ var i = ViewBag.Count - 1; }
                             @foreach (var item in Model)
                             {
                                 string a = "";
@@ -112,19 +113,19 @@
 
                 </div>
                 <div class="text-center">
-                    Page @(Model.PageCount < Model.PageNumber ? 1 : Model.PageNumber) of @Model.PageCount
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
                     @Html.PagedListPager(Model, page => Url.Action("manageCountry", new { page }))
                     <!-- <ul class="pagination">
-        <li class="disabled"><a href="#">«</a></li>
-        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">»</a></li>
-    </ul>
-       -->
+                        <li class="disabled"><a href="#">«</a></li>
+                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                       -->
                 </div>
 
             </div>

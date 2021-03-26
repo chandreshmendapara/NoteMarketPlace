@@ -1,5 +1,6 @@
-﻿@model IEnumerable<NoteMarketPlace.Models.MultipleData>
-
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<NoteMarketPlace.Models.MultipleData>
 @{
     ViewBag.Title = "ManageNoteCategory";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
@@ -46,7 +47,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @{ int i = 0; }
+                            @{ var i = ViewBag.Count - 1; }
                             @foreach (var item in Model)
                             {
                                 string a = "";
@@ -90,9 +91,9 @@
                                     }
 
 
-                                <td>
-                                    <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
-                                    <a class="link-margin" href="#"><img src="../img/dashboard/delete.png"></a>
+                                    <td>
+                                        <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
+                                        <a class="link-margin" href="#"><img src="../img/dashboard/delete.png"></a>
 
                                 </tr>
                             }
@@ -105,16 +106,10 @@
 
 
                 </div>
-                <div class="text-center" aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="disabled"><a href="#">«</a></li>
-                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">»</a></li>
-                    </ul>
+                <div class="text-center">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action("ManageNoteCategory", new { page }))
                 </div>
 
             </div>

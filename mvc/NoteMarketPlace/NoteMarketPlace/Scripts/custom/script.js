@@ -91,7 +91,7 @@ $(function () {
 
 /* ================= ======================
          Book Discription In details
-=================== =======================*/
+
 function openNav() {
   document.getElementById("myNav").style.display = "block";
    $('body').css({"overflow": "hidden"});
@@ -103,8 +103,8 @@ function closeNav() {
   document.getElementById("myNav").style.display = "none";
   $('body').css({"overflow-y": "scroll"});
 }
-
-/* close popup when click outside*/
+=================== =======================*/
+/* close popup when click outside
 $(document).mouseup(function(e) 
 {
     var container = $("#myNav");
@@ -125,8 +125,8 @@ fixed.addEventListener('touchmove', function(e) {
 
 }, false);
 
-
-/* Thank you */
+*/
+/* Thank you 
 function openThanku() {
   document.getElementById("thank-you").style.display = "block";
    $('body').css({"overflow": "hidden"});
@@ -140,6 +140,7 @@ function closeThanku() {
    
 
 }
+*/
 
 
 
@@ -222,13 +223,31 @@ $("body").click(function(){
 
 var modal1 = document.getElementById("Buying-popup");
 var modal2 = document.getElementById("confirm-popup");
+var modal3 = document.getElementById("download-review")
+
 
 var span1 = document.getElementsByClassName("close")[0];
 var span2 = document.getElementsByClassName("close-btn")[0];
 
+
+
 var span3 = document.getElementsByClassName("close")[1];
 var span4 = document.getElementsByClassName("close-btn")[1];
 
+var span5 = document.getElementById("close");
+
+
+hide_btn(span1, modal1);
+hide_btn(span2, modal1);
+hide_outside(modal1);
+
+
+hide_btn(span3, modal2);
+hide_btn(span4, modal2);
+hide_outside(modal2);
+
+
+hide_outside(modal3);
 
 
 function Selling(id) {
@@ -275,12 +294,14 @@ $(document).ready(function () {
 
             success: function (response) {
                 if (response.success) {
+                    if (response.alertMsg != null)
+                        alert(response.alertMsg)
+                    else {
+                        modal1.style.display = "none";
 
-                    modal1.style.display = "none";
-
-                    modal2.style.display = "block";
-                    $('#seller-name').text(response.responseText);
-
+                        modal2.style.display = "block";
+                        $('#seller-name').text(response.responseText);
+                    }
                 }
                 else {
                     // DoSomethingElse()
@@ -312,26 +333,17 @@ function hide_outside(modal) {
     });
 }
 
-function hide_btn(span, modal) {
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
-}
 
 
-
+// When the user clicks on <span> (x), close the modal
 
 function hide_btn(span, modal) {
     span.onclick = function () {
         modal.style.display = "none";
     }
 }
+function addReview(id) {
+    alert(modal3);
+    modal3.style.display = "block";
+}
 
-hide_btn(span1, modal1);
-hide_btn(span2, modal1);
-hide_outside(modal1);
-
-
-hide_btn(span3, modal2);
-hide_btn(span4, modal2);
-hide_outside(modal1);

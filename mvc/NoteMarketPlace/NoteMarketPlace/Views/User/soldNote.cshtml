@@ -2,22 +2,20 @@
 @using PagedList.Mvc
 @model IPagedList<NoteMarketPlace.Models.MultipleData>
 @{
-    ViewBag.Title = "BuyerRequest";
-
+    ViewBag.Title = "soldNote";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<section id="buyer-request">
+<section id="my-downloads">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <p class="page-heading"> Buyer Request</p>
+            <div class="col-md-7">
+                <p class="page-heading">My Sold Note</p>
 
             </div>
 
 
-            <div class="col-md-12">
+            <div class="col-md-5">
                 <div class="row">
                     <div class="col-md-8 col-sm-8 col-xs-8">
 
@@ -40,7 +38,6 @@
                                 <th class="text-center" scope="col">NOTE TITLE</th>
                                 <th class="text-center" scope="col">CATEGORY</th>
                                 <th class="text-center" scope="col">BUYER</th>
-                                <th class="text-center" scope="col">PHONE NO.</th>
                                 <th class="text-center" scope="col">SELL TYPE</th>
                                 <th class="text-center" scope="col">PRICE</th>
 
@@ -51,7 +48,6 @@
 
                         </thead>
                         <tbody>
-
 
 
                             @{ int i = ViewBag.Count - 1; }
@@ -74,16 +70,6 @@
                                         @Html.DisplayFor(modelItem => item.User.EmailID)
                                     </td>
 
-                                    <td>
-                                        @{
-                                            a = item.userProfile.PhoneNumber_CountryCode;
-                                            a += "-";
-                                            a += item.userProfile.PhoneNumber;
-
-                                        }
-
-                                        @a
-                                    </td>
                                     @{
 
                                         bool isPaid = item.download.IsPaid;
@@ -114,7 +100,7 @@
                                         <div id="dots" class="mynav-dropdown ">
                                             <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
                                             <div class="dropdown-menu buyer-request-menu mynav-dropdown-content dropdown-menu-right ">
-                                                <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/BuyerAllowed/@item.download.ID'">Yes, I Received</button>
+                                                <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/rejectedDownload/@item.download.NoteID'">Download Note</button>
                                             </div>
                                         </div>
 
@@ -135,14 +121,14 @@
                 <div class="text-center">
                     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-                    @Html.PagedListPager(Model, page => Url.Action("BuyerRequest", new { page }))
+                    @Html.PagedListPager(Model, page => Url.Action("soldNote", new { page }))
+                    
+                </div>
 
                 </div>
 
-
             </div>
-
-        </div>
     </div>
 
 </section>
+

@@ -30,8 +30,7 @@
                             <div class="div-content text-center">
 
 
-
-                                <p>100</p>
+                                <p>@ViewBag.NoofSoldNote</p>
                                 <p>Number of Notes Sold</p>
                             </div>
                         </div>
@@ -40,7 +39,15 @@
 
 
 
-                                <p>$1000</p>
+                                @if (@ViewBag.Earnings != null)
+                                {
+                                    <p>$@ViewBag.Earnings</p>
+                                }
+                                else
+                                {
+                                    <p>$0</p>
+
+                                }
                                 <p>Money Earned</p>
                             </div>
                         </div>
@@ -52,7 +59,7 @@
                     <div class="col-md-4 col-sm-4 col-xs-12 text-center">
                         <div class="earning">
                             <div class="div-content">
-                                <p>38</p>
+                                <p>@ViewBag.NoofDownload</p>
                                 <p>My Downloads</p>
                             </div>
                         </div>
@@ -61,7 +68,7 @@
                     <div class="col-md-4 col-sm-4 col-xs-12 text-center">
                         <div class="earning">
                             <div class="div-content">
-                                <p>12</p>
+                                <p>@ViewBag.Rejectednote</p>
                                 <p>My Rejected Notes</p>
                             </div>
                         </div>
@@ -70,7 +77,7 @@
                     <div class="col-md-4 col-sm-4 col-xs-12 text-center">
                         <div class="earning">
                             <div class="div-content">
-                                <p>102</p>
+                                <p>@ViewBag.BuyerReq</p>
                                 <p>Buyer Requests</p>
                             </div>
                         </div>
@@ -1493,27 +1500,6 @@
             </div>
 
 
-        </div>
-        <div id="download-review" class="review-overlay">
-            <div class="row">
-                <div class="col-md-6 col-sm-6 col-xs-6">
-                    <p id="review-heading"> Add Review</p>
-                </div>
-                <div class="col-md-6 col-sm-6 col-xs-6 text-right">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeReview()">&times;</a>
-                </div>
-                <div class="col-md-12 text-left">
-                    <p id="add-book-review-star" class="book-review-star"> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="false"></i></p>
-                </div>
-                <div class="col-md-12 text-left">
-                    <div class="form-group">
-                        <p>Comments*</p>
-                        <textarea id="review-comments" class="form-control">
-                        </textarea>
-
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
     <!-- Dashboard Section Ends -->

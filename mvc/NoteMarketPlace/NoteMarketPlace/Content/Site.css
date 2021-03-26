@@ -115,7 +115,8 @@ photo-dropdown,
         width: 230px;
     }
 
-    .mynav-dropdown:hover .note-menu {
+    .mynav-dropdown:hover .note-menu,
+    .mynav-dropdown:hover .downloaded-ation {
         width: 180px;
     }
 
@@ -123,7 +124,9 @@ photo-dropdown,
     .mynav-dropdown:hover .photo-dropdown {
         width: 120px;
     }
-    
+     
+
+
 
 
 .nav-dropdown-item {
@@ -1063,7 +1066,9 @@ hr {
 .mydownload,
 .sold-notes,
 .rejected-notes,
-.buyer-request {
+.buyer-request,
+#my-downloads,
+#rejected-note {
     margin-top: 30px;
     margin-bottom: 20px;
 }
@@ -1559,7 +1564,45 @@ span.field-validation-error {
 
 
 
+/*CHange pswd*/
+/* The message box is shown when the user clicks on the password field */
+#message {
+    display: none;
+    background: #f1f1f1;
+    color: #000;
+    position: relative;
+    padding: 7px 0;
+    padding-left:10px;
+    margin-top: 10px;
+    width:300px;
+}
 
+    #message p {
+        padding-left: 20px;
+        font-size: 12px;
+    }
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+    color: green;
+}
+
+    .valid:before {
+        position: relative;
+        left: -15px;
+        content: "✔";
+    }
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+    color: red;
+}
+
+    .invalid:before {
+        position: relative;
+        left: -15px;
+        content: "✖";
+    }
 
 
 
@@ -1775,85 +1818,8 @@ footer {
 
 
 
-/* Small Devices (Portrait Tablets & Small Desktops) */
-
-@media (min-width: 768px) and (max-width: 991px) {
-    /* Navigation */
-    .site-nav-wrapper {
-        padding: 0;
-    }
-    /* Home */
-    #home-heading h1 {
-        font-size: 41px;
-    }
-
-    #home-text p {
-        font-size: 13px;
-    }
-    /* Generic */
-    .btn-general {
-        padding: 8px 35px 8px 35px;
-        font-size: 10px;
-    }
-    /* Generic */
-    .vertical-heading h2 {
-        font-size: 29px;
-    }
-    /* Tech Statement */
-    #tech-statement h3 {
-        font-size: 20px;
-        line-height: 30px;
-    }
-    /* Services 02 */
-    .r-tabs-accordion-title {
-        text-align: center;
-        margin-bottom: 10px;
-    }
-
-        .r-tabs-accordion-title a {
-            font-family: "Raleway", sans-serif;
-            font-size: 13px;
-            color: #212226;
-            text-transform: uppercase;
-            font-weight: 400;
-            padding: 0;
-            text-decoration: none;
-        }
-        /* Tab active state */
-        .r-tabs-accordion-title.r-tabs-state-active a {
-            color: #f4c613;
-            font-weight: 700;
-            border-bottom: 3px solid #f4c613;
-            padding-bottom: 5px;
-            -webkit-transition: border-color 300ms linear;
-            transition: border-color 300ms linear;
-        }
-    /* Pricing */
-    .pricing-table .price h2 {
-        margin: 0 0 0 6px;
-        font-size: 35px;
-    }
-    /* Stats */
-    .stats-item p {
-        line-height: 18px;
-    }
-    /* Blog */
-    .blog-post .post-meta p {
-        line-height: 14px;
-    }
-    /* Contact */
-    ul.office-details li {
-        margin-right: 15px;
-    }
-
-        ul.office-details li i {
-            width: 25px;
-        }
-}
-
 
 /* Extra Small Devices (Landscape Phones & Portrait Tablets) */
-
 @media (max-width: 767px) {
     /* Navigaiton */
     .navbar {
@@ -1893,42 +1859,7 @@ footer {
         text-align: center;
     }
 
-        .vertical-heading h5 {
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-            display: block;
-            position: static;
-            margin-bottom: 15px;
-        }
 
-        .vertical-heading h2 {
-            font-size: 29px;
-            line-height: normal;
-            margin: 0;
-        }
-
-    #about-left {
-        margin-bottom: 50px;
-    }
-
-    #about-right {
-        text-align: center;
-    }
-   
-    /* Stats */
-    .stats-item {
-        margin-bottom: 20px;
-        padding: 25px 5px;
-    }
-
-        .stats-item i {
-            font-size: 30px;
-        }
-
-        .stats-item h3 {
-            font-size: 24px;
-        }
-   
 
     ul.social-list {
         margin-bottom: 40px;
@@ -1969,5 +1900,31 @@ footer {
         .modal-content {
             max-width: 80%;
         }
+    }
+}
+
+
+/* Small Devices (Portrait Tablets & Small Desktops) */
+@media(max-width: 1200px) {
+
+    #myNav {
+        margin-top: 100px;
+    }
+}
+
+@media(min-width: 845px) {
+
+   
+}
+
+
+@media (max-width: 844px) {
+
+    #myNav {
+        margin-top: 60px;
+    }
+
+    .forgot-details .text-center p:first-of-type {
+        font-size: 24px;
     }
 }

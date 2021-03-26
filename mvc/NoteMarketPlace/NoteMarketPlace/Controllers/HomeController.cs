@@ -51,26 +51,10 @@ namespace NoteMarketPlace.Controllers
                 if (ModelState.IsValid)
                 {
 
-                    using (MailMessage mm = new MailMessage("abc@gmail.com", model.Email))
-                    {
-                        mm.Subject = model.Subject;
-                        string body = "Hello " + model.Name + ",";
-                       // body += "<br /><br />Please click the following link to activate your account";
-                        //body += "<br /><a href = '" + string.Format("{0}://{1}/Home/Activation/{2}", Request.Url.Scheme, Request.Url.Authority, activationCode) + "'>Click here to activate your account.</a>";
-                        //body += "<br /><br />Thanks";
+                Mailer mailer = new Mailer();
+                mailer.sendMail(model.Subject, model.Message, model.Email);
 
-                        mm.Body = model.Message;
-                        mm.IsBodyHtml = true;
-                        SmtpClient smtp = new SmtpClient();
-                        smtp.Host = "smtp.gmail.com";
-                        smtp.EnableSsl = true;
-                        NetworkCredential NetworkCred = new NetworkCredential("abc@gmail.com", "***********");
-                        smtp.UseDefaultCredentials = true;
-                        smtp.Credentials = NetworkCred;
-                        smtp.Port = 587;
-                        smtp.Send(mm);
-                    }
-
+                    
                      }
             return View();
         }
