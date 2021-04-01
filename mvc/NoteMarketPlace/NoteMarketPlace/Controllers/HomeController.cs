@@ -52,7 +52,8 @@ namespace NoteMarketPlace.Controllers
                 {
 
                 Mailer mailer = new Mailer();
-                mailer.sendMail(model.Subject, model.Message, model.Email);
+                List<string> email_list = new List<string>();                email_list.Add(model.Email);
+                mailer.sendMail(model.Subject, model.Message, email_list);
 
                     
                      }

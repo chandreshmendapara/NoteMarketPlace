@@ -54,20 +54,29 @@ namespace NoteMarketPlace.Controllers
                         obj.CreatedBy = null;
                         obj.RoleID = 103;
 
-
+                        obj.ActivationCode = Guid.NewGuid();
 
                         if (ModelState.IsValid)
                         {
                             dbobj.tblUsers.Add(obj);
                             try
                             {
-                                // Your code...
-                                // Could also be before try if you know the exception occurs in SaveChanges
 
+                                List<string> receiver = new List<string>();
+                                receiver.Add(model.EmailID);
                                 dbobj.SaveChanges();
                                 ModelState.Clear();
+                                Mailer mail = new Mailer();
+                                
+                                var verifyUrl = "/SignUp/AccountVerification/" + obj.ActivationCode.ToString() ;
+                                var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
+                                string subject = "Your account is sucesfully created";
+                                string Message = "<br> we are exicited to tell you that your account is sucesfully created " +
+                                    "please click on the below link to verify the account <br> " +
+                                    "<a href='" + link + "'>" + link + "</a>";
 
-                                FormsAuthentication.SetAuthCookie(model.EmailID, true);
+                                mail.sendMail(subject, Message, receiver);
+                                
                                 return RedirectToAction("Profile", "User");
 
                             }
@@ -111,6 +120,32 @@ namespace NoteMarketPlace.Controllers
             }
             return View("Index");
 
+        }
+
+
+
+        public ActionResult AccountVerification(string id)
+        {
+            bool Status = false;
+            using (NotesMarketPlaceEntities dc = new NotesMarketPlaceEntities())
+            {
+                dc.Configuration.ValidateOnSaveEnabled = false; // This line I have added here to avoid 
+                                                                // Confirm password does not match issue on save changes
+
+                var v = dc.tblUsers.Where(a => a.ActivationCode == new Guid(id)).FirstOrDefault();
+                if (v != null)
+                {
+                    v.IsEmailVerified = true;
+                    dc.SaveChanges();
+                    Status = true;
+                }
+                else
+                {
+                    ViewBag.Message = "Invalid Request";
+                }
+            }
+            ViewBag.Status = Status;
+            return View();
         }
         public static bool IsValidPassword(string pswd, string repswd)
         {

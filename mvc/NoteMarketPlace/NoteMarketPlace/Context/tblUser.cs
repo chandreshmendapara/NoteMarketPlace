@@ -34,21 +34,17 @@ namespace NoteMarketPlace.Context
         [StringLength(50, MinimumLength = 2)]
         public string FirstName { get; set; }
 
-
         [Required]
         [StringLength(50, MinimumLength = 2)]
         public string LastName { get; set; }
-
 
         [Required]
         [StringLength(50, MinimumLength = 2)]
         public string EmailID { get; set; }
 
-
         [Required]
         [StringLength(50, MinimumLength = 8)]
         public string Password { get; set; }
-
 
         public string RePassword { get; set; }
         public bool IsEmailVerified { get; set; }
@@ -57,6 +53,7 @@ namespace NoteMarketPlace.Context
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public bool IsActive { get; set; }
+        public Nullable<System.Guid> ActivationCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblDownload> tblDownloads { get; set; }
@@ -70,7 +67,6 @@ namespace NoteMarketPlace.Context
         public virtual ICollection<tblSellerNotesReportedIssue> tblSellerNotesReportedIssues { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblSellerNotesReview> tblSellerNotesReviews { get; set; }
-        public virtual tblUserRole tblUserRole { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblUserProfile> tblUserProfiles { get; set; }
     }

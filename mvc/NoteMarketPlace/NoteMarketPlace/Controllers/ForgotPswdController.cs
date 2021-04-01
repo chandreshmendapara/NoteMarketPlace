@@ -26,7 +26,7 @@ namespace NoteMarketPlace.Controllers
 
                 string newpswd = RandomString(8);
                 isUser.Password = newpswd;
-                string subject = "New Temporary Password has been created for you";                string body = "Hello,  <br/><br/>We have generated a new password for you <br/> Passowrd: "+newpswd;                Models.Mailer mailer = new Models.Mailer();                mailer.sendMail(subject, body, email);
+                string subject = "New Temporary Password has been created for you";                string body = "Hello,  <br/><br/>We have generated a new password for you <br/> Passowrd: "+newpswd;                Models.Mailer mailer = new Models.Mailer();                List<string> email_list = new List<string>();                email_list.Add(email);                mailer.sendMail(subject, body, email_list);
                 dbobj.SaveChanges();
 
             }

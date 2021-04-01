@@ -1,200 +1,209 @@
-﻿@model NoteMarketPlace.Context.tblUser
+﻿@model NoteMarketPlace.Models.Profile
 
 @{
     ViewBag.Title = "Profile";
 }
 
 
-<section id="user-profile">
-    <div class="profile-heading">
-        <img src="../img/home/banner-with-overlay-home.jpg" class="add-img img-responsive" alt="">
-        <div class="centered">User Profile</div>
-    </div>
-    <form action="">
-        <div class="basic-profile">
+    <section id="user-profile">
+        <div class="profile-heading">
+            <img src="../img/home/banner-with-overlay-home.jpg" class="add-img img-responsive" alt="">
+            <div class="centered">User Profile</div>
+        </div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="basic-profile">
 
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="add-sub-heading">Basic Profile Details</p>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="add-sub-heading">Basic Profile Details</p>
 
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <p>First Name*</p>
-                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter your full name" } })
-                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                         </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <p>Last Name*</p>
-                            <input type="text" class="form-control" id="lname" placeholder="Enter your last name">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <p>Email*</p>
-                            <input type="email" class="form-control" id="email" placeholder="Enter your email">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <p>Date of Birth</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your date of birth">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <p>gender</p>
-                            <select class="form-control">
-                                <option>Select your gender</option>
-                                <option>Male</option>
-                                <option>Female</option>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <p>First Name*</p>
 
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <p>Phone Number</p>
-                            <div class="col-md-2 col-sm-2 col-xs-4 phone-no">
-                                <select class="form-control">
-                                    <option>+91</option>
-                                    <option>+1</option>
-                                    <option>+801</option>
-
-                                </select>
-                            </div>
-                            <div class="col-md-10 col-sm-10 col-xs-8  phone-no">
-                                <input type="text" class="form-control" id="name" placeholder="Enter number of note pages">
+                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @Value=ViewBag.fname, @placeholder = "Enter your First name" } })
+                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12"></div>
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-
-
-                            <p>Upload Profile Picture</p>
-                            <input type="file" style="display: none" id="upload-profile-photo">
-                            <label for="upload-profile-photo" class="form-control upload-label text-center" style="cursor:pointer; height:93px">
-                                <img src="../img/Dashboard/upload-file.png" alt="Upload" />
-                                <p>Upload profile photo</p>
-                            </label>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <p>Last Name*</p>
+                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @Value=ViewBag.lnmae, @placeholder = "Enter your Last name" } })
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                            </div>
                         </div>
+                        <!---->
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <p>Email*</p>
+
+                                @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "form-control", @Value=ViewBag.Email, @placeholder = "Enter your email address", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <p>Date of Birth</p>
+
+                                @Html.EditorFor(model => model.DOB, new { htmlAttributes = new {@Value=ViewBag.dob, @class = "form-control", @placeholder = "Select your date of birth" } })
+                                @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <p>gender</p>
+
+                                @Html.DropDownListFor(model => model.Gender, ViewBag.Gender as SelectList, new { @class = "form-control",@Value="ViewBag.user_gender"})
+                                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <p>Phone Number</p>
+                                <div class="col-md-3 col-sm-3 col-xs-4 phone-no">
+                                    @Html.DropDownListFor(model => model.PhoneNumber_CountryCode, ViewBag.Ccode as SelectList, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.PhoneNumber_CountryCode, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-9 col-sm-9 col-xs-8  phone-no">
+                                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control",@Value=ViewBag.User_phn, @placeholder = "Enter Phone number" } })
+                                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+
+
+                                <p>Upload Profile Picture</p>
+                                <input type="file" style="display: none" id="upload-profile-photo">
+                                <label for="upload-profile-photo" class="form-control upload-label text-center" style="cursor:pointer; height:93px">
+                                    <img src="../img/Dashboard/upload-file.png" alt="Upload" />
+                                    <p>Upload profile photo</p>
+                                </label>
+                            </div>
+                        </div>
+
+
                     </div>
 
+                </div>
+            </div>
+            <div class="address-details">
+
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="add-sub-heading">Address Details</p>
+
+                        </div>
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <p>Address Line 1 *</p>
+                                @Html.EditorFor(model => model.AddressLine1, new { htmlAttributes = new { @class = "form-control",@Value=ViewBag.ad1, @placeholder = "Enter your address" } })
+                                @Html.ValidationMessageFor(model => model.AddressLine1, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <p>Address Line 2 </p>
+                                @Html.EditorFor(model => model.AddressLine2, new { htmlAttributes = new { @class = "form-control",@Value=ViewBag.ad2, @placeholder = "Enter your address" } })
+                                @Html.ValidationMessageFor(model => model.AddressLine2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <p>City*</p>
+                                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control",@Value=ViewBag.city, @placeholder = "Enter your city" } })
+                                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <p>State*</p>
+                                @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control",@Value=ViewBag.state, @placeholder = "Enter your state" } })
+                                @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <p>ZipCode *</p>
+                                @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control",@Value=ViewBag.zip, @placeholder = "Enter your Zip code" } })
+                                @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <p>Country</p>
+                                @Html.DropDownListFor(model => model.Country, ViewBag.Country as SelectList, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="uni-clg-details">
+
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="add-sub-heading">University and College Information</p>
+
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <p>University</p>
+                                @Html.EditorFor(model => model.University, new { htmlAttributes = new { @class = "form-control",@Value=ViewBag.Uni, @placeholder = "Enter your University" } })
+                                @Html.ValidationMessageFor(model => model.University, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <p>College</p>
+                                @Html.EditorFor(model => model.College, new { htmlAttributes = new { @class = "form-control",@Value=ViewBag.clg, @placeholder = "Enter your College" } })
+                                @Html.ValidationMessageFor(model => model.College, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="user-profile-action">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-work">Submit</button>
+                        </div>
+
+                    </div>
 
                 </div>
 
             </div>
-        </div>
-        <div class="address-details">
+        }
 
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="add-sub-heading">Address Details</p>
-
-                    </div>
-
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <p>Address Line 1 *</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your address">
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <p>Address Line 2 </p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your address">
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <p>City*</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your city">
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <p>State*</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your state">
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <p>ZipCode *</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your zipcode">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <p>Country</p>
-                            <select class="form-control">
-                                <option>Select your Country</option>
-                                <option>India</option>
-                                <option>Turkey</option>
-                                <option>UAE</option>
-                            </select>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-
-        <div class="uni-clg-details">
-
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="add-sub-heading">University and College Information</p>
-
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <p>University</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your university">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <p>College</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your college">
-                        </div>
-                    </div>
-
-
-                </div>
-
-            </div>
-        </div>
-
-        <div class="user-profile-action">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <a class="btn btn-general btn-work  smooth-scroll" href="#about" title="Sell Book" role="button">SUBMIt</a>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-    </form>
-
-</section>
+    </section>
 
 
 

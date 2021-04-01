@@ -17,7 +17,6 @@ namespace NoteMarketPlace.Context
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblDownload()
         {
-            this.tblSellerNotesReportedIssues = new HashSet<tblSellerNotesReportedIssue>();
             this.tblSellerNotesReviews = new HashSet<tblSellerNotesReview>();
         }
     
@@ -41,8 +40,6 @@ namespace NoteMarketPlace.Context
         public virtual tblSellerNote tblSellerNote { get; set; }
         public virtual tblUser tblUser { get; set; }
         public virtual tblUser tblUser1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblSellerNotesReportedIssue> tblSellerNotesReportedIssues { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblSellerNotesReview> tblSellerNotesReviews { get; set; }
     }

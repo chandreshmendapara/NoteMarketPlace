@@ -21,10 +21,7 @@ namespace NoteMarketPlace.Context
             this.tblSellerNotes = new HashSet<tblSellerNote>();
         }
     
-
-
         public int ID { get; set; }
-
 
         [Required]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Use letters only please")]
@@ -33,6 +30,8 @@ namespace NoteMarketPlace.Context
 
         [Required]
         public string CountryCode { get; set; }
+
+
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }

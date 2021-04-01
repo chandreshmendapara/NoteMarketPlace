@@ -20,9 +20,8 @@ namespace NoteMarketPlace.Context
         {
             this.tblSellerNotes = new HashSet<tblSellerNote>();
         }
-    
-        public int ID { get; set; }
 
+        public int ID { get; set; }
         [Required]
         public string Name { get; set; }
 

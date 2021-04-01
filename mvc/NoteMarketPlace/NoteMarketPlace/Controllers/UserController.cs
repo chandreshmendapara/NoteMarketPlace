@@ -3,6 +3,7 @@ using NoteMarketPlace.Models;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -37,22 +38,86 @@ namespace NoteMarketPlace.Controllers
 
         public new ActionResult Profile()
         {
+            string user_email = User.Identity.Name;
+            var user = dbobj.tblUsers.Where(m => m.EmailID == user_email).FirstOrDefault();
+            var user_profile = dbobj.tblUserProfiles.Where(m => m.UserID == user.ID).FirstOrDefault();
+            ViewBag.fname = user.FirstName;
+            ViewBag.lnmae = user.LastName;
+            ViewBag.Email = user_email;
+            ViewBag.Dob = user_profile.DOB;
+            ViewBag.user_gender = user_profile.Gender;
+            ViewBag.User_code = user_profile.PhoneNumber_CountryCode;
+            ViewBag.User_phn = user_profile.PhoneNumber;
+            ViewBag.ad1 = user_profile.AddressLine1;
+            ViewBag.ad2 = user_profile.AddressLine2;
+            ViewBag.city = user_profile.City;
+            ViewBag.zip = user_profile.ZipCode;
+            ViewBag.user_country = user_profile.Country;
+            ViewBag.state=user_profile.State;
+            ViewBag.Uni = user_profile.University;
+            ViewBag.clg = user_profile.College;
+            //#CodebyChandreshMendapara
+
+
+            var CountryName = dbobj.tblCountries.ToList();
+            List<SelectListItem> CountryList = new SelectList(CountryName, "Name", "Name").ToList(); 
+            CountryList.RemoveAll(i => i.Value == ViewBag.user_country);
+            CountryList.Insert(0, (new SelectListItem { Text = ViewBag.user_country, Value = ViewBag.user_country }));
+            ViewBag.Country =  CountryList;
+           
+
+            var Gender = dbobj.tblReferenceDatas.Where(m => m.RefCategory == "Gender").ToList();
+            List<SelectListItem> GenderList = new SelectList(Gender, "ID", "Values").ToList();
+            GenderList.RemoveAll(i => i.Text.Equals(ViewBag.user_gender));
+            var id = Gender.Where(m => m.Values.Equals("Female")).FirstOrDefault();
+
+            int mm = ViewBag.user_gender; //dbobj.tblReferenceDatas.Where(m => m.Values == ViewBag.user_gender).FirstOrDefault();  
+           // GenderList.Insert(0, (new SelectListItem { Text = mm , Value = id.Values }));
+
+            ViewBag.Gender = GenderList;
+
+            var Countrycode = dbobj.tblCountries.ToList();
+            SelectList CcodeList = new SelectList(Countrycode, "CountryCode", "CountryCode");
+            ViewBag.Ccode = CcodeList;
             return View();
         }
+        [HttpPost]
+        public new ActionResult Profile(Profile model)
+        {
+           
+            var CountryName = dbobj.tblCountries.ToList();
+            SelectList CountryList = new SelectList(CountryName, "Name", "Name");
+            ViewBag.Country = CountryList;
+
+
+            var Gender = dbobj.tblReferenceDatas.ToList().Where(m => m.RefCategory == "Gender");
+
+            SelectList GenderList = new SelectList(Gender, "Values", "Values");
+            ViewBag.Gender = GenderList;
+
+            var Countrycode = dbobj.tblCountries.ToList();
+            SelectList CcodeList = new SelectList(Countrycode, "CountryCode", "CountryCode");
+            
+            dbobj.SaveChanges();
+
+            return RedirectToAction("", "User");
+        }
+
+
+        
         public ActionResult addnote()
         {
-            NotesMarketPlaceEntities entities = new NotesMarketPlaceEntities();
-            var NoteCategory = entities.tblNoteCategories.ToList();
+            var NoteCategory = dbobj.tblNoteCategories.ToList();
             SelectList list = new SelectList(NoteCategory, "ID", "Name");
             ViewBag.NoteCategory = list;
 
 
-            var NoteType = entities.tblNoteTypes.ToList();
+            var NoteType = dbobj.tblNoteTypes.ToList();
             SelectList NoteTypelist = new SelectList(NoteType, "ID", "Name");
             ViewBag.NoteType = NoteTypelist;
 
 
-            var CountryName = entities.tblCountries.ToList();
+            var CountryName = dbobj.tblCountries.ToList();
             SelectList CountryList = new SelectList(CountryName, "ID", "Name");
             ViewBag.Country = CountryList;
 
@@ -70,18 +135,17 @@ namespace NoteMarketPlace.Controllers
         {
 
 
-            NotesMarketPlaceEntities entities = new NotesMarketPlaceEntities();
-            var NoteCategory = entities.tblNoteCategories.ToList();
+            var NoteCategory = dbobj.tblNoteCategories.ToList();
             SelectList list = new SelectList(NoteCategory, "ID", "Name");
             ViewBag.NoteCategory = list;
 
 
-            var NoteType = entities.tblNoteTypes.ToList();
+            var NoteType = dbobj.tblNoteTypes.ToList();
             SelectList NoteTypelist = new SelectList(NoteType, "ID", "Name");
             ViewBag.NoteType = NoteTypelist;
 
 
-            var CountryName = entities.tblCountries.ToList();
+            var CountryName = dbobj.tblCountries.ToList();
             SelectList CountryList = new SelectList(CountryName, "ID", "Name");
             ViewBag.Country = CountryList;
 
@@ -131,7 +195,9 @@ namespace NoteMarketPlace.Controllers
                 string picname = Path.GetFileName(model.displayPic.FileName);
                 picname_fullpath = Path.Combine(defaultpath, picname);
                 model.displayPic.SaveAs(picname_fullpath);
-                obj.DisplayPicture = picname_fullpath;
+               //  = picname_fullpath;
+                ImgtoStr imgto = new ImgtoStr();
+                obj.DisplayPicture= imgto.convert(picname_fullpath);
 
 
             }
@@ -313,7 +379,8 @@ namespace NoteMarketPlace.Controllers
                 seller_name += " " + seller.LastName;
                 string buyer_name = user_email.FirstName;
                 buyer_name += " " + user_email.LastName;
-                string buyer_email = seller.EmailID;
+                List<string> buyer_email = new List<string>();
+                buyer_email.Add(seller.EmailID);
 
                 tblDownload obj = new tblDownload();
                 obj.NoteID = tblSeller.ID;
@@ -402,7 +469,8 @@ namespace NoteMarketPlace.Controllers
                 // int id = admin_id.ID;
                 obj.IsSellerHasAllowedDownload = true;
 
-                string buyer_email = buyer.EmailID;
+                List<string> buyer_email = new List<string>();
+                buyer_email.Add(buyer.EmailID);
                 string buyer_name = buyer.FirstName;
                 buyer_name += " " + buyer.LastName;
 
@@ -573,5 +641,63 @@ namespace NoteMarketPlace.Controllers
 
             return View(multiple);
         }
-    }
-}
+
+
+        public ActionResult reportSpam(int id)
+        {
+
+            
+            var user_email = dbobj.tblUsers.Where(m => m.EmailID.Equals(User.Identity.Name)).FirstOrDefault();
+
+            var tblreport_check = dbobj.tblSellerNotesReportedIssues.Where(m => m.ReportedByID == user_email.ID && m.NoteID == id).FirstOrDefault();
+            
+            var downloader = dbobj.tblDownloads.Where(m => m.NoteID == id && m.Downloader == user_email.ID).FirstOrDefault();
+            if (tblreport_check!= null)
+                return Json(new { success = true, alertMsg = "you reported this book already." }, JsonRequestBehavior.AllowGet);
+
+            else if (downloader == null )
+
+                return Json(new { success = true, alertMsg = "you can't report this book first download." }, JsonRequestBehavior.AllowGet);
+
+
+            else
+            {
+                string downloader_name = user_email.FirstName + " " + user_email.LastName;
+                int seller_id = downloader.Seller;
+                var seller = dbobj.tblUsers.Where(m => m.ID.Equals(seller_id)).FirstOrDefault();
+                string seller_name = seller.FirstName + " " + seller.LastName;
+                tblSellerNotesReportedIssue reportedIssue = new tblSellerNotesReportedIssue();
+                reportedIssue.NoteID = id;
+                reportedIssue.ReportedByID = user_email.ID;
+                reportedIssue.AgainstDownloadID = downloader.Seller;
+                reportedIssue.Remarks = "there is issue in book";
+                reportedIssue.CreatedDate = DateTime.Now;
+
+                dbobj.tblSellerNotesReportedIssues.Add(reportedIssue);
+
+                List<string> admin_list = (from a in dbobj.tblUsers where a.RoleID!=103 select a.EmailID).ToList();
+
+                string subject = downloader_name + "Reported an issue for " + downloader.NoteTitle;
+                string body = "Hello Admins, <br/><br/>" + "We want to inform you that, "+ downloader_name +
+                    " Reported an issue for "+ seller_name+"’s Note with title "+downloader.NoteTitle+". " +
+                    "Please look at the notes and take required actions. <br/><br/>Regards,<br/>Notes Marketplace";
+                  Mailer mailer = new Mailer();
+                  mailer.sendMail(subject, body, admin_list);
+                  dbobj.SaveChanges();
+                  ViewBag.Msg = "Request Added";
+                
+
+                return Json(new { success = true, responseText = seller_name }, JsonRequestBehavior.AllowGet);
+                  //#codebyChandreshMendapara
+                   
+
+            }
+
+
+
+
+            return Json(new { success = false, responseText = "Not Completed." }, JsonRequestBehavior.AllowGet);
+
+      } 
+            }
+        }

@@ -24,7 +24,6 @@ namespace NoteMarketPlace.Context
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
     
-        public virtual tblDownload tblDownload { get; set; }
         public virtual tblSellerNote tblSellerNote { get; set; }
         public virtual tblUser tblUser { get; set; }
     }

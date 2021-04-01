@@ -11,7 +11,6 @@ namespace NoteMarketPlace.Context
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Web;
 
@@ -25,19 +24,19 @@ namespace NoteMarketPlace.Context
             this.tblSellerNotesReportedIssues = new HashSet<tblSellerNotesReportedIssue>();
             this.tblSellerNotesReviews = new HashSet<tblSellerNotesReview>();
         }
-
+    
         public int ID { get; set; }
         public int SellerID { get; set; }
         public int Status { get; set; }
         public Nullable<int> ActionBy { get; set; }
         public string AdminRemarks { get; set; }
         public Nullable<System.DateTime> PublishedDate { get; set; }
-
         [Required]
         public string Title { get; set; }
 
         [Required]
         public int Category { get; set; }
+
         public string DisplayPicture { get; set; }
         public Nullable<int> NoteType { get; set; }
         public Nullable<int> NumberofPages { get; set; }
@@ -52,7 +51,6 @@ namespace NoteMarketPlace.Context
 
         [Required]
         public bool IsPaid { get; set; }
-
         public Nullable<decimal> SellingPrice { get; set; }
         public string NotesPreview { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
@@ -62,12 +60,10 @@ namespace NoteMarketPlace.Context
         public bool IsActive { get; set; }
 
 
-        
         public HttpPostedFileBase uploadNote { get; set; }
 
         public HttpPostedFileBase displayPic { get; set; }
         public HttpPostedFileBase notePreview { get; set; }
-
 
         public virtual tblCountry tblCountry { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -85,8 +81,3 @@ namespace NoteMarketPlace.Context
         public virtual ICollection<tblSellerNotesReview> tblSellerNotesReviews { get; set; }
     }
 }
-
-
-
-
-
