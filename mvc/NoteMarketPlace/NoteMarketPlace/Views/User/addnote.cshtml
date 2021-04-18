@@ -5,16 +5,17 @@
 
 <!--      Add Notes Section -->
 <section id="add-note">
-    @using(Html.BeginForm("addnote", "User",FormMethod.Post, new
+    @using (Html.BeginForm("addnote", "User", FormMethod.Post, new
     {
         enctype = "multipart/form-data"
-    })) { 
+    }))
+    {
         @Html.AntiForgeryToken()
-    <div class="add-heading">
-        <img src="../img/home/banner-with-overlay-home.jpg" class="add-img img-responsive" alt="">
-        <div class="centered">Add Notes</div>
-    </div>
-    
+        <div class="add-heading">
+            <img src="../img/home/banner-with-overlay-home.jpg" class="add-img img-responsive" alt="">
+            <div class="centered">Add Notes</div>
+        </div>
+
         <div class="basic-note">
 
 
@@ -55,7 +56,7 @@
                             <p>Upload Notes*</p>
 
                             <input type="file" name="uploadNote" style="display:none" class="form-control" id="upload-note" />
-                            
+
                             <label for="upload-note" class="form-control upload-label text-center upload" style="cursor:pointer">
                                 <img src="../img/Dashboard/upload-file.png" alt="Upload" />
                                 <p>Upload Note</p>
@@ -212,7 +213,7 @@
                                 <p>Sell For*</p>
 
                                 <!--<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="free">-->
-                                @Html.RadioButtonFor(model => model.IsPaid, false, new { htmlAttributes = new { @class = "form-control",@checked = true, @id = "inlineRadio1" } })
+                                @Html.RadioButtonFor(model => model.IsPaid, false, new { htmlAttributes = new { @class = "form-control", @id = "inlineRadio1" } })
                                 <label class="form-check-label" for="inlineRadio1">Free</label>
                                 @Html.RadioButtonFor(model => model.IsPaid, true, new { htmlAttributes = new { @class = "form-control", @id = "inlineRadio2" } })
 
@@ -224,7 +225,7 @@
                             <div class="form-group">
                                 <p>Selling Price</p>
 
-                                @Html.EditorFor(model => model.SellingPrice, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Your Price" } })
+                                @Html.EditorFor(model => model.SellingPrice, new { htmlAttributes = new { @class = "form-control", @id="price", @placeholder = "Enter Your Price" } })
                                 @Html.ValidationMessageFor(model => model.SellingPrice, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -246,22 +247,22 @@
                         </div>
 
                     </div>
-                    
+
 
                 </div>
             </div>
         </div>
 
-       
+
         <div class="add-note-action">
             <div class="container">
                 <div class="row">
-                    
+
                     <div class="col-md-12">
-                        <a class="btn btn-general btn-work btn-add-note smooth-scroll" href="#about" title="Sell Book" role="button">SAVE</a>
-                        <div class="col-md-12">
-                            <button class="btn btn-work">Submit</button>
-                        </div>
+                        <a class="btn  btn-work btn-add-note " href="#about" title="Sell Book" role="button">SAVE</a>
+
+                        <button class="btn btn-work btn-add-note">Submit</button>
+
 
                     </div>
 
@@ -270,7 +271,27 @@
             </div>
 
         </div>
-    
+
     }
 </section>
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(function () {
+        $('input[type="radio"]').click(function () {
+            if ($(this).is(':checked')) {
+                
+                if ($(this).val() == "False") {
+                    $("#price").val(0);
+                    document.getElementById("price").disabled = true;
+                   
+                }
+              
+                else
+                    document.getElementById("price").removeAttribute('disabled')
+            }
+        });
+    });
+</script>
 <!--      Add Notes Section Ends -->

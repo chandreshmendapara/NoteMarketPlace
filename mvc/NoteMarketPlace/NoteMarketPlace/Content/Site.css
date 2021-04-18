@@ -44,8 +44,6 @@ html, body {
     height: 100vh;
 }
 
-
-
 .selected a {
     color: #75bf40;
 }
@@ -84,16 +82,11 @@ section {
     padding: 3px 15px 3px 5px;
 }
 
-/* DropDown */
+/* DropDown 
 
-/* DropDown */
-photo-dropdown,
-    .mynav-dropdown-content  {
-    display: none;
-    position: absolute;
-    background-color: #fff;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    z-index: 1;
+
+#my-downloads .dropdown-menu {
+    width: 220px;
 }
 
 .mynav-dropdown {
@@ -126,7 +119,7 @@ photo-dropdown,
     }
      
 
-
+    */
 
 
 .nav-dropdown-item {
@@ -165,6 +158,7 @@ photo-dropdown,
     left: 0;
     right: 0;
     z-index: 9999;
+    color:red;
 }
 
 #status {
@@ -322,6 +316,7 @@ ul.navbar-nav > li > a {
     padding: 3px;
     width: 150px;
     margin-bottom: 60px;
+    margin-left:5px;
 }
 
 
@@ -938,7 +933,7 @@ hr {
     }
 
 
-    .contact-us-feed #message {
+    .contact-us-feed #message-contact {
         height: 190px;
     }
 
@@ -1068,8 +1063,9 @@ hr {
 .rejected-notes,
 .buyer-request,
 #my-downloads,
-#rejected-note {
-    margin-top: 30px;
+#rejected-note,
+#sold-notes {
+    margin-top: 45px;
     margin-bottom: 20px;
 }
 
@@ -1721,7 +1717,11 @@ footer {
 #buyer-request{
     margin-top:30px;
 }
-
+.search-input {
+    max-width: 250px;
+    margin-top:4px;
+    float: right;
+}
 
 
 
@@ -1932,9 +1932,17 @@ footer {
     }
 }
 
-@media(min-width: 845px) {
 
+@media(min-width: 845px) and (max-width: 1200px) {
+    section {
+        margin-top:90px;
+    }
    
+}
+@media(min-width: 768px) and (max-width: 845px) {
+    section {
+        margin-top: 110px;
+    }
 }
 
 

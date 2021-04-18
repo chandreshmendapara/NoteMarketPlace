@@ -23,15 +23,18 @@
 
 
             <div class="col-md-6 col-sm-6 search-div">
-                <div class="col-md-8 col-sm-8 col-xs-8">
+                @using (Html.BeginForm("ManageCountry", "Admin", FormMethod.Get))
+                {
+                    <div class="col-md-8 col-sm-8 col-xs-8">
 
-                    <input class="form-control search-input" placeholder="Search..." type="text">
+                        <input name="search" class="form-control search-input" placeholder="Search..." type="text" value="@ViewBag.search">
 
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-4" id="search">
-                    <a class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                        <input class="btn btn-work" type="submit" value="Search" />
 
-                </div>
+                    </div>
+                }
             </div>
             <div class="col-md-12">
                 <div class="all-category-table table-responsive">
@@ -116,16 +119,7 @@
                     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
                     @Html.PagedListPager(Model, page => Url.Action("manageCountry", new { page }))
-                    <!-- <ul class="pagination">
-                        <li class="disabled"><a href="#">«</a></li>
-                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">»</a></li>
-                    </ul>
-                       -->
+                    
                 </div>
 
             </div>

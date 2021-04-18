@@ -40,8 +40,8 @@ $('.spam-btn').unbind('click').click(function () {
     var $id = $(this).parents("tr").find('td').eq(0).text();
     $(".popup-heading").html($title);
 
-   $("input[name='noteId']").val($id);
-
+    $("input[name='noteId']").val($id);
+    document.getElementById('noteIssue').value = '';
     modal4.style.display = "block";
 
 
@@ -52,21 +52,23 @@ $('.spam-btn').unbind('click').click(function () {
 
 $(document).ready(function () {
     $("#confirm-spam").click(function () {
-        var issues = $("input[name=noteIssues]").val() || "";
+        var issues = document.getElementById("noteIssue").value || "";
+       
         if (issues.trim().length == 0)
             $("#msg").html("filed is required");
         else {
-            
+            var data = {};
         //Serialize the form datas.  
-        var valdata = $("input[name=noteId]").val();
-        
+            data.id = $("input[name=noteId]").val();
+            data.issues = $("#noteIssue").val();
+           // alert(data.issues)
         //to get alert popup  
 
 
             $.ajax({
                 type: "POST",
                 url: '/User/reportSpam/',
-                data: JSON.stringify({ id: valdata }),
+                data: JSON.stringify(data),
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 beforeSend: function () {

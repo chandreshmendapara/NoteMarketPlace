@@ -10,7 +10,10 @@
             <img src="../img/home/banner-with-overlay-home.jpg" class="add-img img-responsive" alt="">
             <div class="centered">User Profile</div>
         </div>
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("Profile", "User", FormMethod.Post, new
+        {
+        enctype = "multipart/form-data"
+         }))
         {
             @Html.AntiForgeryToken()
             <div class="basic-profile">
@@ -50,24 +53,28 @@
                             <div class="form-group">
                                 <p>Date of Birth</p>
 
-                                @Html.EditorFor(model => model.DOB, new { htmlAttributes = new {@Value=ViewBag.dob, @class = "form-control", @placeholder = "Select your date of birth" } })
+                                @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", @type="date",  @Value="@ViewBag.Dob" } })
                                 @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+                            
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6">
                             <div class="form-group">
                                 <p>gender</p>
 
-                                @Html.DropDownListFor(model => model.Gender, ViewBag.Gender as SelectList, new { @class = "form-control",@Value="ViewBag.user_gender"})
+                                @Html.DropDownListFor(model => model.Gender, ViewBag.Gender as SelectList, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                        
                         <div class="col-md-6 col-sm-6">
                             <div class="form-group">
-                                <p>Phone Number</p>
+                                <p>Phone Number*</p>
                                 <div class="col-md-3 col-sm-3 col-xs-4 phone-no">
-                                    @Html.DropDownListFor(model => model.PhoneNumber_CountryCode, ViewBag.Ccode as SelectList, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.PhoneNumber_CountryCode, "", new { @class = "text-danger" })
+
+                                    @Html.DropDownListFor(model => model.PhoneNumber_CountryCode, ViewBag.Ccode as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                                   
+                                        @Html.ValidationMessageFor(model => model.PhoneNumber_CountryCode, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="col-md-9 col-sm-9 col-xs-8  phone-no">
                                     @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control",@Value=ViewBag.User_phn, @placeholder = "Enter Phone number" } })
@@ -81,11 +88,28 @@
 
 
                                 <p>Upload Profile Picture</p>
-                                <input type="file" style="display: none" id="upload-profile-photo">
-                                <label for="upload-profile-photo" class="form-control upload-label text-center" style="cursor:pointer; height:93px">
-                                    <img src="../img/Dashboard/upload-file.png" alt="Upload" />
-                                    <p>Upload profile photo</p>
-                                </label>
+                                @if (ViewBag.profileImage != null)
+                                {
+                                    <input type="file" style="display: none" id="display-profile-pic" class="form-control" name="ProfilePicture">
+                                    @Html.ValidationMessageFor(model => model.ProfilePicture, "", new { @class = "text-danger" })
+                                    <label for="display-profile-pic" class="form-control upload-label text-center upload" style="cursor:pointer">
+                                        <img src="data:image/jpeg;base64,@ViewBag.profileImage" alt="Upload" style="padding:0;height:70px;width:40%" class="img-responsive img-circle" />
+                                      
+                                    </label>
+
+
+                                }
+                                else
+                                {
+                                    <input type="file" style="display: none" id="display-profile-pic" class="form-control" name="ProfilePicture">
+                                    @Html.ValidationMessageFor(model => model.ProfilePicture, "", new { @class = "text-danger" })
+                                    <label for="display-profile-pic" class="form-control upload-label text-center upload" style="cursor:pointer">
+                                        <img src="../img/Dashboard/upload-note.svg" alt="Upload" />
+                                        <p>Upload Display picture</p>
+                                    </label>
+
+                                }
+
                             </div>
                         </div>
 
@@ -145,7 +169,7 @@
                         </div>
                         <div class="col-md-6 col-sm-6">
                             <div class="form-group">
-                                <p>Country</p>
+                                <p>Country *</p>
                                 @Html.DropDownListFor(model => model.Country, ViewBag.Country as SelectList, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
 

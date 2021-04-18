@@ -22,15 +22,18 @@
 
 
             <div class="col-md-6 col-sm-6 search-div">
-                <div class="col-md-8 col-sm-8 col-xs-8">
+                @using (Html.BeginForm("ManageNoteCategory", "Admin", FormMethod.Get))
+                {
+                    <div class="col-md-8 col-sm-8 col-xs-8">
 
-                    <input class="form-control search-input" placeholder="Search..." type="text">
+                        <input name="search" class="form-control search-input" placeholder="Search..." type="text" value="@ViewBag.search">
 
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-4" id="search">
-                    <a class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                        <input class="btn btn-work" type="submit" value="Search" />
 
-                </div>
+                    </div>
+                }
             </div>
             <div class="col-md-12">
                 <div class="all-category-table table-responsive">
@@ -46,7 +49,13 @@
                                 <th scope="col">ACTION</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="table-body">
+                            @if(!Model.Any())
+                            {
+                               <tr>
+                                   <td>No data found</td>
+                               </tr>
+                            }
                             @{ var i = ViewBag.Count - 1; }
                             @foreach (var item in Model)
                             {
@@ -135,4 +144,8 @@
 <br />
 <br />
 <br />
+
+
+
+
 <!-- manage book category Ends -->

@@ -49,6 +49,8 @@ namespace NoteMarketPlace.Context
         public string CourseCode { get; set; }
         public string Professor { get; set; }
 
+       
+        
         [Required]
         public bool IsPaid { get; set; }
         public Nullable<decimal> SellingPrice { get; set; }

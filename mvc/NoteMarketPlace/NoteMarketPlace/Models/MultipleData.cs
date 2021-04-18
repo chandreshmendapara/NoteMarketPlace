@@ -21,12 +21,17 @@ namespace NoteMarketPlace.Models
         public Context.tblDownload download { get; set; }
 
         public Context.tblUserProfile userProfile { get; set; }
+        public Context.tblSellerNotesReportedIssue reportedIssue { get; set; }
 
 
         public Context.tblReferenceData referenceData { get; set; }
 
+        public Context.tblUser actionBy { get; set; }
 
 
+        public Context.tblUser buyer { get; set; }
+
+        public Context.tblSellerNotesReview notesReview { get; set; }
 
     }
 }

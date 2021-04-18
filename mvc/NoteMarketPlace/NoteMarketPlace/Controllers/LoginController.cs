@@ -38,9 +38,9 @@ namespace NoteMarketPlace.Controllers
                 {
 
 
-                    FormsAuthentication.SetAuthCookie(model.Email, false);
+                    FormsAuthentication.SetAuthCookie(model.Email, model.isRemember);
 
-                     returnUrl = Request.QueryString["ReturnUrl"];
+                    
 
                     if (!string.IsNullOrEmpty(returnUrl))
                     {
@@ -55,7 +55,12 @@ namespace NoteMarketPlace.Controllers
                 else if (result.RoleID == 103)
                 {
                     FormsAuthentication.SetAuthCookie(model.Email, false);
-                    if (!string.IsNullOrEmpty(returnUrl))
+                    var check_proflie = _Context.tblUserProfiles.Where(m => m.UserID == result.ID).FirstOrDefault();
+                    if (check_proflie == null)
+                    {
+                        return RedirectToAction("Profile", "User");
+                    }
+                    else if (!string.IsNullOrEmpty(returnUrl))
                     {
                         Response.Redirect(returnUrl);
                     }

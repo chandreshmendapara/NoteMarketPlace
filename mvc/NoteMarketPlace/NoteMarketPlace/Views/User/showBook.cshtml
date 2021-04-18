@@ -1,14 +1,9 @@
 ﻿
 
-
-
-
-
-
-
 @model IEnumerable<NoteMarketPlace.Models.MultipleData>
 @{
     ViewBag.Title = "showBook";
+    var bookId=333;
 }
 
 
@@ -16,6 +11,7 @@
 
     @foreach (var item in Model)
     {
+        bookId = item.sellerNote.ID;
         <div class="note-details">
             <div class="container">
 
@@ -24,7 +20,16 @@
                         <p id="note-details">Notes Details</p>
                         <div class="row">
                             <div class="col-md-5 col-sm-5">
-                                <img class="img-responsive book-cover-photo" style="height:210px" src="~/img/home/banner.jpg" alt="xyz">
+                                @if (item.sellerNote.DisplayPicture!=null)
+                                {
+                                    <img class="img-responsive book-cover-photo" style="height:210px" src="data:image/jpeg;base64,@item.sellerNote.DisplayPicture" alt="Book Cover Photo">
+                                }
+                                else
+                                {
+                                    <img class="img-responsive book-cover-photo" style="height:210px" src="data:image/jpeg;base64,@ViewBag.daefaultNoteImg" alt="Book Cover Photo">
+
+
+                                }
                             </div>
                             <div class="col-md-7 col-sm-7">
                                 <p id="note-name">@item.sellerNote.Title</p>
@@ -183,7 +188,7 @@
                                     <p id="Rating" class="note-ans"> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="false"></i> Review</p>
                                 </div>
                                 <div id="user-report-book" class="text-left col-md-12 col-sm-12 col-xs-12">
-                                    <p><span>5</span> User marked this note as inappropriate</p>
+                                    <p><span>@ViewBag.report</span> User marked this note as inappropriate</p>
                                 </div>
                             </div>
                         </div>
@@ -206,60 +211,11 @@
                     <div class="col-md-12">
                         <p class="note-preview">Customers Review</p>
                     </div>
-                    <div class="col-md-12 review-page">
 
-                        <div class="col-md-2">
-                            <img class="img-responsive img-circle" src="~/img/home/customer-1.png" alt="custoer-photo">
-                        </div>
-
-                        <div class="col-md-10">
-                            <div class="rating-info">
-                                <p>
-                                    Name <br>
-                                    <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="false"></i>
-                                    <br>
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis fugiat maxime distinctio eius blanditiis.
-                                </p>
-                            </div>
-
-                        </div>
-                        <div class="col-md-12">
-                            <hr>
-                        </div>
-                        <div class="col-md-2">
-                            <img class="img-responsive img-circle" src="~/img/home/customer-1.png" alt="custoer-photo">
-                        </div>
-
-                        <div class="col-md-10">
-                            <div class="rating-info">
-                                <p>
-                                    Name <br>
-                                    <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="false"></i>
-                                    <br>
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis fugiat maxime distinctio eius blanditiis.
-                                </p>
-                            </div>
-
-                        </div>
-                        <div class="col-md-12">
-                            <hr>
-                        </div>
-                        <div class="col-md-2">
-                            <img class="img-responsive img-circle" src="~/img/home/customer-1.png" alt="custoer-photo">
-                        </div>
-
-                        <div class="col-md-10">
-                            <div class="rating-info">
-                                <p>
-                                    Name <br>
-                                    <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="false"></i>
-                                    <br>
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis fugiat maxime distinctio eius blanditiis.
-                                </p>
-                            </div>
-
-                        </div>
-                    </div>
+                    @{
+                        Html.RenderAction("BookReview", "user", new { id = bookId });
+                        }
+                    
                 </div>
             </div>
         </div>

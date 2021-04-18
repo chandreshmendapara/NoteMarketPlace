@@ -15,5 +15,7 @@ namespace NoteMarketPlace.Models
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        public bool isRemember { get; set; }
     }
 }

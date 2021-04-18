@@ -1,0 +1,161 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<NoteMarketPlace.Models.MultipleData>
+@{
+    ViewBag.Title = "downloadededNote";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+<section id="downloadede-note">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="page-heading">Downloaded Notes</p>
+
+            </div>
+
+
+
+            <div class="col-md-12 search-div">
+                @using (Html.BeginForm("downLoadedNote", "Admin", FormMethod.Get))
+                {
+                    <div class="col-md-2 col-sm-2 form-group">
+                        <p>Note</p>
+                        
+                        @Html.DropDownList("Note", ViewBag.NoteList as SelectList, "Select note", new { @class = "form-control", @onchange="adminDownloadFilter(this)" })
+               
+
+                    </div>
+                    <div class="col-md-2 col-sm-2 form-group">
+                        <p>Seller</p>
+                       
+                        @Html.DropDownList("Seller", ViewBag.UserList as SelectList, "Select seller", new { @class = "form-control", @onchange = "adminDownloadFilter(this)" })
+
+                    </div>
+                    <div class="col-md-2 col-sm-2 form-group">
+                        <p>Buyer</p>
+                        @Html.DropDownList("Buyer", ViewBag.UserList as SelectList, "Select buyer", new { @class = "form-control", @onchange = "adminDownloadFilter(this)" })
+
+
+                    </div>
+
+
+
+                    <div class="col-md-6 col-sm-6 search-div download-search-div">
+                     
+                            <div class="col-md-8 col-sm-8 col-xs-8">
+
+                                <input class="form-control search-input" name="Search" id="search-downloaded-input" placeholder="Search..." type="text" value="@ViewBag.Search">
+
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                                <input class="btn btn-work" type="submit" value="Search" />
+
+                            </div>
+                        
+
+                        </div>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="all-category-table table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">SR NO.</th>
+                                <th scope="col">NOTE TITLE</th>
+                                <th scope="col">NOTE CATEGORY</th>
+                                <th scope="col">BUYER</th>
+                                <th scope="col">SELLER</th>
+                                <th scope="col">SELL TYPE</th>
+                                <th scope="col">PRICE</th>
+                                <th scope="col">DOWNLOADED DATE/TIME</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (!Model.Any())
+                            {
+                                <tr><td>No Data Found</td></tr>
+                            }
+                            else
+                            {
+
+                                int i = ViewBag.Count - 1;
+                                foreach (var item in Model)
+                                {
+                                    i = i + 1;
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@Html.DisplayFor(n => item.download.NoteTitle)</td>
+                                        <td>@Html.DisplayFor(n => item.download.NoteCategory)</td>
+                                        <td>@string.Concat(item.buyer.FirstName + " " + item.buyer.LastName)</td>
+                                        <td>@string.Concat(item.User.FirstName + " " + item.User.LastName)</td>
+                                        @if (item.download.IsPaid)
+                                        {
+                                            <td>Paid</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Free</td>
+                                        }
+                                        <td>@item.download.PurchasedPrice</td>
+                                        <td>@item.download.AttachmentDownloadedDate</td>
+
+
+                                        <td class="dropdown">
+
+                                            <div id="dots" class="mynav-dropdown ">
+                                                <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
+                                                <div class="dropdown-menu buyer-request-menu mynav-dropdown-content dropdown-menu-right ">
+                                                    <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/Admin/adminDownload/@item.download.NoteID'">Download Note</button>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+
+                                }
+
+
+                            }
+
+
+
+                            <!-- </thead> -->
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+                <div class="text-center">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action("downloadedNote", new { page }))
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</section>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+

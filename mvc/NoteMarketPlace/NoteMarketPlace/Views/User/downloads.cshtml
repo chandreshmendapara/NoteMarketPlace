@@ -8,7 +8,7 @@
 
 
 <div id="over">
-    <img src="~/img/preloader/loading.gif" id="loading-gif" alt="Loading"  class="img-responsive"/>
+    <img src="~/img/preloader/loading.gif" id="loading-gif" alt="Loading" class="img-responsive" />
 </div>
 <section id="my-downloads">
 
@@ -22,17 +22,21 @@
 
 
             <div class="col-md-5">
-                <div class="row">
+
+                @using (Html.BeginForm("downloads", "User", FormMethod.Get))
+                {
                     <div class="col-md-8 col-sm-8 col-xs-8">
 
-                        <input class="form-control search-input" placeholder="Search..." type="text">
+                        <input name="search" class="form-control search-input" placeholder="Search..." type="text" value="@ViewBag.search">
 
                     </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4 text-right" id="search">
-                        <a class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
+                    <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                        <input class="btn btn-work" type="submit" value="Search" />
 
                     </div>
-                </div>
+                }
+
+
 
             </div>
             <div class="col-md-12">
@@ -56,74 +60,80 @@
                         <tbody>
 
 
-
-                            @{ int i = ViewBag.Count - 1; }
-                            @foreach (var item in Model)
+                            @if (!Model.Any())
                             {
-
-
-                                i = i + 1;
-                                <tr>
-                                    <td style="display:none;">@item.download.NoteID</td>
-                                    <td>
-                                        @i
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.download.NoteTitle)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.download.NoteCategory)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.User.EmailID)
-                                    </td>
-
-                                    @{
-
-                                        bool isPaid = item.download.IsPaid;
-                                        if (isPaid)
-                                        {
-                                            <td>Paid</td>
-
-                                        }
-                                        else
-                                        {
-                                            <td>Free</td>
-                                        }
-
-                                    }
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.download.PurchasedPrice)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.download.CreatedDate)
-                                    </td>
-
-                                    <td>
-
-                                        <a class="link-margin" href="#"><img src="../img/dashboard/eye.png"></a>
-                                    </td>
-                                    <td class="dropdown">
-
-                                        <div id="dots" class="mynav-dropdown ">
-                                            <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
-                                            <div class="dropdown-menu downloaded-ation mynav-dropdown-content dropdown-menu-right ">
-                                                <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/downloadBook/@item.download.ID'">Download Note</button>
-                                                <button class="text-left dropdown-item nav-dropdown-item" onclick="addReview(@item.download.ID)">Add Reviews/Feedback</button>
-                                                <button class="text-left dropdown-item nav-dropdown-item spam-btn">Report as Inappropriate</button>
-                                            </div>
-                                        </div>
-
-                                    </td>
-
-                                </tr>
+                                <tr><td>No Data Found</td></tr>
                             }
+                            else
+                            {
+                                int i = ViewBag.Count - 1;
+                                foreach (var item in Model)
+                                {
 
 
+                                    i = i + 1;
+                                    <tr>
+                                        <td style="display:none;">@item.download.NoteID</td>
+                                        <td>
+                                            @i
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.download.NoteTitle)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.download.NoteCategory)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.User.EmailID)
+                                        </td>
+
+                                        @{
+
+                                bool isPaid = item.download.IsPaid;
+                                if (isPaid)
+                                {
+                                                <td>Paid</td>
+
+                                }
+                                else
+                                {
+                                                <td>Free</td>
+                                }
+
+                                        }
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.download.PurchasedPrice)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.download.CreatedDate)
+                                        </td>
+
+                                        <td>
+
+                                            <a class="link-margin" href="/User/showBook/@item.download.NoteID"><img src="../img/dashboard/eye.png"></a>
+                                        </td>
+                                        <td>
+                                            <div id="dots" class="dropdown">
+
+                                                <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
+                                                <div class="dropdown-menu  dropdown-menu-right ">
+                                                    <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/downloadBook/@item.download.ID'">Download Note</button>
+                                                    <button class="text-left dropdown-item nav-dropdown-item" onclick="addReview(@item.download.ID)">Add Reviews/Feedback</button>
+                                                    <button class="text-left dropdown-item nav-dropdown-item spam-btn">Report as Inappropriate</button>
+                                                </div>
+                                            </div>
 
 
-                            <!--  #codebyChandreshMendapara -->
-                        </tbody>
+                                        </td>
+
+                                    </tr>
+                                    }
+
+
+                                }
+
+                                <!--  #codebyChandreshMendapara -->
+                            </tbody>
                     </table>
 
 
@@ -201,7 +211,7 @@
 
             <input type="hidden" name="noteId" value="" />
             <p>Are you sure you want to mark this report as spam, you cannot update it later?</p>
-            <textarea class="form-control" placeholder="Issues..." name="noteIssues" required rows="5"></textarea>
+            <textarea class="form-control" placeholder="Issues..." name="noteIssues" id="noteIssue" required rows="5"></textarea>
             <p id="msg" style="color:red"></p>
             <br />
             <div class="text-right">
@@ -220,6 +230,6 @@
 </section>
 
 
-@Scripts.Render("~/bundles/jquery")
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/custom/downloads.js">
 </script>

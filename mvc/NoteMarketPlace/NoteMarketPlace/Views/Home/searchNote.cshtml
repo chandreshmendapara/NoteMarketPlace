@@ -1,7 +1,9 @@
-﻿@model IEnumerable<NoteMarketPlace.Models.MultipleData>
-
+﻿@using PagedList
+@using PagedList.Mvc
 @{
     ViewBag.Title = "searchNote";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @model IPagedList<NoteMarketPlace.Models.MultipleData>
 }
 
 
@@ -21,63 +23,28 @@
         <div class="note-filter">
             <div class="row">
                 <div class="col-md-12 col-sm-4 col-xs-12">
-                    <input id="search-note-input" type="search" placeholder="&#xf002  Search notes here...">
+                    <input id="search-note-input" type="search" placeholder="&#xf002  Search notes here..." value="@ViewBag.SearchInput">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-2 col-sm-4 col-xs-6">
-                    <select name="cars" id="cars">
-                        <option value=""> Select type </option>
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
-                    </select>
+                    @Html.DropDownList("NoteType", ViewBag.NoteType as SelectList, "Select Type", new { @class = "form-control", @onchange = "filterBook(this)" })
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6">
-                    <select name="cars" id="cars">
-                        <option value=""> Select category </option>
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
-                    </select>
+                    @Html.DropDownList("NoteCategory", ViewBag.NoteCategory as SelectList, "Select Category", new { @class = "form-control", @onchange = "filterBook(this)" })
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6">
-                    <select name="cars" id="cars">
-                        <option value=""> Select university </option>
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
-                    </select>
+                    @Html.DropDownList("University", ViewBag.University as SelectList, "Select University", new { @class = "form-control", @onchange = "filterBook(this)" })
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6">
-                    <select name="cars" id="cars">
-                        <option value=""> Select course </option>
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
-                    </select>
+                    @Html.DropDownList("Course", ViewBag.Course as SelectList, "Select Course", new { @class = "form-control", @onchange = "filterBook(this)" })
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6">
-                    <select name="cars" id="cars">
-                        <option value=""> Select country </option>
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
-                    </select>
+                    @Html.DropDownList("Country", ViewBag.Country as SelectList, "Select Country", new { @class = "form-control", @onchange = "filterBook(this)" })
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6">
-                    <select name="cars" id="cars">
-                        <option value=""> Select rating </option>
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
-                    </select>
+                    @Html.DropDownList("Rating", ViewBag.Rating as SelectList, "Select Rating", new { @class = "form-control", @onchange = "filterBook(this)" })
+
                 </div>
             </div>
         </div>
@@ -97,53 +64,65 @@
                     @foreach (var item in Model)
                     {
 
-                    <a href="@Url.Action("showBook","User", new { id = item.sellerNote.ID })" >
+                        <a href="@Url.Action("showBook","User", new { id = item.sellerNote.ID })">
 
-                        <div class="col-md-4 col-sm-6">
+                            <div class="col-md-4 col-sm-6">
 
-                            <div class="book">
+                                <div class="book">
 
-                                <img class="img-responsive" src="@Html.Raw(@item.sellerNote.DisplayPicture)" alt="cover-photo">
-                                <div class="book-detail">
-                                    <p id="book-name">@item.sellerNote.Title</p>
-                                    <div class="deep-discription">
-                                        <div class="row">
-                                            <div class="col-md-2 col-sm-2 col-xs-2">
-                                                <i class="fa fa-university"> </i>
-                                            </div>
-                                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                    @if (item.sellerNote.DisplayPicture != null)
+                                    {
 
-                                                @item.sellerNote.UniversityName , @item.Country.Name
-                                                &nbsp;
-                                            </div>
-                                            <div class="col-md-2 col-sm-2 col-xs-2">
-                                                <i class="fa fa-book"> </i>
-                                            </div>
-                                            <div class="col-md-10 col-sm-10 col-xs-10">
-                                                @item.sellerNote.NumberofPages, Pages
-                                                &nbsp;
-                                            </div>
-                                            <div class="col-md-2 col-sm-2 col-xs-2">
-                                                <i class="fa fa-calendar"> </i>
-                                            </div>
-                                            <div class="col-md-10 col-sm-10 col-xs-10">
-                                                @item.sellerNote.CreatedDate
-                                            </div>
-                                            <div class="col-md-2 col-sm-2 col-xs-2">
-                                                <i class="fa fa-flag"> </i>
-                                            </div>
-                                            <div class="col-md-10 col-sm-10 col-xs-10">
-                                                Users report about book
+                                        <img class="img-responsive book-cover-photo" style="height:210px" src="data:image/jpeg;base64,@item.sellerNote.DisplayPicture" alt="Book Cover Photo">
+                                    }
+                                    else
+                                    {
+                                        <img class="img-responsive book-cover-photo" style="height:210px" src="data:image/jpeg;base64,@ViewBag.daefaultNoteImg" alt="Book Cover Photo">
+
+
+                                    }
+
+
+                                    <div class="book-detail">
+                                        <p id="book-name">@item.sellerNote.Title</p>
+                                        <div class="deep-discription">
+                                            <div class="row">
+                                                <div class="col-md-2 col-sm-2 col-xs-2">
+                                                    <i class="fa fa-university"> </i>
+                                                </div>
+                                                <div class="col-md-10 col-sm-10 col-xs-10">
+
+                                                    @item.sellerNote.UniversityName , @item.Country.Name
+                                                    &nbsp;
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 col-xs-2">
+                                                    <i class="fa fa-book"> </i>
+                                                </div>
+                                                <div class="col-md-10 col-sm-10 col-xs-10">
+                                                    @item.sellerNote.NumberofPages, Pages
+                                                    &nbsp;
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 col-xs-2">
+                                                    <i class="fa fa-calendar"> </i>
+                                                </div>
+                                                <div class="col-md-10 col-sm-10 col-xs-10">
+                                                    @item.sellerNote.CreatedDate
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 col-xs-2">
+                                                    <i class="fa fa-flag"> </i>
+                                                </div>
+                                                <div class="col-md-10 col-sm-10 col-xs-10">
+                                                    Users report about book
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
+                                    </div>
                                 </div>
+
                             </div>
 
-                        </div>
-
-                    </a>
+                        </a>
                     }
 
 
@@ -157,16 +136,11 @@
 
 
                 </div>
-                <div class="text-center" aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="disabled"><a href="#">«</a></li>
-                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">»</a></li>
-                    </ul>
+                <div class="text-center">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action("searchNote", new { page }))
+
                 </div>
             </div>
         </div>
@@ -176,6 +150,8 @@
 
 
 </section>
+
+
 <!-- Search Notes Ends -->
 <!-- Book detais in deep-->
 <!-- Book detais in deep end-->

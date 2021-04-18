@@ -1,0 +1,161 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<NoteMarketPlace.Models.MultipleData>
+@{
+    ViewBag.Title = "rejectedNotes";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+<section id="rejected-note">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="page-heading">Rejected Notes</p>
+
+            </div>
+
+            @using (Html.BeginForm("rejectedNotes", "Admin", FormMethod.Get))
+            {
+
+                <div class="col-md-6 col-sm-6">
+                    <p>Seller</p>
+                    @Html.DropDownList("Seller", ViewBag.UserList as SelectList, "Seller", new { @Style = " max-width: 150px; margin-top: 5px", @class = "form-control", @onchange = "rejectedNoteFilter(this)" })
+
+                </div>
+
+                <br /> <br /> <br />
+                <div class="col-md-6 col-sm-6 search-div">
+
+                    <div class="col-md-8 col-sm-8 col-xs-8">
+
+                        <input class="form-control search-input" name="Search" id="search-rejected-input" placeholder="Search..." type="text" value="@ViewBag.Search">
+
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                        <input class="btn btn-work" type="submit" value="Search" />
+
+                    </div>
+
+                </div>
+            }
+
+
+
+            <div class="col-md-12">
+                <div class="all-category-table table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">SR NO.</th>
+                                <th scope="col">NOTE TITLE</th>
+                                <th scope="col">CATEGORY</th>
+                                <th scope="col">SELLER</th>
+                                <th scope="col">DATE ADDED</th>
+                                <th scope="col">REJECTED BY</th>
+                                <th scope="col">REMARK</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @if (!Model.Any())
+                            {
+                                <tr><td>No Data Found</td></tr>
+                            }
+                            else
+                            {
+                                int i = ViewBag.Count - 1;
+                                foreach (var item in Model)
+                                {
+                                    i = i + 1;
+                                    <tr>
+                                        
+                                        <td style="display:none">@item.sellerNote.ID</td>
+                                        <td>@i</td>
+                                        <td>@Html.DisplayFor(modelItem => item.sellerNote.Title)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.NoteCategory.Name)</td>
+                                        <td>@string.Concat(item.User.FirstName, " ", item.User.LastName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.sellerNote.CreatedDate)</td>
+                                        <td>@string.Concat(item.actionBy.FirstName, " ", item.actionBy.LastName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.sellerNote.AdminRemarks)</td>
+
+                                        <td>
+
+                                            <div id="dots" class="dropdown">
+
+                                                <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
+                                                <div class="dropdown-menu  dropdown-menu-right">
+                                                    <button class="text-left dropdown-item nav-dropdown-item approve-btn">Approve</button>
+                                                    <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/Admin/adminDownload/@item.sellerNote.ID'">Download Note</button>
+
+                                                    <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/showBook/@item.sellerNote.ID'">View More details</button>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+
+
+
+                            <!-- </thead> -->
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+
+                <div class="text-center">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action("manageCountry", new { page }))
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div id="Approve-popup" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+
+            <p class="popup-heading">Some text in the Modal..</p>
+            <form action="/Admin/Approved" method="post">
+                <input type="hidden" name="noteId" value="" />
+                <p>Please Press Yes to Continue</p>
+
+                <div class="text-right">
+                    <Button class="btn btn-success">&nbsp;Yes&nbsp;</Button>
+
+                    <a class="btn btn-default close-btn">&nbsp;No&nbsp;</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/custom/ArejectedNotes.js"></script>

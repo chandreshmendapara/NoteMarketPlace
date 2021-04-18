@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "BookReview";
+
+    @model IEnumerable<NoteMarketPlace.Models.MultipleData>
+
+    }
+
+
+    <div class="col-md-12 review-page" style="overflow-y:scroll;min-height:240px; max-height:270px">
+        @if (!Model.Any())
+        {
+            <p>No Reviews for this book</p>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                if (item.userProfile.ProfilePicture != null)
+                {
+
+                    <div class="col-md-2">
+                        <img class="img-responsive img-circle" src="~/img/home/customer-1.png" alt="custoer-photo">
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-2">
+                        <img class="img-responsive img-circle" src = "data:image/jpeg;base64,@ViewBag.UserProfile" alt="custoer-photo">
+                    </div>
+                    
+                }
+                <div class="col-md-10">
+                    <div class="rating-info">
+                        <p>
+                            @string.Concat(item.User.FirstName +" " + item.User.LastName) <br>
+                            <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="false"></i>
+                            <br>
+                            @item.notesReview.Comments
+                        </p>
+                    </div>
+
+                </div>
+            }
+        }
+    </div>

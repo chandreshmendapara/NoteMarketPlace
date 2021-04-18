@@ -1,0 +1,96 @@
+﻿@model IEnumerable<NoteMarketPlace.Models.MultipleData>
+
+@{
+    ViewBag.Title = "Custom";
+}
+asd
+<div class="search-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 s-title">
+
+                <p> Total <span>@ViewBag.Count</span> notes</p>
+            </div>
+        </div>
+        <div class="books">
+            <div class="row">
+
+                @foreach (var item in Model)
+                {
+
+                    <a href="@Url.Action("showBook","User", new { id = item.sellerNote.ID })">
+
+                        <div class="col-md-4 col-sm-6">
+
+                            <div class="book">
+
+                                <img class="img-responsive" src="data:image/jpeg;base64,@item.sellerNote.DisplayPicture" alt="cover-photo">
+                                <div class="book-detail">
+                                    <p id="book-name">@item.sellerNote.Title</p>
+                                    <div class="deep-discription">
+                                        <div class="row">
+                                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                                <i class="fa fa-university"> </i>
+                                            </div>
+                                            <div class="col-md-10 col-sm-10 col-xs-10">
+
+                                                @item.sellerNote.UniversityName , @item.Country.Name
+                                                &nbsp;
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                                <i class="fa fa-book"> </i>
+                                            </div>
+                                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                                @item.sellerNote.NumberofPages, Pages
+                                                &nbsp;
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                                <i class="fa fa-calendar"> </i>
+                                            </div>
+                                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                                @item.sellerNote.CreatedDate
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                                <i class="fa fa-flag"> </i>
+                                            </div>
+                                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                                Users report about book
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </a>
+                }
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+            <div class="text-center" aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="disabled"><a href="#">«</a></li>
+                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">»</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+

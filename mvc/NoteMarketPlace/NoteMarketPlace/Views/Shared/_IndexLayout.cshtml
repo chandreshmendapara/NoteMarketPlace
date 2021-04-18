@@ -12,9 +12,9 @@
     <!-- Title -->
     <title>MarketPlace</title>
 
-    <!-- Basic SEO -->
+    <!-- Basic SEO
     <meta name="description" content="Creative website development with html5, css3, jQuery & bootstrap framework">
-    <meta name="keywords" content="HTML5, CSS3, JQuery, Bootstrap, Web Design, Web Development, Responsive website, Creative website">
+    <meta name="keywords" content="HTML5, CSS3, JQuery, Bootstrap, Web Design, Web Development, Responsive website, Creative website"> -->
     <!-- Favicon -->
     <link rel="shortcut icon" href="~/favicon.ico">
     <!-- Google Fonts -->
@@ -69,7 +69,7 @@
                             <ul class="nav navbar-nav pull-right">
 
                                 <li>@Html.ActionLink("Search Note", "SearchNote", "Home")</li>
-                                <li><a href="/User/Addnote">Sell Your Notes</a></li>
+                                <li><a href="/User">Sell Your Notes</a></li>
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     <li><a href="/User/BuyerRequest">Buyer Request</a></li>
@@ -83,15 +83,15 @@
                                     <li class="mynav-dropdown" style="margin-top:3px; margin-right:10px; padding:0px">
 
 
-                                        <img class="img-responsive img-circle dropdown-toggle" src="../img/dashboard/user-img.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" alt="user" />
+                                        <img class="img-responsive img-circle dropdown-toggle"  style="width:40px;height:40px" src="data:image/png;base64, @ViewBag.UserProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" alt="user" />
                                         <div class="dropdown-menu dropdown-menu-right photo-dropdown">
                                             <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/Profile'">MY Profile</button>
                                             <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/downloads'">My Downloads</button>
                                             <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/soldNote'">My Sold Note</button>
-                                            <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/admin/manageNoteType'">My Rejected Notes</button>
-                                            <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/admin/manageCountry'"> Change Password</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/admin/rejectedNote'">My Rejected Notes</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/changePswd'"> Change Password</button>
 
-                                            <button class="text-left dropdown-item nav-dropdown-item dd-logout" onclick="location.href='/admin/manageCountry'">LOGOUT</button>
+                                            <button class="text-left dropdown-item nav-dropdown-item dd-logout" onclick="location.href='/login/logout'">LOGOUT</button>
                                         </div>
 
                                     </li>
@@ -143,10 +143,9 @@
                 </div>
                 <div class="col-md-6 col-sm-6 text-right">
                     <ul class="pagination social">
-
-                        <li><a href="#"><img src="../../img/footer/facebook.png" alt=""></a></li>
-                        <li><a href="#"><img src="../../img/footer/linkedin.png" alt=""></a></li>
-                        <li><a href="#"><img src="../../img/footer/twitter.png" alt=""></a></li>
+                        <li><a class="ficon img-circle" href="#" style="background-color:#6255a5;"><img src="../img/footer/facebook.png" alt=""></a></li>
+                        <li><a class="ficon img-circle" href="#" style="background-color:#6255a5;"><img src="../img/footer/linkedin.png" alt=""></a></li>
+                        <li><a class="ficon img-circle" href="#" style="background-color:#6255a5;"><img src="../img/footer/twitter.png" alt=""></a></li>
 
                     </ul>
                 </div>

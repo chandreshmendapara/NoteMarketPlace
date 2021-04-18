@@ -1,13 +1,18 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "systemConfig";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
+    @model NoteMarketPlace.Models.systemConfig
 }
 
 
 <!-- system config -->
 <section id="system-config">
-    <form action="">
+    @using (Html.BeginForm("systemConfig", "Admin", FormMethod.Post, new
+    {
+        enctype = "multipart/form-data"
+    }))
+    {
+        @Html.AntiForgeryToken()
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -18,69 +23,110 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <p>Support emails address*</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your support email">
+
+                            @Html.EditorFor(model => model.supportEmialID, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter support email Address", @Value = ViewBag.supportEmail } })
+                            @Html.ValidationMessageFor(model => model.supportEmialID, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <p>Support phone number*</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter phone number">
+                            @Html.EditorFor(model => model.supportPhnNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter support Phone No.", @Value = ViewBag.supportPhnNo } })
+                            @Html.ValidationMessageFor(model => model.supportPhnNo, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <p>Email address(es) (for various events system will send notification to these users)*</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter email address">
+                            @Html.EditorFor(model => model.notificationEmailID, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Email address", @Value = ViewBag.notificationEmailID } })
+                            @Html.ValidationMessageFor(model => model.notificationEmailID, "", new { @class = "text-danger" })
+
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <p>Facebook URL*</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter facebook url">
+                            @Html.EditorFor(model => model.FacebookURL, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Facebook URL", @Value = ViewBag.FacebookURL } })
+                            @Html.ValidationMessageFor(model => model.FacebookURL, "", new { @class = "text-danger" })
+
                         </div>
 
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <p>Twitter URL*</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter twitter url">
+                            @Html.EditorFor(model => model.TwitterURL, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Twitter URL", @Value = ViewBag.TwitterURL } })
+                            @Html.ValidationMessageFor(model => model.TwitterURL, "", new { @class = "text-danger" })
+
                         </div>
 
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <p>Linkedin URL*</p>
-                            <input type="text" class="form-control" id="name" placeholder="Enter linkedin url">
+                            @Html.EditorFor(model => model.LinkedinURL, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter LinkedIn Url", @Value = ViewBag.LinkedinURL } })
+                            @Html.ValidationMessageFor(model => model.LinkedinURL, "", new { @class = "text-danger" })
+
                         </div>
 
                     </div>
-
                     <div class="col-md-12">
                         <div class="form-group">
-
-
                             <p>Default image for notes (if seller do not upload)</p>
-                            <input type="file" style="display: none" id="upload-profile-default">
-                            <label for="upload-profile-default" class="form-control upload-label text-center" style="cursor:pointer;padding-top: 20px;height: 110px;color: #d1d1d1;">
-                                <img src="../img/Dashboard/upload-file.png" alt="Upload" />
-                                <p>Upload picture</p>
-                            </label>
+
+                            @if (ViewBag.defaultNoteImg == null)
+                            {
+                                <input type="file" style="display: none" id="display-note-pic" class="form-control" name="defaultNoteImg">
+                                @Html.ValidationMessageFor(model => model.defaultNoteImg, "", new { @class = "text-danger" })
+                                <label for="display-note-pic" class="form-control upload-label text-center upload" style="cursor:pointer">
+                                    <img src="../img/Dashboard/upload-note.svg" alt="Upload" />
+                                    <p>Upload  picture</p>
+                                </label>
+                            }
+                            else
+                            {
+
+                                <input type="file" style="display: none" id="display-note-pic" class="form-control" name="defaultNoteImg">
+                                @Html.ValidationMessageFor(model => model.defaultNoteImg, "", new { @class = "text-danger" })
+                                <label for="display-note-pic" class="form-control upload-label text-center upload" style="cursor:pointer">
+                                     <img src="data:image/jpeg;base64,@ViewBag.defaultNoteImg" alt="Upload" style="padding:0;height:70px;width:40%" class="img-responsive" />
+
+                                  
+                                </label>
+                               
+
+                            }
+
                         </div>
                     </div>
+
                     <div class="col-md-12">
                         <div class="form-group">
-
-
                             <p>Default profile picture (if seller do not upload)</p>
-                            <input type="file" style="display: none" id="upload-book-photo-default">
-                            <label for="upload-book-photo-default" class="form-control upload-label text-center" style="cursor:pointer;padding-top: 20px;height: 110px;color: #d1d1d1;">
-                                <img src="../img/Dashboard/upload-file.png" alt="Upload" />
-                                <p>Upload picture</p>
-                            </label>
+                            @if (ViewBag.UserProfile == null)
+                            {
+                                <input type="file" style="display: none" id="display-profile-pic" class="form-control" name="defaultProfilePic">
+                                @Html.ValidationMessageFor(model => model.defaultProfilePic, "", new { @class = "text-danger" })
+                                <label for="display-profile-pic" class="form-control upload-label text-center upload" style="cursor:pointer">
+                                    <img src="../img/Dashboard/upload-note.svg" alt="Upload" />
+                                    <p>Upload Display picture</p>
+                                </label>
+                            }
+                            else
+                            {
+                                <input type="file" style="display: none" id="display-profile-pic" class="form-control" name="defaultProfilePic">
+                                @Html.ValidationMessageFor(model => model.defaultProfilePic, "", new { @class = "text-danger" })
+                                <label for="display-profile-pic" class="form-control upload-label text-center upload" style="cursor:pointer">
+                                    <img src="data:image/jpeg;base64,@ViewBag.UserProfile" alt="Upload"  style="padding:0;height:70px;width:40%" class="img-responsive" />
+                                 
+                                </label>
+
+                            }
                         </div>
                     </div>
+
                     <div class="col-md-12">
-                        <a class="btn btn-general btn-work  smooth-scroll" href="#about" title="Sell Book" role="button">SUBMIt</a>
+                        <button class="btn btn-work btn-add-note">Submit</button>
                     </div>
 
 
@@ -89,7 +135,7 @@
 
             </div>
         </div>
-    </form>
+    }
 
 
 </section>

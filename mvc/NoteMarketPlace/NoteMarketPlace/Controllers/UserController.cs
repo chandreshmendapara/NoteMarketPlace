@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace NoteMarketPlace.Controllers
 {
@@ -17,9 +18,19 @@ namespace NoteMarketPlace.Controllers
     public class UserController : Controller
 
     {
+        private NotesMarketPlaceEntities dbobj;
+        public UserController()
+        {
+            dbobj = new NotesMarketPlaceEntities();
 
-
-        private NotesMarketPlaceEntities dbobj = new NotesMarketPlaceEntities();
+            ViewBag.daefaultNoteImg = dbobj.tblSystemConfigurations.FirstOrDefault(model => model.Key == "defaultNoteImg").Values;
+            ViewBag.facebook = dbobj.tblSystemConfigurations.FirstOrDefault(model => model.Key == "FacebookURL").Values;
+            ViewBag.twitter = dbobj.tblSystemConfigurations.FirstOrDefault(model => model.Key == "TwitterURL").Values;
+            ViewBag.linkedin = dbobj.tblSystemConfigurations.FirstOrDefault(model => model.Key == "LinkedinURL").Values;
+        }
+   
+       
+        
         // GET: User
         public ActionResult Index()
         {
@@ -33,70 +44,195 @@ namespace NoteMarketPlace.Controllers
             ViewBag.Earnings = tbldownload.Where(m => m.IsSellerHasAllowedDownload == true && m.Seller == user_id.ID).Sum(m => m.PurchasedPrice);
             ViewBag.Rejectednote = tblseller.Count(m => m.SellerID == user_id.ID && m.Status == 10);
             ViewBag.BuyerReq = tbldownload.Where(m => m.IsSellerHasAllowedDownload == false && m.Seller == user_id.ID).Count();
-            return View();
+
+            List<tblSellerNote> sellerNotes = dbobj.tblSellerNotes.ToList();
+            List<tblNoteCategory> noteCategories = dbobj.tblNoteCategories.ToList();
+            List<tblReferenceData> referenceDatas = dbobj.tblReferenceDatas.ToList();
+
+            
+            var inProgress = (from c in sellerNotes
+                             join t1 in noteCategories on c.Category equals t1.ID
+                             join t2 in referenceDatas on c.Status equals t2.ID
+                             where (c.Status >=6 && c.Status<=8)  && c.SellerID == user_id.ID
+                             select new MultipleData
+                             {
+                                 sellerNote=c, NoteCategory=t1, referenceData=t2
+                             }).ToList();
+
+
+
+            //ViewBag.published = published;
+           // ViewBag.inProgress = inProgress;
+
+            return View(inProgress);
         }
+       
+        public PartialViewResult publishedNote()
+            {
+            List<tblSellerNote> sellerNotes = dbobj.tblSellerNotes.ToList();
+            List<tblNoteCategory> noteCategories = dbobj.tblNoteCategories.ToList();
+            List<tblReferenceData> referenceDatas = dbobj.tblReferenceDatas.ToList();
+
+            var user_id = dbobj.tblUsers.Where(m => m.EmailID == User.Identity.Name).FirstOrDefault();
+
+
+            var published = (from c in sellerNotes
+                             join t1 in noteCategories on c.Category equals t1.ID
+                             join t2 in referenceDatas on c.Status equals t2.ID
+                             where (c.Status ==9) && c.SellerID == user_id.ID
+                             select new MultipleData
+                             {
+                                 sellerNote = c,
+                                 NoteCategory = t1,
+                                 referenceData = t2
+                             }).ToList();
+            return PartialView(published);
+        }
+
+
+
 
         public new ActionResult Profile()
         {
             string user_email = User.Identity.Name;
             var user = dbobj.tblUsers.Where(m => m.EmailID == user_email).FirstOrDefault();
             var user_profile = dbobj.tblUserProfiles.Where(m => m.UserID == user.ID).FirstOrDefault();
-            ViewBag.fname = user.FirstName;
-            ViewBag.lnmae = user.LastName;
-            ViewBag.Email = user_email;
-            ViewBag.Dob = user_profile.DOB;
-            ViewBag.user_gender = user_profile.Gender;
-            ViewBag.User_code = user_profile.PhoneNumber_CountryCode;
-            ViewBag.User_phn = user_profile.PhoneNumber;
-            ViewBag.ad1 = user_profile.AddressLine1;
-            ViewBag.ad2 = user_profile.AddressLine2;
-            ViewBag.city = user_profile.City;
-            ViewBag.zip = user_profile.ZipCode;
-            ViewBag.user_country = user_profile.Country;
-            ViewBag.state=user_profile.State;
-            ViewBag.Uni = user_profile.University;
-            ViewBag.clg = user_profile.College;
-            //#CodebyChandreshMendapara
+            if (user_profile != null)
+            {
+                ViewBag.fname = user.FirstName;
+                ViewBag.lnmae = user.LastName;
+                ViewBag.Email = user_email;
+
+                //DateTime date = (DateTime)user_profile.DOB;
+
+                //var k = date.Date;
+              
+                ViewBag.Dob = "k";
+                ViewBag.user_gender = user_profile.Gender.ToString();
+                ViewBag.User_code = user_profile.PhoneNumber_CountryCode;
+                ViewBag.User_phn = user_profile.PhoneNumber;
+                ViewBag.ad1 = user_profile.AddressLine1;
+                ViewBag.ad2 = user_profile.AddressLine2;
+                ViewBag.city = user_profile.City;
+                ViewBag.zip = user_profile.ZipCode;
+                ViewBag.user_country = user_profile.Country;
+                ViewBag.state = user_profile.State;
+                ViewBag.Uni = user_profile.University;
+                ViewBag.clg = user_profile.College;
+                ViewBag.profileImage = user_profile.ProfilePicture;
+                //#CodebyChandreshMendapara
 
 
-            var CountryName = dbobj.tblCountries.ToList();
-            List<SelectListItem> CountryList = new SelectList(CountryName, "Name", "Name").ToList(); 
-            CountryList.RemoveAll(i => i.Value == ViewBag.user_country);
-            CountryList.Insert(0, (new SelectListItem { Text = ViewBag.user_country, Value = ViewBag.user_country }));
-            ViewBag.Country =  CountryList;
-           
+                var CountryName = dbobj.tblCountries.ToList();
+                List<SelectListItem> CountryList = new SelectList(CountryName, "Name", "Name").ToList();
+                CountryList.RemoveAll(i => i.Value == ViewBag.user_country);
+                CountryList.Insert(0, (new SelectListItem { Text = ViewBag.user_country, Value = ViewBag.user_country }));
+                ViewBag.Country = CountryList;
 
-            var Gender = dbobj.tblReferenceDatas.Where(m => m.RefCategory == "Gender").ToList();
-            List<SelectListItem> GenderList = new SelectList(Gender, "ID", "Values").ToList();
-            GenderList.RemoveAll(i => i.Text.Equals(ViewBag.user_gender));
-            var id = Gender.Where(m => m.Values.Equals("Female")).FirstOrDefault();
 
-            int mm = ViewBag.user_gender; //dbobj.tblReferenceDatas.Where(m => m.Values == ViewBag.user_gender).FirstOrDefault();  
-           // GenderList.Insert(0, (new SelectListItem { Text = mm , Value = id.Values }));
+                var Gender = dbobj.tblReferenceDatas.Where(m => m.RefCategory == "Gender").ToList();
+                List<SelectListItem> GenderList = new SelectList(Gender, "ID", "Values").ToList();
 
-            ViewBag.Gender = GenderList;
+                var id = Gender.Where(m => m.ID.Equals(user_profile.Gender)).FirstOrDefault();
+                GenderList.RemoveAll(i => i.Value.Equals(ViewBag.user_gender));
+                //string mm = ; //dbobj.tblReferenceDatas.Where(m => m.Values == ViewBag.user_gender).FirstOrDefault();  
+                GenderList.Insert(0, (new SelectListItem { Text = id.Values, Value = ViewBag.user_gender }));
 
-            var Countrycode = dbobj.tblCountries.ToList();
-            SelectList CcodeList = new SelectList(Countrycode, "CountryCode", "CountryCode");
-            ViewBag.Ccode = CcodeList;
+                ViewBag.Gender = GenderList;
+
+                var Countrycode = dbobj.tblCountries.ToList();
+                List<SelectListItem> CcodeList = new SelectList(Countrycode, "CountryCode", "CountryCode").ToList();
+                CcodeList.RemoveAll(i => i.Value.Equals(ViewBag.User_code));
+
+                CcodeList.Insert(0, (new SelectListItem { Text = user_profile.PhoneNumber_CountryCode, Value = user_profile.PhoneNumber_CountryCode }));
+
+                ViewBag.Ccode = CcodeList;
+
+            }
+            else
+            {
+                ViewBag.fname = user.FirstName;
+                ViewBag.lnmae = user.LastName;
+                ViewBag.Email = user_email;
+                var CountryName = dbobj.tblCountries.ToList();
+                SelectList CountryList = new SelectList(CountryName, "Name", "Name");
+                ViewBag.Country = CountryList;
+
+
+                var Gender = dbobj.tblReferenceDatas.ToList().Where(m => m.RefCategory == "Gender");
+
+                SelectList GenderList = new SelectList(Gender, "Values", "Values");
+                ViewBag.Gender = GenderList;
+
+                var Countrycode = dbobj.tblCountries.ToList();
+                SelectList CcodeList = new SelectList(Countrycode, "CountryCode", "CountryCode");
+                ViewBag.Ccode = CcodeList;
+            }
             return View();
         }
+
+
+
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public new ActionResult Profile(Profile model)
         {
-           
+
             var CountryName = dbobj.tblCountries.ToList();
             SelectList CountryList = new SelectList(CountryName, "Name", "Name");
             ViewBag.Country = CountryList;
 
 
             var Gender = dbobj.tblReferenceDatas.ToList().Where(m => m.RefCategory == "Gender");
-
             SelectList GenderList = new SelectList(Gender, "Values", "Values");
             ViewBag.Gender = GenderList;
 
             var Countrycode = dbobj.tblCountries.ToList();
             SelectList CcodeList = new SelectList(Countrycode, "CountryCode", "CountryCode");
+            ViewBag.Ccode = CcodeList;
+
+            var user = dbobj.tblUsers.Where(m => m.EmailID == User.Identity.Name).FirstOrDefault();
+            var userProfile = dbobj.tblUserProfiles.Where(m => m.UserID == user.ID).FirstOrDefault();
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            userProfile.DOB = model.DOB;
+            userProfile.Gender = model.Gender;
+            userProfile.PhoneNumber_CountryCode = model.PhoneNumber_CountryCode;
+            userProfile.PhoneNumber = model.PhoneNumber;
+
+            string user_pic = null;
+            string defaultpath = Server.MapPath(string.Format("~/Content/Files/{0}", user.ID));
+            if (!Directory.Exists(defaultpath))
+            {
+                Directory.CreateDirectory(defaultpath);
+            }
+
+            if (model.ProfilePicture != null)
+            {
+
+                string notename = Path.GetFileName(model.ProfilePicture.FileName);
+                user_pic = Path.Combine(defaultpath, notename);
+                model.ProfilePicture.SaveAs(user_pic);
+                ImgtoStr imgto = new ImgtoStr();
+                userProfile.ProfilePicture = imgto.convert(user_pic);
+
+
+
+
+            }
+           
+
+            
+            userProfile.AddressLine1 = model.AddressLine1;
+            userProfile.AddressLine2 = model.AddressLine2;
+            userProfile.City = model.City;
+            userProfile.State = model.State;
+            userProfile.ZipCode = model.ZipCode;
+            userProfile.Country = model.Country;
+            userProfile.College = model.College;
+            userProfile.University = model.University;
+            
             
             dbobj.SaveChanges();
 
@@ -132,6 +268,7 @@ namespace NoteMarketPlace.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult addnote(tblSellerNote model)
+
         {
 
 
@@ -148,6 +285,8 @@ namespace NoteMarketPlace.Controllers
             var CountryName = dbobj.tblCountries.ToList();
             SelectList CountryList = new SelectList(CountryName, "ID", "Name");
             ViewBag.Country = CountryList;
+
+            
 
 
 
@@ -281,7 +420,7 @@ namespace NoteMarketPlace.Controllers
             List<tblSellerNote> tblSellerNotes = dbobj.tblSellerNotes.ToList();
             List<tblCountry> tblCountries = dbobj.tblCountries.ToList();
             List<tblNoteCategory> tblNoteCategories = dbobj.tblNoteCategories.ToList();
-
+            ViewBag.report = dbobj.tblSellerNotesReportedIssues.Where(m => m.NoteID == id).Count();
             var multiple = from c in tblSellerNotes
                            join t1 in tblCountries on c.Country equals t1.ID
                            join t2 in tblNoteCategories on c.Category equals t2.ID
@@ -289,6 +428,22 @@ namespace NoteMarketPlace.Controllers
                            select new MultipleData { sellerNote = c, Country = t1, NoteCategory = t2 };
 
             return View(multiple);
+        }
+        [AllowAnonymous]
+        public PartialViewResult BookReview(int id)
+        {
+            List<tblSellerNotesReview> sellerNotesReviews = dbobj.tblSellerNotesReviews.ToList();
+            List<tblUser> users = dbobj.tblUsers.ToList();
+            List<tblUserProfile> userProfiles = dbobj.tblUserProfiles.ToList();
+
+            var multiple = from c in sellerNotesReviews
+                           join t1 in users on c.ReviewedByID equals t1.ID
+                           join t2 in userProfiles on c.ReviewedByID equals t2.UserID
+                           where c.NoteID == id
+                           select new MultipleData {notesReview = c, User = t1, userProfile=t2 };
+
+            ViewBag.UserProfile = dbobj.tblSystemConfigurations.FirstOrDefault(model => model.Key == "defaultProfilePic").Values;
+            return PartialView(multiple);
         }
 
 
@@ -445,7 +600,7 @@ namespace NoteMarketPlace.Controllers
                            join t1 in tblUsersList on d.Downloader equals t1.ID
                            join t2 in tblUserProfilesList on d.Downloader equals t2.UserID
                            where d.Seller == user_id && d.IsSellerHasAllowedDownload == false
-                           select new MultipleData { download = d, User = t1, userProfile = t2 }).ToList().ToPagedList(page ?? 1, pageSize); ; ;
+                           select new MultipleData { download = d, User = t1, userProfile = t2 }).ToList().ToPagedList(page ?? 1, pageSize);
 
             return View(multiple);
         }
@@ -493,7 +648,7 @@ namespace NoteMarketPlace.Controllers
 
 
 
-        public ActionResult downloads(int ? page)
+        public ActionResult downloads(int ? page, string search)
         {
             int pageSize = 10;
             if (page != null)
@@ -508,15 +663,31 @@ namespace NoteMarketPlace.Controllers
 
             int user_id = (from user in dbobj.tblUsers where user.EmailID == User.Identity.Name select user.ID).FirstOrDefault();
 
-            var multiple = (from d in tblDownloadList
-                            join t1 in tblUsersList on d.Downloader equals t1.ID
-                            join t2 in tblUserProfilesList on d.Downloader equals t2.UserID
-                            where d.Downloader == user_id && d.IsSellerHasAllowedDownload == true
+           
+            if (!String.IsNullOrEmpty(search))
+            {
+             var multiple = (from d in tblDownloadList
+                                join t1 in tblUsersList on d.Downloader equals t1.ID
+                                join t2 in tblUserProfilesList on d.Downloader equals t2.UserID
+                                where d.Downloader == user_id && d.IsSellerHasAllowedDownload == true &&
+                                (d.NoteTitle.ToLower().Contains(search.ToLower()) || d.NoteCategory.ToLower().Contains(search.ToLower()) ||
+                                t1.EmailID.ToLower().Contains(search.ToLower()))
+                                select new MultipleData { download = d, User = t1, userProfile = t2 }).ToList().ToPagedList(page ?? 1, pageSize);
+                ViewBag.Search = search;
+                return View(multiple);
+            }
+            else
+            {
+                var multiple = (from d in tblDownloadList
+                                join t1 in tblUsersList on d.Downloader equals t1.ID
+                                join t2 in tblUserProfilesList on d.Downloader equals t2.UserID
+                                where d.Downloader == user_id && d.IsSellerHasAllowedDownload == true
+                                select new MultipleData { download = d, User = t1, userProfile = t2 }).ToList().ToPagedList(page ?? 1, pageSize);
 
+                return View(multiple);
 
-                            select new MultipleData { download = d, User = t1, userProfile = t2 }).ToList().ToPagedList(page ?? 1, pageSize); ;
-          
-            return View(multiple);
+            }
+           
 
         }
 
@@ -566,7 +737,7 @@ namespace NoteMarketPlace.Controllers
 
         }
 
-        public ActionResult soldNote(int?page)
+        public ActionResult soldNote(int?page, string search)
         {
             int pageSize = 10;
             if (page != null)
@@ -582,16 +753,31 @@ namespace NoteMarketPlace.Controllers
 
             int user_id = (from user in dbobj.tblUsers where user.EmailID == User.Identity.Name select user.ID).FirstOrDefault();
 
-            var multiple = (from d in tblDownloadList
-                            join t1 in tblUsersList on d.Downloader equals t1.ID
-                            join t2 in tblUserProfilesList on d.Downloader equals t2.UserID
-                            where d.Seller == user_id && d.IsSellerHasAllowedDownload == true
+            if (String.IsNullOrEmpty(search))
+            {
+                var multiple = (from d in tblDownloadList
+                                join t1 in tblUsersList on d.Downloader equals t1.ID
+                                join t2 in tblUserProfilesList on d.Downloader equals t2.UserID
+                                where d.Seller == user_id && d.IsSellerHasAllowedDownload == true
 
 
-                            select new MultipleData { download = d, User = t1, userProfile = t2 }).ToList().ToPagedList(page ?? 1, pageSize); ;
+                                select new MultipleData { download = d, User = t1, userProfile = t2 }).ToList().ToPagedList(page ?? 1, pageSize);
 
-            return View(multiple);
+                return View(multiple);
+            }
+            else
+            {
+                var multiple = (from d in tblDownloadList
+                                join t1 in tblUsersList on d.Downloader equals t1.ID
+                                join t2 in tblUserProfilesList on d.Downloader equals t2.UserID
+                                where d.Seller == user_id && d.IsSellerHasAllowedDownload == true &&
+                                (d.NoteTitle.ToLower().Contains(search.ToLower()) || d.NoteCategory.ToLower().Contains(search.ToLower()))
 
+
+                                select new MultipleData { download = d, User = t1, userProfile = t2 }).ToList().ToPagedList(page ?? 1, pageSize);
+                ViewBag.Search = search;
+                return View(multiple);
+            }
         }
 
 
@@ -618,7 +804,7 @@ namespace NoteMarketPlace.Controllers
         }
 
 
-        public ActionResult rejectedNotes(int ? page)
+        public ActionResult rejectedNotes(int ? page, string search)
         {
             int pageSize = 10;
 
@@ -631,19 +817,36 @@ namespace NoteMarketPlace.Controllers
                 ViewBag.Count = page * pageSize - pageSize +1;
             else
                 ViewBag.Count = 1;
-            var multiple = (from d in tblSellerNotes
-                            join t1 in tblUsersList on d.SellerID equals t1.ID
-                            join t2 in tblNoteCategories on d.Category equals t2.ID
-                            where d.SellerID == user_id && d.Status == 10
+            if (String.IsNullOrEmpty(search))
+            {
+                var multiple = (from d in tblSellerNotes
+                                join t1 in tblUsersList on d.SellerID equals t1.ID
+                                join t2 in tblNoteCategories on d.Category equals t2.ID
+                                where d.SellerID == user_id && d.Status == 10
 
 
-                            select new MultipleData { sellerNote = d, User = t1, NoteCategory = t2 }).ToList().ToPagedList(page ?? 1, pageSize);
+                                select new MultipleData { sellerNote = d, User = t1, NoteCategory = t2 }).ToList().ToPagedList(page ?? 1, pageSize);
 
-            return View(multiple);
+                return View(multiple);
+            }
+            else
+            {
+                var multiple = (from d in tblSellerNotes
+                                join t1 in tblUsersList on d.SellerID equals t1.ID
+                                join t2 in tblNoteCategories on d.Category equals t2.ID
+                                where d.SellerID == user_id && d.Status == 10 && (d.Title.ToLower().Contains(search.ToLower()) ||
+                                d.AdminRemarks.ToLower().Contains(search.ToLower()))
+
+
+                                select new MultipleData { sellerNote = d, User = t1, NoteCategory = t2 }).ToList().ToPagedList(page ?? 1, pageSize);
+                ViewBag.Search = search;
+                return View(multiple);
+
+            }
         }
 
 
-        public ActionResult reportSpam(int id)
+        public ActionResult reportSpam(int id, string issues)
         {
 
             
@@ -670,7 +873,7 @@ namespace NoteMarketPlace.Controllers
                 reportedIssue.NoteID = id;
                 reportedIssue.ReportedByID = user_email.ID;
                 reportedIssue.AgainstDownloadID = downloader.Seller;
-                reportedIssue.Remarks = "there is issue in book";
+                reportedIssue.Remarks = issues;
                 reportedIssue.CreatedDate = DateTime.Now;
 
                 dbobj.tblSellerNotesReportedIssues.Add(reportedIssue);
@@ -698,6 +901,44 @@ namespace NoteMarketPlace.Controllers
 
             return Json(new { success = false, responseText = "Not Completed." }, JsonRequestBehavior.AllowGet);
 
-      } 
+      }
+
+
+
+
+      
+        protected override void Initialize(RequestContext requestContext)
+        {
+            
+            base.Initialize(requestContext);
+            if (requestContext.HttpContext.User.Identity.IsAuthenticated)
+            {
+                using (var _Context = new NotesMarketPlaceEntities())
+                {
+                    // get current user profile image
+                    var currentUserImg = (from details in _Context.tblUserProfiles
+                                          join users in _Context.tblUsers on details.UserID equals users.ID
+                                          where users.EmailID == requestContext.HttpContext.User.Identity.Name
+                                          select details.ProfilePicture).FirstOrDefault();
+
+          
+
+
+                    if (currentUserImg == null)
+                    {
+                        // get deafult image
+                        var defaultImg = _Context.tblSystemConfigurations.FirstOrDefault(model =>model.Key=="defaultProfilePic");
+                        ViewBag.UserProfile = defaultImg.Values;
+                    }
+                    else
+                    {
+                        ViewBag.UserProfile = currentUserImg;
+                    }
+                }
             }
         }
+
+
+
+    }
+}

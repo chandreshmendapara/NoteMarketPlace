@@ -6,8 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace NoteMarketPlace.Controllers
 {
@@ -17,15 +19,80 @@ namespace NoteMarketPlace.Controllers
     {
 
         private NotesMarketPlaceEntities _Context;
+        private FileStream fs;
+
         // GET: Admin
 
         public AdminController()
         {
             _Context = new NotesMarketPlaceEntities();
         }
-        public ActionResult Index()
+        public ActionResult Index(int? page, int? month, string search )
         {
-            return View();
+
+            var current_date = DateTime.Now.Date.AddDays(-7);
+            ViewBag.noteForReview = _Context.tblSellerNotes.Where(m => m.Status == 7 || m.Status == 8).Count();
+            ViewBag.lastWeekDownload = _Context.tblDownloads.Where(m =>m.IsAttachmentDownloaded==true && m.AttachmentDownloadedDate >=current_date).Count();
+            ViewBag.lastWeekNewUser = _Context.tblUsers.Where(m => m.CreatedDate  >= current_date).Count();
+
+
+            int pageSize = 4;
+            if (page != null)
+                ViewBag.Count = page * pageSize - pageSize + 1;
+            else
+                ViewBag.Count = 1;
+
+
+            var multiple = (from c in _Context.tblSellerNotes
+                            join t1 in _Context.tblNoteCategories on c.Category equals t1.ID
+                            join t2 in _Context.tblUsers on c.SellerID equals t2.ID
+                            join t3 in _Context.tblSellerNotesAttachements on c.ID equals t3.NoteID
+                            where c.Status == 9
+                            let total = (_Context.tblDownloads.Where(m => m.NoteID == c.ID && m.IsAttachmentDownloaded == true).Count())
+
+                            select new PublishedNoteDetails
+                            {
+                                id = c.ID,
+                                sellingPrice = c.SellingPrice,
+                                Title = c.Title,
+                                categoryName = t1.Name,
+                                IsPaid = c.IsPaid,
+                                AttachmentPath = t3.FilePath,
+                                sellerName = t2.FirstName + " " + t2.LastName,
+                                PublishedDate = (DateTime)c.PublishedDate,
+                                totalDownloads = total,
+
+                            }
+
+
+                          );
+
+            if (search != null && search != "")
+                multiple = multiple.Where(m => m.Title.ToLower().Contains(search.ToLower()) || m.categoryName.ToLower().Contains(search.ToLower())
+                    
+                    || m.sellerName.ToLower().Contains(search.ToLower()));
+
+            if (month != null)
+                multiple = multiple.Where(m => m.PublishedDate.Month == month);
+
+            foreach(var data in multiple)
+            {
+                data.AttachmentSize = FileSize(data.AttachmentPath);
+            }
+
+
+
+
+
+            /* */
+            ViewBag.Search = search;
+            return View(multiple.ToList().ToPagedList(page ?? 1, pageSize));
+        }
+        //file size
+        public float FileSize(string filePath)
+        {
+            System.IO.FileStream fs = System.IO.File.OpenRead(filePath);
+            return (fs.Length);
         }
         public ActionResult UserQuery()
         {
@@ -284,7 +351,7 @@ namespace NoteMarketPlace.Controllers
 
 
 
-        public ActionResult ManageNoteType(int? page)
+        public ActionResult ManageNoteType(string search, int? page)
         {
             int pageSize = 5;
             if (page != null)
@@ -297,14 +364,21 @@ namespace NoteMarketPlace.Controllers
             var multiple = (from c in tblNoteTypesList
                            join t1 in tblUser on c.CreatedBy equals t1.ID
                            select new MultipleData { NoteType = c, User = t1 }).ToList().ToPagedList(page ?? 1, pageSize);
-            ;
+            if (!String.IsNullOrEmpty(search))
+            {
+              multiple = (from c in tblNoteTypesList
+                                join t1 in tblUser on c.CreatedBy equals t1.ID where c.Name.ToLower().Contains(search.ToLower())
+                                select new MultipleData { NoteType = c, User = t1 }).ToList().ToPagedList(page ?? 1, pageSize);
 
 
-            return View(multiple);
+            }
+
+
+                return View(multiple);
 
         }
 
-        public ActionResult ManageNoteCategory(int? page)
+        public ActionResult ManageNoteCategory(string search, int? page )
         {
             List<tblNoteCategory> tblNoteCategoriesList = _Context.tblNoteCategories.ToList(); //new List<tblNoteCategory>();
             List<tblUser> tblUser = _Context.tblUsers.ToList(); //new List<tblNoteCategory>();
@@ -313,17 +387,34 @@ namespace NoteMarketPlace.Controllers
                 ViewBag.Count = page * pageSize - pageSize+1;
             else
                 ViewBag.Count = 1;
-            var multiple = (from c in tblNoteCategoriesList
-                           join t1 in tblUser on c.CreatedBy equals t1.ID
-                           select new MultipleData { NoteCategory = c, User = t1 }).ToList().ToPagedList(page ?? 1, pageSize);
-            ;
+
+           var multiple = (from c in tblNoteCategoriesList
+                        join t1 in tblUser on c.CreatedBy equals t1.ID
+                        
+                        select new MultipleData { NoteCategory = c, User = t1 }).ToList().ToPagedList(page ?? 1, pageSize);
+
+          if (!String.IsNullOrEmpty(search))
+            {
+                ViewBag.search = search;
+                 multiple = (from c in tblNoteCategoriesList
+                                join t1 in tblUser on c.CreatedBy equals t1.ID
+                                where c.Name.ToLower().Contains(search.ToLower())
+                                select new MultipleData { NoteCategory = c, User = t1 }).ToList().ToPagedList(page ?? 1, pageSize);
+                
+            }
+            else
+            {
+
+            }
 
 
             return View(multiple);
 
         }
 
-        public ActionResult ManageCountry(int? page)
+
+
+        public ActionResult ManageCountry(string search ,int? page)
         {
             
             List<tblCountry> tblCountriesList = _Context.tblCountries.ToList(); //new List<tblNoteCategory>();
@@ -336,9 +427,15 @@ namespace NoteMarketPlace.Controllers
             var multiple = (from c in tblCountriesList
                            join t1 in tblUser on c.CreatedBy equals t1.ID
                            select new MultipleData { Country = c, User = t1 }).ToList().ToPagedList(page ?? 1, pageSize);
+            if (!String.IsNullOrEmpty(search))
+            {
+                multiple = (from c in tblCountriesList
+                            join t1 in tblUser on c.CreatedBy equals t1.ID where c.Name.ToLower().Contains(search.ToLower())
+                            || c.CountryCode.Contains(search)
+                            select new MultipleData { Country = c, User = t1 }).ToList().ToPagedList(page ?? 1, pageSize);
+            }
 
-           
-            return View(multiple);
+                return View(multiple);
 
         }
 
@@ -429,12 +526,18 @@ namespace NoteMarketPlace.Controllers
 
 
 
-        public ActionResult noteUnderReview(int ? page)
+        public ActionResult noteUnderReview(int ? page, string userName, string Search )
         {
+
+
+            var User = _Context.tblUsers.ToList().Where(m=>m.RoleID==103);
+            SelectList UserList = new SelectList(User, "ID", "FirstName");
+            ViewBag.UserList = UserList;
+
+
+
             int pageSize = 5;
-            var SellerList = _Context.tblUsers.ToList();
-            SelectList list = new SelectList(SellerList, "Id", "FirstName");
-            ViewBag.SellerList = list;
+          
             if (page != null)
                 ViewBag.Count = page * pageSize - pageSize +1;
             else
@@ -446,16 +549,22 @@ namespace NoteMarketPlace.Controllers
             List<tblReferenceData> tblReferenceDataList = _Context.tblReferenceDatas.ToList();
 
             var multiple = (from c in tblSellerNotesList
-                           join t1 in tblUserList on c.SellerID equals t1.ID
+                            join t1 in tblUserList on c.SellerID equals t1.ID
 
-                           join t2 in tblReferenceDataList on c.Status equals t2.ID
-                           join t3 in tblNoteCategoriesList on c.Category equals t3.ID
-                           where c.Status == 7 || c.Status == 8
-                           select new MultipleData { sellerNote = c, User = t1, referenceData = t2, NoteCategory = t3  }).ToList().ToPagedList(page ?? 1, pageSize);
+                            join t2 in tblReferenceDataList on c.Status equals t2.ID
+                            join t3 in tblNoteCategoriesList on c.Category equals t3.ID
+                            where c.Status == 7 || c.Status == 8
+                            select new MultipleData { sellerNote = c, User = t1, referenceData = t2, NoteCategory = t3 });
 
-            ;
 
-            return View(multiple);
+
+            if (userName != null)
+                multiple = multiple.Where(m => m.sellerNote.SellerID.ToString().Equals(userName));
+
+            if (Search != null && Search!="")
+                multiple = multiple.Where(m => m.sellerNote.Title.ToLower().Contains(Search.ToLower()));
+            ViewBag.Search = Search;
+            return View(multiple.ToList().ToPagedList(page ?? 1, pageSize));
         }
 
 
@@ -494,15 +603,17 @@ namespace NoteMarketPlace.Controllers
         {
             NotesMarketPlaceEntities a = new NotesMarketPlaceEntities();
             var obj = a.tblSellerNotes.Where(m => m.ID.Equals(noteId)).FirstOrDefault();
-
+            int book_current_status=10;
 
             try
             {
                 var admin_id = a.tblUsers.Where(m => m.EmailID.Equals(User.Identity.Name)).FirstOrDefault();
                 int id = admin_id.ID;
+                book_current_status = obj.Status;
                 obj.Status = 9;
                 obj.ActionBy = id;
                 obj.PublishedDate = DateTime.Now;
+                
                 a.SaveChanges();
 
 
@@ -512,8 +623,9 @@ namespace NoteMarketPlace.Controllers
                 string errorMessages = string.Join("; ", ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.PropertyName + ": " + x.ErrorMessage));
                 throw new DbEntityValidationException(errorMessages);
             }
+            if(book_current_status==10)
+                return RedirectToAction("rejectedNotes", "Admin");
             return RedirectToAction("noteUnderReview", "Admin");
-
 
         }
 
@@ -546,6 +658,53 @@ namespace NoteMarketPlace.Controllers
 
 
         }
+
+
+
+
+        [HttpPost]
+        public ActionResult Unpublish(int noteId, string noteIssues)
+        {
+            NotesMarketPlaceEntities a = new NotesMarketPlaceEntities();
+            var obj = a.tblSellerNotes.Where(m => m.ID.Equals(noteId)).FirstOrDefault();
+            var seller = a.tblUsers.Where(m => m.ID == obj.SellerID).FirstOrDefault();
+
+            try
+            {
+                var admin_id = a.tblUsers.Where(m => m.EmailID.Equals(User.Identity.Name)).FirstOrDefault();
+                int id = admin_id.ID;
+                obj.Status = 11;
+                obj.AdminRemarks = noteIssues;
+                obj.ActionBy = id;
+                a.SaveChanges();
+                List<string> receiver = new List<string>();
+                receiver.Add(seller.EmailID);
+
+                string subject = "Sorry! We need to remove your notes from our portal.";
+                string body = "Hello "+ seller.FirstName +" " + seller.LastName+",<br/><br/> We want to inform you that, " +
+                    "your note <b>"+obj.Title +"</b> has been removed from the portal. " +
+                    "Please find our remarks as below -<br/><br/>" +
+                    noteIssues +
+                    "<br/><br/> Regards,<br/>Notes Marketplace";
+                Mailer mailer = new Mailer();
+                mailer.sendMail(subject,body,receiver);
+
+
+            }
+            catch (DbEntityValidationException ex)
+            {
+                string errorMessages = string.Join("; ", ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.PropertyName + ": " + x.ErrorMessage));
+                throw new DbEntityValidationException(errorMessages);
+            }
+            return RedirectToAction("", "Admin");
+
+
+        }
+
+
+
+
+
 
         public ActionResult AdminDownload(int id)
                          
@@ -600,11 +759,189 @@ namespace NoteMarketPlace.Controllers
           
         }
 
+       [HttpGet]
         public ActionResult systemConfig()
         {
+            var obj = _Context.tblSystemConfigurations.ToList();
+            ViewBag.UserProfile = obj.FirstOrDefault(model => model.Key == "defaultProfilePic").Values;
+            ViewBag.supportEmail= obj.FirstOrDefault(model => model.Key == "supportEmialID").Values;
+            ViewBag.supportPhnNo = obj.FirstOrDefault(model => model.Key == "supportPhnNo").Values;
+            ViewBag.notificationEmailID = obj.FirstOrDefault(model => model.Key == "notificationEmailID").Values;
+            ViewBag.TwitterURL = obj.FirstOrDefault(model => model.Key == "TwitterURL").Values;
+            ViewBag.FacebookURL = obj.FirstOrDefault(model => model.Key == "FacebookURL").Values;
+            ViewBag.LinkedinURL = obj.FirstOrDefault(model => model.Key == "LinkedinURL").Values;
+            ViewBag.defaultNoteImg = obj.FirstOrDefault(model => model.Key == "defaultNoteImg").Values;
             return View();
 
         }
+        [HttpPost]
+        public ActionResult systemConfig(systemConfig model)
+
+        {
+            ImgtoStr img = new ImgtoStr();
+            var defaultNoteImg = _Context.tblSystemConfigurations.Where(m => m.Key.Equals("defaultNoteImg")).FirstOrDefault();
+            string note = defaultNoteImg.Values;
+            var defaultProfilePic = _Context.tblSystemConfigurations.Where(m => m.Key.Equals("defaultProfilePic")).FirstOrDefault();
+            string user = defaultProfilePic.Values;
+            string defaultpath = Server.MapPath(string.Format("~/Content/Files/Default"));
+            if (!Directory.Exists(defaultpath))
+            {
+                Directory.CreateDirectory(defaultpath);
+            }
+
+            if (model.defaultNoteImg != null)
+            {
+                string notePic = Path.GetFileName(model.defaultNoteImg.FileName);
+                string notePic2 = Path.Combine(defaultpath, notePic);
+                model.defaultNoteImg.SaveAs(notePic2);
+                note=img.convert(notePic2);
+            }
+
+            if (model.defaultProfilePic != null)
+            {
+                string UserPic = Path.GetFileName(model.defaultProfilePic.FileName);
+                string UserPic2 = Path.Combine(defaultpath, UserPic);
+                model.defaultProfilePic.SaveAs(UserPic2);
+                user = img.convert(UserPic2);
+            }
+            
+            string[] modelkey = { "supportEmialID", "supportPhnNo", "notificationEmailID", "TwitterURL", "facebookURL", "LinkedinURL", "defaultNoteImg", "defaultProfilePic" };
+            string[] modelvalue = { model.supportEmialID, model.supportPhnNo, model.notificationEmailID, model.FacebookURL, model.TwitterURL, model.LinkedinURL,note , user };
+
+
+            for (int i = 0; i < modelkey.Length; i++)
+            {
+                var temp = modelkey[i];
+                var obj = _Context.tblSystemConfigurations.Where(m => m.Key.Equals(temp)).FirstOrDefault();
+                obj.Values = modelvalue[i];
+
+
+
+
+
+            }
+            _Context.SaveChanges();
+            ModelState.Clear();
+            
+            return RedirectToAction("","Admin");
+
+        }
+
+        public ActionResult spam(int? page)
+        {
+
+            int pageSize = 5;
+            if (page != null)
+                ViewBag.Count = page * pageSize - pageSize + 1;
+            else
+                ViewBag.Count = 1;
+            List<tblSellerNotesReportedIssue> tblSellerNotesReporteds = _Context.tblSellerNotesReportedIssues.ToList(); 
+            List<tblUser> tblUser = _Context.tblUsers.ToList();
+            List<tblSellerNote> sellerNotes = _Context.tblSellerNotes.ToList();
+            List<tblNoteCategory> noteCategories = _Context.tblNoteCategories.ToList();
+
+            var multiple = (from c in tblSellerNotesReporteds
+                            join t1 in tblUser on c.ReportedByID equals t1.ID
+                            join t2 in sellerNotes on c.NoteID equals t2.ID
+                            join t3 in noteCategories on t2.Category equals t3.ID
+                            select new MultipleData { reportedIssue = c, User = t1, sellerNote = t2, NoteCategory =t3 }).ToList().ToPagedList(page ?? 1, pageSize);
+            ;
+
+
+            return View(multiple);
+        }
+
+
+        public ActionResult rejectedNotes(int ? page, string Search, string Seller)
+        {
+            var Usertbl = _Context.tblUsers.ToList().Where(m => m.RoleID == 103);
+            SelectList UserList = new SelectList(Usertbl, "ID", "FirstName");
+            ViewBag.UserList = UserList;
+
+            int pageSize = 5;
+            if (page != null)
+                ViewBag.Count = page * pageSize - pageSize + 1;
+            else
+                ViewBag.Count = 1;
+            List<tblUser> tblUsersList = _Context.tblUsers.ToList();
+            List<tblSellerNote> tblSellerNotes = _Context.tblSellerNotes.ToList();
+            List<tblNoteCategory> tblNoteCategories = _Context.tblNoteCategories.ToList();
+
+            int user_id = (from user in _Context.tblUsers where user.EmailID == User.Identity.Name select user.ID).FirstOrDefault();
+
+            
+
+
+                var multiple = (from i in tblSellerNotes
+                                join t1 in tblUsersList on i.SellerID equals t1.ID
+                                join t2 in tblNoteCategories on i.Category equals t2.ID
+                                join t3 in tblUsersList on i.ActionBy equals t3.ID
+                                where i.Status == 10
+
+                                select new MultipleData { sellerNote = i, actionBy = t3, User = t1, NoteCategory = t2 }) ;
+
+            if (Seller != null)
+                multiple = multiple.Where(m => m.sellerNote.SellerID.ToString().Equals(Seller));
+
+            if (Search != null && Search !="")
+                multiple = multiple.Where(m => m.sellerNote.Title.ToLower().Contains(Search.ToLower()));
+            ViewBag.Search = Search;
+            return View(multiple.ToList().ToPagedList(page ?? 1, pageSize));
+         
+
+
+          
+        }
+        public ActionResult downloadedNote(int? page, string Note, string Seller, string Buyer, string Search)
+        {
+            var UserList = _Context.tblUsers.ToList().Where(m => m.RoleID == 103); ;
+            SelectList list = new SelectList(UserList, "Id", "FirstName");
+            ViewBag.UserList = list;
+
+            var NoteList = _Context.tblSellerNotes.ToList().Where(m=>m.Status==9);
+            SelectList noteList = new SelectList(NoteList, "Id", "Title");
+            ViewBag.NoteList = noteList;
+
+
+
+            int pageSize = 5;
+            if (page != null)
+                ViewBag.Count = page * pageSize - pageSize + 1;
+            else
+                ViewBag.Count = 1;
+            List<tblUser> users = _Context.tblUsers.ToList();
+            List<tblDownload> downloads = _Context.tblDownloads.ToList();
+
+            var data = (from notes in downloads
+                        join seller in users on notes.Seller equals seller.ID
+                        join buyer in users on notes.Downloader equals buyer.ID 
+                        where notes.IsAttachmentDownloaded == true
+                       select new MultipleData { download = notes, User=seller, buyer=buyer });
+
+
+            if (Note != null && Note!="")
+            {
+                data = data.Where(m => m.download.NoteID.ToString().Equals(Note));
+            }
+            if (Seller != null && Seller != "")
+            {
+                data = data.Where(m => m.download.Seller.ToString().Equals(Seller));
+            }
+            if (Buyer != null && Buyer != "")
+            {
+                data = data.Where(m => m.download.Downloader.ToString().Equals(Buyer));
+            }
+            if (Search != null && Search != "")
+            {
+                data = data.Where(m => m.download.NoteTitle.ToLower().Contains(Search.ToLower()));
+                ViewBag.Search = Search;
+            }
+
+            return View(data.ToList().ToPagedList(page ?? 1, pageSize));
+
+        }
+
+
 
     }
 }

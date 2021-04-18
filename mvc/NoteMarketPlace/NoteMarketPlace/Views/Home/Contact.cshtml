@@ -53,7 +53,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <p>Message*</p>
-                            @Html.TextAreaFor(model => model.Message, new {@id="message", @class = "form-control", placeholder = "Subject" })
+                            @Html.TextAreaFor(model => model.Message, new {@id="message-contact", @class = "form-control", placeholder = "Subject" })
                             @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
                         </div>
                     </div>

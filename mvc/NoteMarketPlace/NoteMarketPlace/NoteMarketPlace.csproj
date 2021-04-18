@@ -204,6 +204,8 @@
     <Compile Include="Models\Mailer.cs" />
     <Compile Include="Models\MultipleData.cs" />
     <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\PublishedNoteDetails.cs" />
+    <Compile Include="Models\systemConfig.cs" />
     <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRoleProvider\WebRoleProvider.cs" />
@@ -283,8 +285,11 @@
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\custom\admin-script.js" />
+    <Content Include="Scripts\custom\Aindex.js" />
+    <Content Include="Scripts\custom\ArejectedNotes.js" />
     <Content Include="Scripts\custom\bookdetails.js" />
     <Content Include="Scripts\custom\downloads.js" />
+    <Content Include="Scripts\custom\noteUnderReview.js" />
     <Content Include="Scripts\custom\script.js" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
@@ -332,6 +337,12 @@
     <Content Include="Views\User\rejectedNotes.cshtml" />
     <Content Include="Views\ChangePswd\Index.cshtml" />
     <Content Include="Views\SignUp\AccountVerification.cshtml" />
+    <Content Include="Views\Admin\spam.cshtml" />
+    <Content Include="Views\Admin\rejectedNotes.cshtml" />
+    <Content Include="Views\Admin\downloadedNote.cshtml" />
+    <Content Include="Views\Home\CustomSearch.cshtml" />
+    <Content Include="Views\User\publishedNote.cshtml" />
+    <Content Include="Views\User\BookReview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

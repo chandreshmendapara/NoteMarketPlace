@@ -14,7 +14,7 @@ $(window).on('load', function () { // makes sure that whole site is loaded
               Navigation
 =============== ======================= */
 
-/* Show & Hide White Navigation */
+/* Show & Hide White Navigation 
 $(function () {
 
     // show/hide nav on page load
@@ -34,7 +34,7 @@ $(function () {
             $("nav").addClass("purple-nav-top");
 
             // Show dark logo
-            $(".navbar-brand img").attr("src", "../../img/home/logo.png");
+            $(".navbar-brand img").attr("src", "../img/home/logo.png");
 
             // Show back to top button
             $("#back-to-top").fadeIn();
@@ -51,7 +51,7 @@ $(function () {
             $("#back-to-top").fadeOut();
         }
     }
-});
+});*/
 
 // Smooth Scrolling
 $(function () {
@@ -233,6 +233,58 @@ $("body").click(function(){
 
 
 
+//Filter Book 
+//when page refresh it store previously selected 
+var Type, NoteCategory, University, Country, Rating, Course;
+function filterBook(obj) {
+
+    var data = {}
+    if (obj.id == "NoteType")
+        Type = obj.value;
+    data.NoteType = Type;
+
+    if (obj.id == "NoteCategory")
+        NoteCategory = obj.value;
+    data.NoteCategory = NoteCategory;
+
+    if (obj.id == "University")
+        University = obj.value;
+    data.University = University
+
+    if (obj.id == "Country")
+        Country = obj.value;
+    data.Country = Country;
+
+    if (obj.id == "Rating")
+        Rating = obj.value;
+    data.Rating = Rating;
+
+    if (obj.id == "Course")
+        Course = obj.value;
+    data.Course = Course;
+    $.ajax
+        ({
+            method: 'GET',
+            url: 'searchNote',
+            data: data,
+            success: function (data) {
+                document.body.innerHTML = data;
+                    $('#status').fadeOut();
+                    $('#preloader').delay(350).fadeOut('slow');
 
 
+               
+            },
+            error: function () {
+                alert("Something Wrong");
+            }
+        });
+}
 
+
+$('#search-note-input').on('keypress', function (e) {
+  
+    if (e.which == 13) {
+      
+        location.href = "/home/searchNote?Search=" + $(this).val();
+    }});

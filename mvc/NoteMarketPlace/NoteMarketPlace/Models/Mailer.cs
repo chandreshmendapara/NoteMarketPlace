@@ -13,8 +13,9 @@ namespace NoteMarketPlace.Models
         {
             using (MailMessage mm = new MailMessage())
             {
-                mm.From = new MailAddress("notesmarketplace0@gmail.com");
+                mm.From = new MailAddress("notesmarketplace@gmail.com");
                 mm.Subject = subject;
+                
                 foreach (var rec in receiver)
                 {
                     mm.CC.Add(new MailAddress(rec));
@@ -29,7 +30,7 @@ namespace NoteMarketPlace.Models
                 SmtpClient smtp = new SmtpClient();
                 smtp.Host = "smtp.gmail.com";
                 smtp.EnableSsl = true;
-                NetworkCredential NetworkCred = new NetworkCredential("notesmarketplace0@gmail.com", "Qwerty@123");
+                NetworkCredential NetworkCred = new NetworkCredential("notesmarketplace0@gmail.com", "***********");
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = NetworkCred;
                 smtp.Port = 587;

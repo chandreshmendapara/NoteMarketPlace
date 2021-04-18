@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "published";
+    @model IEnumerable<NoteMarketPlace.Models.MultipleData>
+}
+
+<div class="published">
+    <div class="row">
+        <div class="col-md-7 col-sm-7 col-xs-12">
+            <p>Published Notes</p>
+
+        </div>
+        <div class="col-md-5 col-sm-5 col-xs-12 text-right">
+            <div class="dashboard-search">
+                <div class="col-md-8 col-sm-8 col-xs-8">
+                    <div class="form-group">
+                        <input class="form-control search-input" placeholder=" Search..." type="text">
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                    <a style="color:#fff" class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="published-table table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ADDED DATE</th>
+                            <th scope="col">TITLE</th>
+                            <th scope="col">CATAGORY</th>
+                            <th scope="col">SELL TYPE</th>
+                            <th scope="col">PRICE($)</th>
+                            <th scope="col">ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.Any())
+                        {
+                            <tr>
+                                <td>No data Found</td>
+                            </tr>
+
+                        }
+                        else
+                        {
+                            foreach (var n in Model)
+                            {
+
+
+
+                                <tr>
+                                    <td>@n.sellerNote.CreatedDate</td>
+                                    <td class="title">@Html.DisplayFor(modelItem => n.sellerNote.Title)</td>
+                                    <td>@Html.DisplayFor(modelItem => n.NoteCategory.Name)</td>
+
+                                    @if (n.sellerNote.IsPaid)
+                                    {
+                                        <td>Paid</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Free</td>
+                                    }
+                                    <td>@Html.DisplayFor(modelItem => n.referenceData.Values)</td>
+                                    <td><a class="link-margin" href="#"><img src="~/img/dashboard/eye.png"></a></td>
+                                </tr>
+                            }
+                        }
+
+                        </tbody>
+                </table>
+            </div>
+            <div class="text-center" aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="disabled"><a href="#">«</a></li>
+                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">»</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

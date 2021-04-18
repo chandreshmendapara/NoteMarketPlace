@@ -26,7 +26,7 @@ namespace NoteMarketPlace.Models
 
         public string PhoneNumber_CountryCode { get; set; }
         public string PhoneNumber { get; set; }
-        public string ProfilePicture { get; set; }
+        public HttpPostedFileBase ProfilePicture { get; set; }
 
         [Required]
         public string AddressLine1 { get; set; }

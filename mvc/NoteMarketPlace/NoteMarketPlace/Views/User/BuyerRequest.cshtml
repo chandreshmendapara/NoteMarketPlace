@@ -11,24 +11,27 @@
 <section id="buyer-request">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6 col-sm-6">
                 <p class="page-heading"> Buyer Request</p>
 
             </div>
 
 
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-8 col-sm-8 col-xs-8">
+            <div class="col-md-6 col-sm-6">
+             
+                    @using (Html.BeginForm("BuyerRequest", "User", FormMethod.Get))
+                    {
+                        <div class="col-md-8 col-sm-8 col-xs-8">
 
-                        <input class="form-control search-input" placeholder="Search..." type="text">
+                            <input name="search" class="form-control search-input" placeholder="Search..." type="text" value="@ViewBag.search">
 
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4 text-right" id="search">
-                        <a class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                            <input class="btn btn-work" type="submit" value="Search" />
 
-                    </div>
-                </div>
+                        </div>
+                    }
+                
 
             </div>
             <div class="col-md-12">
@@ -57,7 +60,7 @@
                             @{ int i = ViewBag.Count - 1; }
                             @foreach (var item in Model)
                             {
-                                string a = "";
+                              
 
                                 i = i + 1;
                                 <tr>
@@ -75,14 +78,16 @@
                                     </td>
 
                                     <td>
-                                        @{
+                                        @string.Concat(item.userProfile.PhoneNumber_CountryCode +" "+item.userProfile.PhoneNumber)
+                                       <!-- {
                                             a = item.userProfile.PhoneNumber_CountryCode;
                                             a += "-";
                                             a += item.userProfile.PhoneNumber;
 
-                                        }
+                                            
 
-                                        @a
+                                        }-->
+
                                     </td>
                                     @{
 
@@ -107,16 +112,19 @@
 
                                     <td>
 
-                                        <a class="link-margin" href="#"><img src="../img/dashboard/eye.png"></a>
+                                        <a class="link-margin" href="/User/showBook/@item.download.NoteID"><img src="../img/dashboard/eye.png"></a>
                                     </td>
-                                    <td class="dropdown">
+                                    <td>
 
-                                        <div id="dots" class="mynav-dropdown ">
+
+                                        <div id="dots" class="dropdown">
+
                                             <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
-                                            <div class="dropdown-menu buyer-request-menu mynav-dropdown-content dropdown-menu-right ">
+                                            <div class="dropdown-menu  dropdown-menu-right ">
                                                 <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/BuyerAllowed/@item.download.ID'">Yes, I Received</button>
                                             </div>
                                         </div>
+                                        
 
                                     </td>
 
@@ -144,5 +152,5 @@
 
         </div>
     </div>
-
+    
 </section>
