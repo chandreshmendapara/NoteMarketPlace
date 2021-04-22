@@ -8,7 +8,7 @@
 
 <!-- Add Country section -->
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("addCountry","Admin"))
 {
     @Html.AntiForgeryToken()
     <section class="add-country">
@@ -33,6 +33,7 @@
                             @Html.ValidationMessageFor(model => model.CountryCode, "", new { @class = "text-danger" })
                         </div>
                     </div>
+                    @Html.HiddenFor(m => m.ID)
                     <div class="col-md-12">
                         <div class="form-group error">
 

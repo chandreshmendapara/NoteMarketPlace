@@ -58,6 +58,7 @@
 
                                 i = i + 1;
                                 <tr>
+                                    <td style="display:none">@item.NoteType.ID</td>
                                     <td>
                                         @i
                                     </td>
@@ -95,11 +96,11 @@
                                     }
 
 
-                                    <td>
-                                        <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>&nbsp;&nbsp;
-                                        <a class="link-margin" href="#"><img src="../img/dashboard/delete.png"></a>
+                                <td>
+                                    <a class="link-margin" href="/Admin/editType/@item.NoteType.ID"><img src="../img/dashboard/edit.png"></a>&nbsp;&nbsp;
+                                    <button class="deleteType actionBtn" style="padding:0"><img src="../img/dashboard/delete.png"></button>
 
-                                </tr>
+</tr>
                             }
 
 
@@ -123,6 +124,26 @@
 
 </section>
 
+<div id="delete-popup" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <p class="popup-heading">Some text in the Modal..</p>
+        <form action="/Admin/deleteType" method="post">
+            <input type="hidden" name="ID" value="" />
+            <p>Please Press Yes to Delete</p>
+
+            <div class="text-right">
+                <Button class="btn btn-success">&nbsp;Yes&nbsp;</Button>
+
+                <a class="btn btn-default close-btn">&nbsp;No&nbsp;</a>
+            </div>
+        </form>
+    </div>
+
+</div>
 <!-- manage type  Ends -->
 <br />
 <br />
@@ -139,3 +160,53 @@
 <br />
 <br />
 <br />
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    var modal1 = document.getElementById("delete-popup");
+    var span = document.getElementsByClassName("close")[0];
+    var span2 = document.getElementsByClassName("close-btn")[0];
+
+
+    $('.deleteType').unbind('click').click(function () {
+
+        var $title = $(this).parents("tr").find('td').eq(2).text();
+        $title += " - "
+        $title += $(this).parents("tr").find('td').eq(3).text();
+        var $id = $(this).parents("tr").find('td').eq(0).text();
+
+        $(".popup-heading").html($title);
+
+        $("input[name='ID']").val($id);
+
+        modal1.style.display = "block";
+
+
+
+
+
+    });
+
+
+    function hide_outside(modal) {
+        window.addEventListener("click", function (event) {
+
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+    }
+
+
+    function hide_btn(span, modal) {
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+    }
+
+
+    hide_outside(modal1);
+    hide_btn(span, modal1);
+    hide_btn(span2, modal1);
+
+
+</script>

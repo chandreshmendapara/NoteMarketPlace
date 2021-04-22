@@ -6,19 +6,6 @@
     padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-
-.dl-horizontal dt {
-    white-space: normal;
-}
-
- Set width on the form input elements since they're 100% wide by default 
-input,
-select,
-textarea {
-    max-width: 280px;
-}*/
 
 
 
@@ -1743,7 +1730,7 @@ footer {
 
 #mobile-nav-open-btn {
     font-size: 30px;
-    color: #f4c613;
+    color: #6255a5;
     cursor: pointer;
     z-index: 2;
     position: absolute;
@@ -1807,7 +1794,7 @@ footer {
     #mobile-nav a:focus,
     #mobile-nav-close-btn:hover,
     #mobile-nav-close-btn:focus {
-        color: #f4c613;
+        color: #6255a5;
         background: none;
     }
 
@@ -1815,7 +1802,7 @@ footer {
 /* Mobile nav scroll spy active state */
 
 .white-nav-top #mobile-nav ul.nav > li.active > a {
-    color: #f4c613;
+    color: #6255a5;
     font-weight: 500;
 }
 
@@ -1910,18 +1897,19 @@ footer {
 
 /* Extra Small Devices (Portrait Phones & Smaller Devices) */
 
-@media (max-width: 320px) {
 
 
 
-
-
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
         .modal-content {
             max-width: 80%;
         }
+        .dropdown-menu {
+            width: 30%;
+            left:33%;
+        }
     }
-}
+
 
 
 /* Small Devices (Portrait Tablets & Small Desktops) */

@@ -243,17 +243,17 @@ namespace NoteMarketPlace.Controllers
         
         public ActionResult addnote()
         {
-            var NoteCategory = dbobj.tblNoteCategories.ToList();
+            var NoteCategory = dbobj.tblNoteCategories.Where(m=>m.IsActive==true).ToList();
             SelectList list = new SelectList(NoteCategory, "ID", "Name");
             ViewBag.NoteCategory = list;
 
 
-            var NoteType = dbobj.tblNoteTypes.ToList();
+            var NoteType = dbobj.tblNoteTypes.Where(m => m.IsActive == true).ToList();
             SelectList NoteTypelist = new SelectList(NoteType, "ID", "Name");
             ViewBag.NoteType = NoteTypelist;
 
 
-            var CountryName = dbobj.tblCountries.ToList();
+            var CountryName = dbobj.tblCountries.Where(m => m.IsActive == true).ToList();
             SelectList CountryList = new SelectList(CountryName, "ID", "Name");
             ViewBag.Country = CountryList;
 
@@ -272,17 +272,17 @@ namespace NoteMarketPlace.Controllers
         {
 
 
-            var NoteCategory = dbobj.tblNoteCategories.ToList();
+            var NoteCategory = dbobj.tblNoteCategories.Where(m => m.IsActive == true).ToList();
             SelectList list = new SelectList(NoteCategory, "ID", "Name");
             ViewBag.NoteCategory = list;
 
 
-            var NoteType = dbobj.tblNoteTypes.ToList();
+            var NoteType = dbobj.tblNoteTypes.Where(m => m.IsActive == true).ToList();
             SelectList NoteTypelist = new SelectList(NoteType, "ID", "Name");
             ViewBag.NoteType = NoteTypelist;
 
 
-            var CountryName = dbobj.tblCountries.ToList();
+            var CountryName = dbobj.tblCountries.Where(m => m.IsActive == true).ToList();
             SelectList CountryList = new SelectList(CountryName, "ID", "Name");
             ViewBag.Country = CountryList;
 

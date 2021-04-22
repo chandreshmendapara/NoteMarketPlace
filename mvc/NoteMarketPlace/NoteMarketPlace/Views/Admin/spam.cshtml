@@ -63,7 +63,7 @@
                                         @a
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.sellerNote.Title)
+                                        <a href="/user/showBook/@item.reportedIssue.NoteID" style="color:blue">@item.sellerNote.Title</a>
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.NoteCategory.Name)
@@ -78,8 +78,22 @@
 
 
                                     <td>
-                                        <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a> &nbsp;&nbsp;
-                                        <a class="link-margin" href="#"><img src="../img/dashboard/delete.png"></a>
+                                        <a class="link-margin" href="/Admin/editCategory/"><img src="../img/dashboard/delete.png"></a>&nbsp;&nbsp;
+
+                                    </td>
+                                     <td style="padding:0" class="dropdown">
+
+                                            <div id="dots" class="mynav-dropdown ">
+                                                <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
+                                                <div class="dropdown-menu buyer-request-menu mynav-dropdown-content dropdown-menu-right ">
+                                                    <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/Admin/adminDownload/@item.reportedIssue.NoteID'">Download Note</button>
+                                                    <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/showBook/@item.reportedIssue.NoteID'">View More Details</button>
+
+                                                </div>
+                                            </div>
+
+                                        </td>
+
 
                                 </tr>
 

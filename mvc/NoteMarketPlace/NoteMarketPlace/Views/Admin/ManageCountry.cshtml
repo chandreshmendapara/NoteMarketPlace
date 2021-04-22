@@ -9,138 +9,196 @@
 <!-- manage  Country -->
 
 
-<section id="manage-country">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p class="page-heading"> Manage Country</p>
+    <section id="manage-country">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="page-heading"> Manage Country</p>
 
-            </div>
-            <div class="col-md-6 col-sm-6">
-                <a class="btn btn-general btn-work" href="/admin/AddCountry" title="Add Country" role="button">Add Country</a>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <a class="btn btn-general btn-work" href="/admin/AddCountry" title="Add Country" role="button">Add Country</a>
 
-            </div>
-
-
-            <div class="col-md-6 col-sm-6 search-div">
-                @using (Html.BeginForm("ManageCountry", "Admin", FormMethod.Get))
-                {
-                    <div class="col-md-8 col-sm-8 col-xs-8">
-
-                        <input name="search" class="form-control search-input" placeholder="Search..." type="text" value="@ViewBag.search">
-
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4" id="search">
-                        <input class="btn btn-work" type="submit" value="Search" />
-
-                    </div>
-                }
-            </div>
-            <div class="col-md-12">
-                <div class="all-category-table table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="text-center" scope="col">SR NO.</th>
-                                <th class="text-center" scope="col">COUNTRY NAME</th>
-                                <th class="text-center" scope="col">COUNTRY CODE</th>
-                                <th class="text-center" scope="col">DATE ADDED</th>
-                                <th class="text-center" scope="col">ADDED BY</th>
-                                <th class="text-center" scope="col">ACTIVE</th>
-                                <th class="text-center" scope="col">ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                </div>
 
 
+                <div class="col-md-6 col-sm-6 search-div">
+                    @using (Html.BeginForm("ManageCountry", "Admin", FormMethod.Get))
+                    {
+                        <div class="col-md-8 col-sm-8 col-xs-8">
 
-                            @{ var i = ViewBag.Count - 1; }
-                            @foreach (var item in Model)
-                            {
-                                string a = "";
+                            <input name="search" class="form-control search-input" placeholder="Search..." type="text" value="@ViewBag.search">
 
-                                i = i + 1;
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                            <input class="btn btn-work" type="submit" value="Search" />
+
+                        </div>
+                    }
+                </div>
+                <div class="col-md-12">
+                    <div class="all-category-table table-responsive">
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        @i
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Country.Name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Country.CountryCode)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Country.CreatedDate)
-                                    </td>
-
-                                    <td>
-                                        @{
-                                            a = item.User.FirstName;
-                                            a += " ";
-                                            a += item.User.LastName;
-                                        }
-                                        @a
-                                    </td>
-                                    @{
-
-                                        bool isActive = item.Country.IsActive;
-                                        if (isActive)
-                                        {
-                                            <td>Yes</td>
-
-                                        }
-                                        else
-                                        {
-                                            <td>No</td>
-                                        }
-
-                                    }
-
-
-                                    <td>
-                                        <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a> &nbsp;&nbsp;
-                                        <a class="link-margin" href="#"><img src="../img/dashboard/delete.png"></a>
-
+                                    <th class="text-center" scope="col">SR NO.</th>
+                                    <th class="text-center" scope="col">COUNTRY NAME</th>
+                                    <th class="text-center" scope="col">COUNTRY CODE</th>
+                                    <th class="text-center" scope="col">DATE ADDED</th>
+                                    <th class="text-center" scope="col">ADDED BY</th>
+                                    <th class="text-center" scope="col">ACTIVE</th>
+                                    <th class="text-center" scope="col">ACTION</th>
                                 </tr>
-                            }
+                            </thead>
+                            <tbody>
+
+
+
+                                @{ var i = ViewBag.Count - 1; }
+                                @foreach (var item in Model)
+                                {
+                                    string a = "";
+
+                                    i = i + 1;
+                                    <tr>
+                                        <td style="display:none">@item.Country.ID</td>
+                                        <td>
+                                            @i
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Country.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Country.CountryCode)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Country.CreatedDate)
+                                        </td>
+
+                                        <td>
+                                            @{
+                                                a = item.User.FirstName;
+                                                a += " ";
+                                                a += item.User.LastName;
+                                            }
+                                            @a
+                                        </td>
+                                        @{
+
+                                            bool isActive = item.Country.IsActive;
+                                            if (isActive)
+                                            {
+                                                <td>Yes</td>
+
+                                            }
+                                            else
+                                            {
+                                                <td>No</td>
+                                            }
+
+                                        }
+
+
+                                        <td>
+                                            <a class="link-margin" href="/Admin/editCountry/@item.Country.ID"><img src="../img/dashboard/edit.png"></a>&nbsp;&nbsp;
+                                            <button class="deleteCountry actionBtn" style="padding:0"><img src="../img/dashboard/delete.png"></button>
+
+                                    </tr>
+                                }
 
 
 
 
-                            <!-- </thead> -->
-                        </tbody>
-                    </table>
+                                <!-- </thead> -->
+                            </tbody>
+                        </table>
 
 
+
+                    </div>
+                    <div class="text-center">
+                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                        @Html.PagedListPager(Model, page => Url.Action("manageCountry", new { page }))
+
+                    </div>
 
                 </div>
-                <div class="text-center">
-                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-                    @Html.PagedListPager(Model, page => Url.Action("manageCountry", new { page }))
-                    
-                </div>
+            </div>
+        </div>
 
+        <div id="delete-popup" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+
+                <p class="popup-heading">Some text in the Modal..</p>
+                <form action="/Admin/deleteCountry" method="post">
+                    <input type="hidden" name="ID" value="" />
+                    <p>Please Press Yes to Delete</p>
+
+                    <div class="text-right">
+                        <Button class="btn btn-success">&nbsp;Yes&nbsp;</Button>
+
+                        <a class="btn btn-default close-btn">&nbsp;No&nbsp;</a>
+                    </div>
+                </form>
             </div>
 
         </div>
-    </div>
 
-</section>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<!-- manage country Ends -->
+        <br /><br /><br /><br /><br />
+    </section>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    var modal1 = document.getElementById("delete-popup");
+    var span = document.getElementsByClassName("close")[0];
+    var span2 = document.getElementsByClassName("close-btn")[0];
+
+
+    $('.deleteCountry').unbind('click').click(function () {
+
+        var $title = $(this).parents("tr").find('td').eq(2).text();
+        $title += " - "
+        $title += $(this).parents("tr").find('td').eq(3).text();
+        var $id = $(this).parents("tr").find('td').eq(0).text();
+
+        $(".popup-heading").html($title);
+
+        $("input[name='ID']").val($id);
+
+        modal1.style.display = "block";
+
+
+
+
+
+    });
+
+
+    function hide_outside(modal) {
+        window.addEventListener("click", function (event) {
+
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+    }
+
+
+        function hide_btn(span, modal) {
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+        }
+
+
+        hide_outside(modal1);
+        hide_btn(span, modal1);
+        hide_btn(span2, modal1);
+
+
+
+</script>

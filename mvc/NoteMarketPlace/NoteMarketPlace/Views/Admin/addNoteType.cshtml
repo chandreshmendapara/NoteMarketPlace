@@ -7,7 +7,7 @@
 
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("addNoteType","Admin"))
 {
     @Html.AntiForgeryToken()
     <section class="add-type">
@@ -44,7 +44,7 @@
                             }
 
                         </div>
-
+                        @Html.HiddenFor(m => m.ID)
                     </div>
                     <div class="col-md-12">
                         <div class="form-group dis">

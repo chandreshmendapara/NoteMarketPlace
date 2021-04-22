@@ -8,144 +8,214 @@
 <!-- manage Book Category Profile -->
 
 
-<section id="manage-category">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p class="page-heading"> Manage Category</p>
+    <section id="manage-category">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="page-heading"> Manage Category</p>
 
-            </div>
-            <div class="col-md-6 col-sm-6">
-                <a class="btn btn-general btn-work" href="/admin/AddNoteCategory" title="Add Admin" role="button">Add Category</a>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <a class="btn btn-general btn-work" href="/admin/AddNoteCategory" title="Add Admin" role="button">Add Category</a>
 
-            </div>
+                </div>
 
 
-            <div class="col-md-6 col-sm-6 search-div">
-                @using (Html.BeginForm("ManageNoteCategory", "Admin", FormMethod.Get))
-                {
-                    <div class="col-md-8 col-sm-8 col-xs-8">
+                <div class="col-md-6 col-sm-6 search-div">
+                    @using (Html.BeginForm("ManageNoteCategory", "Admin", FormMethod.Get))
+                    {
+                        <div class="col-md-8 col-sm-8 col-xs-8">
 
-                        <input name="search" class="form-control search-input" placeholder="Search..." type="text" value="@ViewBag.search">
+                            <input name="search" class="form-control search-input" placeholder="Search..." type="text" value="@ViewBag.search">
 
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4" id="search">
-                        <input class="btn btn-work" type="submit" value="Search" />
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                            <input class="btn btn-work" type="submit" value="Search" />
 
-                    </div>
-                }
-            </div>
-            <div class="col-md-12">
-                <div class="all-category-table table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">SR NO.</th>
-                                <th scope="col">CATEGORY</th>
-                                <th scope="col">DESCRIPTION</th>
-                                <th scope="col">DATE ADDED</th>
-                                <th scope="col">ADDED BY</th>
-                                <th scope="col">ACTIVE</th>
-                                <th scope="col">ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-body">
-                            @if(!Model.Any())
-                            {
-                               <tr>
-                                   <td>No data found</td>
-                               </tr>
-                            }
-                            @{ var i = ViewBag.Count - 1; }
-                            @foreach (var item in Model)
-                            {
-                                string a = "";
-
-                                i = i + 1;
+                        </div>
+                    }
+                </div>
+                <div class="col-md-12">
+                    <div class="all-category-table table-responsive">
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        @i
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NoteCategory.Name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NoteCategory.Description)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NoteCategory.CreatedDate)
-                                    </td>
-
-                                    <td>
-                                        @{
-                                            a = item.User.FirstName;
-                                            a += " ";
-                                            a += item.User.LastName;
-                                        }
-                                        @a
-                                    </td>
-                                    @{
-
-                                        bool isActive = item.NoteCategory.IsActive;
-                                        if (isActive)
-                                        {
-                                            <td>Yes</td>
-
-                                        }
-                                        else
-                                        {
-                                            <td>No</td>
-                                        }
-
-                                    }
-
-
-                                    <td>
-                                        <a class="link-margin" href="#"><img src="../img/dashboard/edit.png"></a>
-                                        <a class="link-margin" href="#"><img src="../img/dashboard/delete.png"></a>
-
+                                    <th scope="col">SR NO.</th>
+                                    <th scope="col">CATEGORY</th>
+                                    <th scope="col">DESCRIPTION</th>
+                                    <th scope="col">DATE ADDED</th>
+                                    <th scope="col">ADDED BY</th>
+                                    <th scope="col">ACTIVE</th>
+                                    <th scope="col">ACTION</th>
                                 </tr>
-                            }
+                            </thead>
+                            <tbody id="table-body">
+                                @if (!Model.Any())
+                                {
+                                    <tr>
+                                        <td>No data found</td>
+                                    </tr>
+                                }
+                                @{ var i = ViewBag.Count - 1; }
+                                @foreach (var item in Model)
+                                {
+                                    string a = "";
+
+                                    i = i + 1;
+                                    <tr>
+                                        <td style="display:none">@item.NoteCategory.ID</td>
+                                        <td>
+                                            @i
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NoteCategory.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NoteCategory.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NoteCategory.CreatedDate)
+                                        </td>
+
+                                        <td>
+                                            @{
+                                                a = item.User.FirstName;
+                                                a += " ";
+                                                a += item.User.LastName;
+                                            }
+                                            @a
+                                        </td>
+                                        @{
+
+                                            bool isActive = item.NoteCategory.IsActive;
+                                            if (isActive)
+                                            {
+                                                <td>Yes</td>
+
+                                            }
+                                            else
+                                            {
+                                                <td>No</td>
+                                            }
+
+                                        }
+
+
+                                        <td>
+                                            <a class="link-margin" href="/Admin/editCategory/@item.NoteCategory.ID"><img src="../img/dashboard/edit.png"></a>&nbsp;&nbsp;
+                                            <button class="deleteCategory actionBtn" style="padding:0"><img src="../img/dashboard/delete.png"></button>
+
+                                    </tr>
+                                }
 
 
 
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
 
+
+                    </div>
+                    <div class="text-center">
+                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                        @Html.PagedListPager(Model, page => Url.Action("ManageNoteCategory", new { page }))
+                    </div>
 
                 </div>
-                <div class="text-center">
-                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-                    @Html.PagedListPager(Model, page => Url.Action("ManageNoteCategory", new { page }))
-                </div>
+            </div>
+        </div>
 
+
+
+
+        <div id="delete-popup" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+
+                <p class="popup-heading">Some text in the Modal..</p>
+                <form action="/Admin/deleteCategory" method="post">
+                    <input type="hidden" name="ID" value="" />
+                    <p>Please Press Yes to Delete</p>
+
+                    <div class="text-right">
+                        <Button class="btn btn-success">&nbsp;Yes&nbsp;</Button>
+
+                        <a class="btn btn-default close-btn">&nbsp;No&nbsp;</a>
+                    </div>
+                </form>
             </div>
 
         </div>
-    </div>
 
-</section>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+    </section>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    var modal1 = document.getElementById("delete-popup");
+    var span = document.getElementsByClassName("close")[0];
+    var span2 = document.getElementsByClassName("close-btn")[0];
 
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
+
+    $('.deleteCategory').unbind('click').click(function () {
+
+        var $title = $(this).parents("tr").find('td').eq(2).text();
+        $title += " - "
+        $title += $(this).parents("tr").find('td').eq(3).text();
+        var $id = $(this).parents("tr").find('td').eq(0).text();
+
+        $(".popup-heading").html($title);
+
+        $("input[name='ID']").val($id);
+
+        modal1.style.display = "block";
 
 
 
 
-<!-- manage book category Ends -->
+
+    });
+
+
+    function hide_outside(modal) {
+        window.addEventListener("click", function (event) {
+
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+    }
+
+
+        function hide_btn(span, modal) {
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+        }
+
+
+        hide_outside(modal1);
+        hide_btn(span, modal1);
+        hide_btn(span2, modal1);
+
+
+</script>
+

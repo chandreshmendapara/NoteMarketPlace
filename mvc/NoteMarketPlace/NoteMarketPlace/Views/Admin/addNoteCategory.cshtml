@@ -9,7 +9,7 @@
 
 <!-- Add Book Category section -->
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("addNoteCategory","Admin"))
 {
     @Html.AntiForgeryToken()
     <section class="add-category">
@@ -44,7 +44,7 @@
                             }
 
                         </div>
-
+                        @Html.HiddenFor(m=>m.ID)
                     </div>
                     <div class="col-md-12">
                         <div class="form-group dis">

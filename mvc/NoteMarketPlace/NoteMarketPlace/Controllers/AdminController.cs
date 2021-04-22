@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -118,73 +119,61 @@ namespace NoteMarketPlace.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult addNoteType(tblNoteType model)
         {
+            
 
             if (User.Identity.IsAuthenticated)
             {
-            var connectionDB = new NotesMarketPlaceEntities();
-
-                string name = User.Identity.Name;
-                int u = (from user in _Context.tblUsers where user.EmailID == name select user.ID).Single();
-
-                bool isvalid = _Context.tblNoteTypes.Any(m => m.Name == model.Name);
-
-                if (!isvalid)
+                if (model.ID > 0)
                 {
-
-
-
-                    tblNoteType obj = new tblNoteType();
+                    var obj = _Context.tblNoteTypes.Where(m => m.ID.Equals(model.ID)).FirstOrDefault();
                     obj.Name = model.Name;
                     obj.Description = model.Description;
-                    obj.CreatedDate = DateTime.Now;
-                    obj.CreatedBy = u;
-                    obj.IsActive = true;
+                }
+                else
+                {
+                    var connectionDB = new NotesMarketPlaceEntities();
 
+                    string name = User.Identity.Name;
+                    int u = (from user in _Context.tblUsers where user.EmailID == name select user.ID).Single();
 
+                    bool isvalid = _Context.tblNoteTypes.Any(m => m.Name == model.Name);
 
-
-                    if (ModelState.IsValid)
+                    if (!isvalid)
                     {
+
+
+
+                        tblNoteType obj = new tblNoteType();
+                        obj.Name = model.Name;
+                        obj.Description = model.Description;
+                        obj.CreatedDate = DateTime.Now;
+                        obj.CreatedBy = u;
+                        obj.IsActive = true;
+
                         _Context.tblNoteTypes.Add(obj);
-                        try
-                        {
-                            // Your code...
-                            // Could also be before try if you know the exception occurs in SaveChanges
 
-                            _Context.SaveChanges();
+                     
 
-                            ModelState.Clear();
 
-                            return View();
 
-                        }
-                        catch (DbEntityValidationException e)
-                        {
-                            foreach (var eve in e.EntityValidationErrors)
-                            {
-                                Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                                foreach (var ve in eve.ValidationErrors)
-                                {
-                                    Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                        ve.PropertyName, ve.ErrorMessage);
-                                }
-                            }
-                        }
+
+
+
+
 
                     }
 
-
+                    else
+                    {
+                        ViewBag.Message = "Note Type already exists";
+                        return View();
+                    }
                 }
-
-                else
-                    ViewBag.Message = "Note Type already exists";
-
-
             }
 
-
-            return View();
+            _Context.SaveChanges();
+            ModelState.Clear();
+            return RedirectToAction("manageNoteType");
 
         }
 
@@ -213,68 +202,66 @@ namespace NoteMarketPlace.Controllers
             if(User.Identity.IsAuthenticated)
             {
 
-                 string name=  User.Identity.Name;
-                int u = (from user in _Context.tblUsers where user.EmailID == name select user.ID).Single();
-
-                bool isvalid = _Context.tblNoteCategories.Any(m => m.Name == model.Name);
-
-                if (!isvalid)
+                if (model.ID > 0)
                 {
-
-
-
-                    tblNoteCategory obj = new tblNoteCategory();
+                    var obj = _Context.tblNoteCategories.Where(m => m.ID.Equals(model.ID)).FirstOrDefault();
                     obj.Name = model.Name;
                     obj.Description = model.Description;
-                    obj.CreatedDate = DateTime.Now;
-                    obj.CreatedBy = u;
-                    obj.IsActive = true;
+                }
+                else
+                {
 
+                    string name = User.Identity.Name;
+                    int u = (from user in _Context.tblUsers where user.EmailID == name select user.ID).Single();
 
+                    bool isvalid = _Context.tblNoteCategories.Any(m => m.Name == model.Name);
 
-
-                    if (ModelState.IsValid)
+                    if (!isvalid)
                     {
+
+
+                        //_Context.tblNoteCategories.Add(model);
+                        tblNoteCategory obj = new tblNoteCategory();
+                        obj.Name = model.Name;
+                        obj.Description = model.Description;
+                        obj.CreatedDate = DateTime.Now;
+                        obj.CreatedBy = u;
+                        obj.IsActive = true;
+
+
+
+
                         _Context.tblNoteCategories.Add(obj);
-                        try
-                        {
-                            // Your code...
-                            // Could also be before try if you know the exception occurs in SaveChanges
+                        // Your code...
+                        // Could also be before try if you know the exception occurs in SaveChanges
 
-                            _Context.SaveChanges();
 
-                            ModelState.Clear();
 
-                            return View();
 
-                        }
-                        catch (DbEntityValidationException e)
-                        {
-                            foreach (var eve in e.EntityValidationErrors)
-                            {
-                                Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                                foreach (var ve in eve.ValidationErrors)
-                                {
-                                    Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                        ve.PropertyName, ve.ErrorMessage);
-                                }
-                            }
-                        }
+
+
+
+
+
+
+
+
 
                     }
 
-
+                    else
+                    {
+                        ViewBag.Message = "Note Category already exists";
+                        return View();
+                    }
                 }
 
-                else
-                    ViewBag.Message = "Note Category already exists";
-                
 
             }
-
-
-            return View();
+            _Context.SaveChanges();
+            ModelState.Clear();
+            return RedirectToAction("manageNoteCategory");
+            
 
         }
 
@@ -291,62 +278,54 @@ namespace NoteMarketPlace.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-
-                string name = User.Identity.Name;
-                int u = (from user in _Context.tblUsers where user.EmailID == name select user.ID).Single();
-
-
-                bool isvalid = _Context.tblCountries.Any(m => m.CountryCode == model.CountryCode);
-
-                if (!isvalid)
+                if (model.ID > 0)
+                {
+                    var obj = _Context.tblCountries.Where(m => m.ID.Equals(model.ID)).FirstOrDefault();
+                    obj.Name = model.Name;
+                    obj.CountryCode = model.CountryCode;
+                }
+                else
                 {
 
-                    tblCountry obj = new tblCountry();
-                    obj.CountryCode = model.CountryCode;
-                    obj.Name = model.Name;
-                    obj.CreatedDate = DateTime.Now;
-                    obj.CreatedBy = u;
-                    obj.IsActive = true;
-                    if (ModelState.IsValid)
+                    string name = User.Identity.Name;
+                    int u = (from user in _Context.tblUsers where user.EmailID == name select user.ID).Single();
+
+
+                    bool isvalid = _Context.tblCountries.Any(m => m.CountryCode == model.CountryCode);
+
+                    if (!isvalid)
                     {
+
+                        tblCountry obj = new tblCountry();
+                        obj.CountryCode = model.CountryCode;
+                        obj.Name = model.Name;
+                        obj.CreatedDate = DateTime.Now;
+                        obj.CreatedBy = u;
+                        obj.IsActive = true;
+
                         _Context.tblCountries.Add(obj);
-                        try
-                        {
-                            // Your code...
-                            // Could also be before try if you know the exception occurs in SaveChanges
 
-                            _Context.SaveChanges();
+                        ModelState.Clear();
 
-                            ModelState.Clear();
 
-                            return View();
 
-                        }
-                        catch (DbEntityValidationException e)
-                        {
-                            foreach (var eve in e.EntityValidationErrors)
-                            {
-                                Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                                foreach (var ve in eve.ValidationErrors)
-                                {
-                                    Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                        ve.PropertyName, ve.ErrorMessage);
-                                }
-                            }
-                        }
+
+
 
                     }
 
+                    else
+                    {
+                        ViewBag.Message = "Country already exists in list";
+                        return View();
+                    }
                 }
 
-                else
-                    ViewBag.Message = "Country already exists in list";
+             
             }
-
-
-            return View();
-
+            _Context.SaveChanges();
+            ModelState.Clear();
+            return RedirectToAction("manageCountry");
         }
 
 
@@ -358,7 +337,7 @@ namespace NoteMarketPlace.Controllers
                 ViewBag.Count = page * pageSize - pageSize +1;
             else
                 ViewBag.Count = 1;
-            List<tblNoteType> tblNoteTypesList = _Context.tblNoteTypes.ToList(); //new List<tblNoteCategory>();
+            List<tblNoteType> tblNoteTypesList = _Context.tblNoteTypes.Where(m => m.IsActive == true).ToList(); //new List<tblNoteCategory>();
             List<tblUser> tblUser = _Context.tblUsers.ToList(); //new List<tblNoteCategory>();
 
             var multiple = (from c in tblNoteTypesList
@@ -373,15 +352,15 @@ namespace NoteMarketPlace.Controllers
 
             }
 
-
+            ViewBag.search = search;
                 return View(multiple);
 
         }
 
         public ActionResult ManageNoteCategory(string search, int? page )
         {
-            List<tblNoteCategory> tblNoteCategoriesList = _Context.tblNoteCategories.ToList(); //new List<tblNoteCategory>();
-            List<tblUser> tblUser = _Context.tblUsers.ToList(); //new List<tblNoteCategory>();
+            List<tblNoteCategory> tblNoteCategoriesList = _Context.tblNoteCategories.Where(m => m.IsActive == true).ToList(); 
+            List<tblUser> tblUser = _Context.tblUsers.ToList(); 
             int pageSize = 5;
             if (page != null)
                 ViewBag.Count = page * pageSize - pageSize+1;
@@ -407,7 +386,7 @@ namespace NoteMarketPlace.Controllers
 
             }
 
-
+            ViewBag.search = search;
             return View(multiple);
 
         }
@@ -417,7 +396,7 @@ namespace NoteMarketPlace.Controllers
         public ActionResult ManageCountry(string search ,int? page)
         {
             
-            List<tblCountry> tblCountriesList = _Context.tblCountries.ToList(); //new List<tblNoteCategory>();
+            List<tblCountry> tblCountriesList = _Context.tblCountries.Where(m => m.IsActive == true).ToList(); //new List<tblNoteCategory>();
             List<tblUser> tblUser = _Context.tblUsers.ToList(); //new List<tblNoteCategory>();
             int pageSize = 5;
             if (page != null)
@@ -434,7 +413,7 @@ namespace NoteMarketPlace.Controllers
                             || c.CountryCode.Contains(search)
                             select new MultipleData { Country = c, User = t1 }).ToList().ToPagedList(page ?? 1, pageSize);
             }
-
+            ViewBag.search = search;
                 return View(multiple);
 
         }
@@ -523,6 +502,84 @@ namespace NoteMarketPlace.Controllers
 
 
         }
+
+
+        public ActionResult editCategory(int ? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var category = _Context.tblNoteCategories.Find(id);
+            if (category == null)
+                return HttpNotFound();
+            return View("addNoteCategory", category);
+        }
+        public ActionResult deleteCategory(int ? ID)
+        {
+            if (ID == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var category = _Context.tblNoteCategories.Find(ID);
+            if(category==null)
+                return HttpNotFound();
+            category.IsActive = false;
+            _Context.SaveChanges();
+
+
+            return RedirectToAction("manageNoteCategory");
+        }
+
+        public ActionResult editType(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var type = _Context.tblNoteTypes.Find(id);
+            if (type == null)
+                return HttpNotFound();
+            return View("addNoteType", type);
+        }
+
+
+        public ActionResult deleteType(int? ID)
+        {
+            if (ID == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var type = _Context.tblNoteTypes.Find(ID);
+            if (type == null)
+                return HttpNotFound();
+            type.IsActive = false;
+            _Context.SaveChanges();
+
+
+            return RedirectToAction("manageNoteType");
+        }
+
+
+        public ActionResult editCountry(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var type = _Context.tblCountries.Find(id);
+            if (type == null)
+                return HttpNotFound();
+            return View("addCountry", type);
+        }
+
+
+        public ActionResult deleteCountry(int? ID)
+        {
+            if (ID == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var type = _Context.tblCountries.Find(ID);
+            if (type == null)
+                return HttpNotFound();
+            type.IsActive = false;
+            _Context.SaveChanges();
+
+
+            return RedirectToAction("manageCountry");
+        }
+
+
+
 
 
 
