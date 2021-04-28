@@ -30,7 +30,7 @@ namespace NoteMarketPlace.Models
                 SmtpClient smtp = new SmtpClient();
                 smtp.Host = "smtp.gmail.com";
                 smtp.EnableSsl = true;
-                NetworkCredential NetworkCred = new NetworkCredential("notesmarketplace0@gmail.com", "Qwerty@123");
+                NetworkCredential NetworkCred = new NetworkCredential("***********", "****");
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = NetworkCred;
                 smtp.Port = 587;
