@@ -51,62 +51,69 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @{ var i = ViewBag.Count - 1; }
-                            @foreach (var item in Model)
+                            @if (!Model.Any())
                             {
-                                string a = "";
-
-                                i = i + 1;
-                                <tr>
-                                    <td style="display:none">@item.NoteType.ID</td>
-                                    <td>
-                                        @i
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NoteType.Name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NoteType.Description)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NoteType.CreatedDate)
-                                    </td>
-
-                                    <td>
-                                        @{
-                                            a = item.User.FirstName;
-                                            a += " ";
-                                            a += item.User.LastName;
-                                        }
-                                        @a
-                                    </td>
-                                    @{
-
-                                        bool isActive = item.NoteType.IsActive;
-                                        if (isActive)
-                                        {
-                                            <td>Yes</td>
-
-                                        }
-                                        else
-                                        {
-                                            <td>No</td>
-                                        }
-
-                                    }
-
-
-                                <td>
-                                    <a class="link-margin" href="/Admin/editType/@item.NoteType.ID"><img src="../img/dashboard/edit.png"></a>&nbsp;&nbsp;
-                                    <button class="deleteType actionBtn" style="padding:0"><img src="../img/dashboard/delete.png"></button>
-
-</tr>
+                                <tr><td>No Data Found</td></tr>
                             }
+                            else
+                            {
+
+                                var i = ViewBag.Count - 1;
+                                foreach (var item in Model)
+                                {
+                                    string a = "";
+
+                                    i = i + 1;
+                                    <tr>
+                                        <td style="display:none">@item.NoteType.ID</td>
+                                        <td>
+                                            @i
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NoteType.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NoteType.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NoteType.CreatedDate)
+                                        </td>
+
+                                        <td>
+                                            @{
+                                a = item.User.FirstName;
+                                a += " ";
+                                a += item.User.LastName;
+                                            }
+                                            @a
+                                        </td>
+                                        @{
+
+                                bool isActive = item.NoteType.IsActive;
+                                if (isActive)
+                                {
+                                                <td>Yes</td>
+
+                                }
+                                else
+                                {
+                                                <td>No</td>
+                                }
+
+                                        }
+
+
+                                        <td>
+                                            <a class="link-margin" href="/Admin/editType/@item.NoteType.ID"><img src="../img/dashboard/edit.png"></a>&nbsp;&nbsp;
+                                            <button class="deleteType actionBtn" style="padding:0"><img src="../img/dashboard/delete.png"></button>
+
+                                    </tr>
+                                    }
+                                }
 
 
 
-
-                        </tbody>
+                            </tbody>
                     </table>
 
 

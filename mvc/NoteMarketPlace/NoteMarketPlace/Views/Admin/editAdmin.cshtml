@@ -1,6 +1,6 @@
 ﻿@model NoteMarketPlace.Models.UserDetails
 @{
-    ViewBag.Title = "addAdmin";
+    ViewBag.Title = "editAdmin";
 
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
@@ -8,7 +8,7 @@
 
 <!-- Add Admin section -->
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("addAdmin","Admin"))
 {
     @Html.AntiForgeryToken()
     <section class="add-admin">
@@ -59,8 +59,8 @@
                                 @Html.ValidationMessageFor(model => model.PhnNo, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                       
-                    </div>
+                        @Html.HiddenFor(m => m.Id)
+                    </div>   
 
                     <div class="col-md-12">
                         <button class="btn btn-work">Submit</button>
@@ -77,13 +77,13 @@
 
 
 }
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <!-- Add Admin Ends -->
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<!-- Add Admin Ends -->

@@ -515,6 +515,26 @@ a:hover{
 li>a{
     cursor:pointer;
 }
+
+
+/* member Details*/
+
+
+    .user-right p {
+        line-height: 18px;
+    }
+
+.user-ans {
+    color: #6255a5;
+    font-weight: 600;
+}
+.vl {
+    border-left: 2px solid #808080;
+    height: 170px;
+}
+
+
+
 /*============== ============
             login
 ================ ===========*/
@@ -731,4 +751,12 @@ footer p {
         .modal-content {
             min-width: 80%;
         }
+        body{
+            overflow-x:scroll;
+        }
     }
+@media (max-width: 1200px) {
+    .vl {
+        display: none;
+    }
+}

@@ -1,7 +1,8 @@
-﻿
+﻿@using PagedList
+@using PagedList.Mvc
 @{
     ViewBag.Title = "published";
-    @model IEnumerable<NoteMarketPlace.Models.MultipleData>
+    @model IPagedList<NoteMarketPlace.Models.MultipleData>
 }
 
 <div class="published">
@@ -12,15 +13,18 @@
         </div>
         <div class="col-md-5 col-sm-5 col-xs-12 text-right">
             <div class="dashboard-search">
-                <div class="col-md-8 col-sm-8 col-xs-8">
-                    <div class="form-group">
-                        <input class="form-control search-input" placeholder=" Search..." type="text">
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-4" id="search">
-                    <a style="color:#fff" class="btn-general btn-work smooth-scroll" title="search" role="button">Search</a>
+                @using (Html.BeginForm("Index", "User", FormMethod.Get))
+                {
+                    <div class="col-md-8 col-sm-8 col-xs-8">
 
-                </div>
+                        <input name="y" class="form-control search-input" placeholder="Search..." type="text" value="@ViewBag.search">
+
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4" id="search">
+                        <input class="btn btn-work" type="submit" value="Search" />
+
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -67,25 +71,20 @@
                                     {
                                         <td>Free</td>
                                     }
-                                    <td>@Html.DisplayFor(modelItem => n.referenceData.Values)</td>
-                                    <td><a class="link-margin" href="#"><img src="~/img/dashboard/eye.png"></a></td>
+                                    <td>@Html.DisplayFor(modelItem => n.sellerNote.SellingPrice)</td>
+                                    <td><a class="link-margin" href="/User/showBook/@n.sellerNote.ID"><img src="~/img/dashboard/eye.png"></a></td>
                                 </tr>
                             }
                         }
 
-                        </tbody>
+                    </tbody>
                 </table>
             </div>
-            <div class="text-center" aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="disabled"><a href="#">«</a></li>
-                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">»</a></li>
-                </ul>
+            <div class="text-center">
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                @Html.PagedListPager(Model, published => Url.Action("Index", new { published }))
+
             </div>
         </div>
 

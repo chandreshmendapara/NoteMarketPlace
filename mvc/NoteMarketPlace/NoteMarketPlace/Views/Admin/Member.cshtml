@@ -1,32 +1,30 @@
 ﻿@using PagedList
 @using PagedList.Mvc
-@model IPagedList<NoteMarketPlace.Models.MultipleData>
+@model IPagedList<NoteMarketPlace.Models.Profile>
 @{
-    ViewBag.Title = "ManageAdmin";
+    ViewBag.Title = "showMember";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
+
 }
-<!-- manage Admin Profile -->
+
+<!-- manage member  -->
 
 
-<section id="manage-admin">
+<section id="manage-member">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <p class="page-heading"> Manage Administrator</p>
 
-            </div>
             <div class="col-md-6 col-sm-6">
-                <a class="btn btn-general btn-work" href="/admin/addAdmin" title="Add Admin" role="button">Add Administrator</a>
-
+                <p class="page-heading">Members</p>
             </div>
 
 
             <div class="col-md-6 col-sm-6 search-div">
-                @using (Html.BeginForm("ManageAdmin", "Admin", FormMethod.Get))
+                @using (Html.BeginForm("Member", "Admin", FormMethod.Get))
                 {
                     <div class="col-md-8 col-sm-8 col-xs-8">
 
-                        <input name="search" class="form-control search-input" placeholder="Search..." type="text" value="@ViewBag.Search">
+                        <input name="search" class="form-control search-input" placeholder="Search..." type="text" value="@ViewBag.search">
 
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-4" id="search">
@@ -36,7 +34,7 @@
                 }
             </div>
             <div class="col-md-12">
-                <div class="all-admin-table table-responsive">
+                <div class="all-members-table table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
@@ -44,65 +42,70 @@
                                 <th scope="col">FIRST NAME</th>
                                 <th scope="col">LAST NAME</th>
                                 <th scope="col">EMAIL</th>
-                                <th scope="col">PHONE NO.</th>
-                                <th scope="col">DATE ADDED</th>
-                                <th scope="col">ACTIVE</th>
-                                <th scope="col">ACTION</th>
+                                <th scope="col" style="width:120px">JOINING DATE</th>
+                                <th scope="col">UNDER REVIEW NOTES</th>
+                                <th scope="col">PUBLISHED NOTES</th>
+
+                                <th scope="col">DOWNLOADED NOTES</th>
+
+                                <th scope="col">TOTAL EXPENSES</th>
+                                <th scope="col">TOTAL EARNING</th>
+
+                                <th scope="col"> </th>
                             </tr>
                         </thead>
                         <tbody>
-
                             @if (!Model.Any())
                             {
-                               <tr><td>No Data Found</td></tr>
+                                <tr><td>No Data Found</td></tr>
                             }
                             else
                             {
-
                                 var i = ViewBag.Count - 1;
                                 foreach (var item in Model)
                                 {
                                     i = i + 1;
                                     <tr>
-                                        <td style="display:none">@item.User.ID</td>
+                                          <td style="display:none">@item.Id
+                                            </td>
+
                                         <td>
                                             @i
                                         </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.User.FirstName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.User.LastName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.User.EmailID)
-                                        </td>
 
                                         <td>
-                                            @string.Concat(item.userProfile.PhoneNumber_CountryCode + " " + item.userProfile.PhoneNumber)
+                                            @Html.DisplayFor(modelItem => item.FirstName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.LastName)
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => item.EmailID)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.joinDate)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.userBooksUnderReview)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.userPublishedBook)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.userDownloadedBook)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.userTotalExpense)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.userTotalEarning)</td>
+
+                                        <td>
+                                            <div id="dots" class="dropdown">
+
+                                                <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
+                                                <div class="dropdown-menu  dropdown-menu-right ">
+                                                    <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/Admin/memberDetails/@item.Id'">View More Details</button>
+                                                    <button class="text-left dropdown-item nav-dropdown-item deleteUser">Deactivate</button>
+                                                </div>
+                                            </div>
 
 
                                         </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.User.CreatedDate)
-                                        </td>
-                                        @if (item.User.IsActive)
-                                        {
-                                            <td>Yes</td>
-                                        }
-                                        else
-                                        {
-                                            <td>No</td>
-                                        }
-
-                                        <td>
-                                            <a class="link-margin" href="/Admin/editAdmin/@item.User.ID"><img src="../img/dashboard/edit.png"></a>&nbsp;&nbsp;
-                                            <button class="deleteAdmin actionBtn" style="padding:0"><img src="../img/dashboard/delete.png"></button>
 
                                     </tr>
-                                }
 
+
+                                }
                             }
+
 
 
                             <!-- </thead> -->
@@ -110,10 +113,11 @@
                     </table>
 
 
-
                 </div>
                 <div class="text-center">
-                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("manageAdmin", new { page }))
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action("showMember", new { page }))
 
                 </div>
 
@@ -121,6 +125,7 @@
 
         </div>
     </div>
+
     <div id="delete-popup" class="modal">
 
         <!-- Modal content -->
@@ -128,9 +133,9 @@
             <span class="close">&times;</span>
 
             <p class="popup-heading">Some text in the Modal..</p>
-            <form action="/Admin/deleteAdmin" method="post">
+            <form action="/Admin/deleteUser" method="post">
                 <input type="hidden" name="ID" value="" />
-                <p>Please Press Yes to Delete</p>
+                <p>Are you sure you want to make this member inactive?</p>
 
                 <div class="text-right">
                     <Button class="btn btn-success">&nbsp;Yes&nbsp;</Button>
@@ -142,7 +147,6 @@
 
     </div>
 
-    <br /><br /><br /><br /><br />
 </section>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script>
@@ -151,16 +155,17 @@
     var span2 = document.getElementsByClassName("close-btn")[0];
 
 
-    $('.deleteAdmin').unbind('click').click(function () {
+    $('.deleteUser').unbind('click').click(function () {
 
         var $title = $(this).parents("tr").find('td').eq(2).text();
-        $title += " - "
+        $title += " "
         $title += $(this).parents("tr").find('td').eq(3).text();
         var $id = $(this).parents("tr").find('td').eq(0).text();
 
         $(".popup-heading").html($title);
 
         $("input[name='ID']").val($id);
+
 
         modal1.style.display = "block";
 
@@ -181,17 +186,19 @@
     }
 
 
-        function hide_btn(span, modal) {
-            span.onclick = function () {
-                modal.style.display = "none";
-            }
+    function hide_btn(span, modal) {
+        span.onclick = function () {
+            modal.style.display = "none";
         }
+    }
 
 
-        hide_outside(modal1);
-        hide_btn(span, modal1);
-        hide_btn(span2, modal1);
+    hide_outside(modal1);
+    hide_btn(span, modal1);
+    hide_btn(span2, modal1);
 
 
 
 </script>
+
+<!-- manage member Ends -->

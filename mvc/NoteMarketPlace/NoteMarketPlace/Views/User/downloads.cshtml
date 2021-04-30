@@ -118,7 +118,7 @@
                                                 <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
                                                 <div class="dropdown-menu  dropdown-menu-right ">
                                                     <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/downloadBook/@item.download.ID'">Download Note</button>
-                                                    <button class="text-left dropdown-item nav-dropdown-item" onclick="addReview(@item.download.ID)">Add Reviews/Feedback</button>
+                                                    <button class="text-left dropdown-item nav-dropdown-item add-review" >Add Reviews/Feedback</button>
                                                     <button class="text-left dropdown-item nav-dropdown-item spam-btn">Report as Inappropriate</button>
                                                 </div>
                                             </div>
@@ -178,25 +178,24 @@
         <div class="modal-content">
             <span class="close">&times;</span>
 
-            <p id="review-heading"> Add Review</p>
+            <p id="review-heading"> Add Review </p>
+
+            <form action="/User/addReview" method="post">
+
+                <div class="form-group">
+                    <input type="hidden" name="reviewId" required />
+                    <input type="number" class="form-control" required name="rating" min="1" max="5" placeholder="enter rating between 1 to 5" style="max-width:400px;" />
+                    <p>Comments*</p>
+                    <textarea placeholder="Comments..." class="form-control" id="reviews" name="reviews" required style="max-width:400px; height:150px"></textarea>
+                    <p id="msg1" style="color:red"></p>
 
 
+                </div>
+                <div>
+                    <Button class="btn btn-work" id="btn-review">&nbsp;Submit&nbsp;</Button>
 
-
-            <p id="add-book-review-star" class="book-review-star"> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="false"></i></p>
-
-
-            <div class="form-group">
-                <p>Comments*</p>
-                <textarea placeholder="Comments..." class="form-control" id="text-area" name="rejectRemark" required style="max-width:400px; height:150px"></textarea>
-
-
-
-            </div>
-            <div>
-                <Button class="btn btn-work">&nbsp;Submit&nbsp;</Button>
-            </div>
-
+                </div>
+            </form>
         </div>
     </div>
 

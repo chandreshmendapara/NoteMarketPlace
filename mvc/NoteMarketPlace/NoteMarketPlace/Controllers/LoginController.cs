@@ -29,7 +29,7 @@ namespace NoteMarketPlace.Controllers
         public ActionResult Index(Login model, string returnUrl)
         {
             
-            bool isvalid = _Context.tblUsers.Any(m => m.EmailID == model.Email &&  m.Password == model.Password);
+            bool isvalid = _Context.tblUsers.Any(m => m.EmailID == model.Email &&  m.Password == model.Password && m.IsActive==true);
            
             if (isvalid)
             {

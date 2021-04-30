@@ -4,6 +4,7 @@ using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -32,13 +33,14 @@ namespace NoteMarketPlace.Controllers
        
         
         // GET: User
-        public ActionResult Index()
+        public ActionResult Index(int ? page , string q)
         {
             var tbldownload = dbobj.tblDownloads;
             var tblseller = dbobj.tblSellerNotes;
             var user_id = dbobj.tblUsers.Where(m => m.EmailID == User.Identity.Name).FirstOrDefault();
+            int pageSize = 5;
             
-           
+
             ViewBag.NoofSoldNote = tbldownload.Where(m => m.IsSellerHasAllowedDownload == true && m.Seller == user_id.ID).Count();
             ViewBag.NoofDownload = tbldownload.Where(m => m.IsSellerHasAllowedDownload == true && m.Downloader == user_id.ID).Count();
             ViewBag.Earnings = tbldownload.Where(m => m.IsSellerHasAllowedDownload == true && m.Seller == user_id.ID).Sum(m => m.PurchasedPrice);
@@ -57,18 +59,25 @@ namespace NoteMarketPlace.Controllers
                              select new MultipleData
                              {
                                  sellerNote=c, NoteCategory=t1, referenceData=t2
-                             }).ToList();
+                             });
 
 
 
             //ViewBag.published = published;
-           // ViewBag.inProgress = inProgress;
+            // ViewBag.inProgress = inProgress;
+            if (q != null && q != "")
+                inProgress = inProgress.Where(m => m.sellerNote.Title.ToLower().Contains(q.ToLower()) || m.NoteCategory.Name.ToLower().Contains(q.ToLower())
 
-            return View(inProgress);
+                    || m.referenceData.Values.ToLower().Contains(q.ToLower()));
+            ViewBag.search = q;
+
+            return View(inProgress.ToList().ToPagedList(page ?? 1, pageSize));
         }
        
-        public PartialViewResult publishedNote()
-            {
+        public PartialViewResult publishedNote(int ? published, string y)
+        {
+            int pageSize = 5;
+            
             List<tblSellerNote> sellerNotes = dbobj.tblSellerNotes.ToList();
             List<tblNoteCategory> noteCategories = dbobj.tblNoteCategories.ToList();
             List<tblReferenceData> referenceDatas = dbobj.tblReferenceDatas.ToList();
@@ -76,7 +85,7 @@ namespace NoteMarketPlace.Controllers
             var user_id = dbobj.tblUsers.Where(m => m.EmailID == User.Identity.Name).FirstOrDefault();
 
 
-            var published = (from c in sellerNotes
+            var publish = (from c in sellerNotes
                              join t1 in noteCategories on c.Category equals t1.ID
                              join t2 in referenceDatas on c.Status equals t2.ID
                              where (c.Status ==9) && c.SellerID == user_id.ID
@@ -85,8 +94,15 @@ namespace NoteMarketPlace.Controllers
                                  sellerNote = c,
                                  NoteCategory = t1,
                                  referenceData = t2
-                             }).ToList();
-            return PartialView(published);
+                             });
+
+
+            if (y != null && y != "")
+                publish = publish.Where(m => m.sellerNote.Title.ToLower().Contains(y.ToLower()) || m.NoteCategory.Name.ToLower().Contains(y.ToLower())
+
+                    || m.referenceData.Values.ToLower().Contains(y.ToLower()));
+            ViewBag.search = y;
+            return PartialView(publish.ToPagedList(published ?? 1, pageSize));
         }
 
 
@@ -158,10 +174,8 @@ namespace NoteMarketPlace.Controllers
                 SelectList CountryList = new SelectList(CountryName, "Name", "Name");
                 ViewBag.Country = CountryList;
 
-
-                var Gender = dbobj.tblReferenceDatas.ToList().Where(m => m.RefCategory == "Gender");
-
-                SelectList GenderList = new SelectList(Gender, "Values", "Values");
+                var Gender = dbobj.tblReferenceDatas.Where(m => m.RefCategory == "Gender").ToList();
+                List<SelectListItem> GenderList = new SelectList(Gender, "ID", "Values").ToList();
                 ViewBag.Gender = GenderList;
 
                 var Countrycode = dbobj.tblCountries.ToList();
@@ -183,9 +197,8 @@ namespace NoteMarketPlace.Controllers
             SelectList CountryList = new SelectList(CountryName, "Name", "Name");
             ViewBag.Country = CountryList;
 
-
             var Gender = dbobj.tblReferenceDatas.ToList().Where(m => m.RefCategory == "Gender");
-            SelectList GenderList = new SelectList(Gender, "Values", "Values");
+            SelectList GenderList = new SelectList(Gender, "Id", "Values");
             ViewBag.Gender = GenderList;
 
             var Countrycode = dbobj.tblCountries.ToList();
@@ -194,47 +207,104 @@ namespace NoteMarketPlace.Controllers
 
             var user = dbobj.tblUsers.Where(m => m.EmailID == User.Identity.Name).FirstOrDefault();
             var userProfile = dbobj.tblUserProfiles.Where(m => m.UserID == user.ID).FirstOrDefault();
+
+            if (userProfile != null)
+            {
+                userProfile.Gender = Convert.ToInt32(model.Gender);
+                userProfile.PhoneNumber_CountryCode = model.PhoneNumber_CountryCode;
+                userProfile.PhoneNumber = model.PhoneNumber;
+
+                string user_pic = null;
+                string defaultpath = Server.MapPath(string.Format("~/Content/Files/{0}", user.ID));
+                if (!Directory.Exists(defaultpath))
+                {
+                    Directory.CreateDirectory(defaultpath);
+                }
+
+                if (model.ProfilePicture != null)
+                {
+
+                    string notename = Path.GetFileName(model.ProfilePicture.FileName);
+                    user_pic = Path.Combine(defaultpath, notename);
+                    model.ProfilePicture.SaveAs(user_pic);
+                    ImgtoStr imgto = new ImgtoStr();
+                    userProfile.ProfilePicture = imgto.convert(user_pic);
+
+
+
+
+                }
+
+
+
+                userProfile.AddressLine1 = model.AddressLine1;
+                userProfile.AddressLine2 = model.AddressLine2;
+                userProfile.City = model.City;
+                userProfile.State = model.State;
+                userProfile.ZipCode = model.ZipCode;
+                userProfile.Country = model.Country;
+                userProfile.College = model.College;
+                userProfile.University = model.University;
+
+            }
+
+
+            else
+            {
+                tblUserProfile newUser = new tblUserProfile();
+                newUser.Gender = model.Gender;
+                newUser.PhoneNumber_CountryCode = model.PhoneNumber_CountryCode;
+                newUser.PhoneNumber = model.PhoneNumber;
+
+                string user_pic = null;
+                string defaultpath = Server.MapPath(string.Format("~/Content/Files/{0}", user.ID));
+                if (!Directory.Exists(defaultpath))
+                {
+                    Directory.CreateDirectory(defaultpath);
+                }
+
+                if (model.ProfilePicture != null)
+                {
+
+                    string notename = Path.GetFileName(model.ProfilePicture.FileName);
+                    user_pic = Path.Combine(defaultpath, notename);
+                    model.ProfilePicture.SaveAs(user_pic);
+                    ImgtoStr imgto = new ImgtoStr();
+                    newUser.ProfilePicture = imgto.convert(user_pic);
+
+
+
+
+                }
+                newUser.UserID = user.ID;
+                newUser.AddressLine1 = model.AddressLine1;
+                newUser.AddressLine2 = model.AddressLine2;
+                newUser.City = model.City;
+                newUser.State = model.State;
+                newUser.ZipCode = model.ZipCode;
+                newUser.Country = model.Country;
+                newUser.College = model.College;
+                newUser.University = model.University;
+                dbobj.tblUserProfiles.Add(newUser);
+            }
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
-            userProfile.DOB = model.DOB;
-            userProfile.Gender = model.Gender;
-            userProfile.PhoneNumber_CountryCode = model.PhoneNumber_CountryCode;
-            userProfile.PhoneNumber = model.PhoneNumber;
+            //userProfile.DOB = model.DOB;
 
-            string user_pic = null;
-            string defaultpath = Server.MapPath(string.Format("~/Content/Files/{0}", user.ID));
-            if (!Directory.Exists(defaultpath))
+
+            try
             {
-                Directory.CreateDirectory(defaultpath);
-            }
-
-            if (model.ProfilePicture != null)
-            {
-
-                string notename = Path.GetFileName(model.ProfilePicture.FileName);
-                user_pic = Path.Combine(defaultpath, notename);
-                model.ProfilePicture.SaveAs(user_pic);
-                ImgtoStr imgto = new ImgtoStr();
-                userProfile.ProfilePicture = imgto.convert(user_pic);
-
-
+                //draft
+                
+                dbobj.SaveChanges();
 
 
             }
-           
-
-            
-            userProfile.AddressLine1 = model.AddressLine1;
-            userProfile.AddressLine2 = model.AddressLine2;
-            userProfile.City = model.City;
-            userProfile.State = model.State;
-            userProfile.ZipCode = model.ZipCode;
-            userProfile.Country = model.Country;
-            userProfile.College = model.College;
-            userProfile.University = model.University;
-            
-            
-            dbobj.SaveChanges();
+            catch (DbEntityValidationException ex)
+            {
+                string errorMessages = string.Join("; ", ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.PropertyName + ": " + x.ErrorMessage));
+                throw new DbEntityValidationException(errorMessages);
+            }
 
             return RedirectToAction("", "User");
         }
@@ -267,7 +337,7 @@ namespace NoteMarketPlace.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult addnote(tblSellerNote model)
+        public ActionResult addnote(tblSellerNote model, string save)
 
         {
 
@@ -360,7 +430,7 @@ namespace NoteMarketPlace.Controllers
             obj.Course = model.Course;
             obj.CourseCode = model.CourseCode;
             obj.Professor = model.Professor;
-            obj.Status = 7;
+            
             obj.CreatedDate = DateTime.Now;
             obj.IsActive = true;
 
@@ -372,11 +442,30 @@ namespace NoteMarketPlace.Controllers
             else
                 obj.SellingPrice = 0;
 
+            if (!string.IsNullOrEmpty(save))
+            {
+                try
+                {
+                    //draft
+                    obj.Status = 6;
+                    dbobj.tblSellerNotes.Add(obj);
+                    dbobj.SaveChanges();
 
 
-            dbobj.tblSellerNotes.Add(obj);
-            dbobj.SaveChanges();
-
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    string errorMessages = string.Join("; ", ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.PropertyName + ": " + x.ErrorMessage));
+                    throw new DbEntityValidationException(errorMessages);
+                }
+            }
+            else
+            {
+                //under review
+                obj.Status = 7;
+                dbobj.tblSellerNotes.Add(obj);
+                dbobj.SaveChanges();
+            }
 
             int book_id = (from record in dbobj.tblSellerNotes where record.SellerID == u && record.Title == book_title orderby record.ID descending select record.ID).First();
 
@@ -389,11 +478,9 @@ namespace NoteMarketPlace.Controllers
             sellerattachment.IsActive = true;
             dbobj.tblSellerNotesAttachements.Add(sellerattachment);
             dbobj.SaveChanges();
-
             ModelState.Clear();
 
-
-            return View();
+            return RedirectToAction("","User");
 
 
 
@@ -409,9 +496,10 @@ namespace NoteMarketPlace.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //tblSellerNote tblSeller = dbobj.tblSellerNotes.Find(id).;
-            var user_id = dbobj.tblUsers.Where(m => m.EmailID == User.Identity.Name && m.RoleID != 103).FirstOrDefault();
-            if (user_id != null)
+            
+            var user = dbobj.tblUsers.Where(m => m.EmailID == User.Identity.Name).FirstOrDefault();
+            var owner = dbobj.tblSellerNotes.Where(m => m.ID == id && m.SellerID == user.ID).FirstOrDefault();
+            if (user.RoleID ==101 || user.RoleID == 102 || owner!=null  )
                 goto eligible;
             var tblSeller = dbobj.tblSellerNotes.Where(m => m.ID == id && m.Status == 9).FirstOrDefault();
             if (tblSeller == null)
@@ -581,7 +669,7 @@ namespace NoteMarketPlace.Controllers
         }
 
 
-        public ActionResult BuyerRequest(int? page)
+        public ActionResult BuyerRequest(int? page, string search)
         {
             int pageSize = 10;
             if (page != null)
@@ -600,9 +688,16 @@ namespace NoteMarketPlace.Controllers
                            join t1 in tblUsersList on d.Downloader equals t1.ID
                            join t2 in tblUserProfilesList on d.Downloader equals t2.UserID
                            where d.Seller == user_id && d.IsSellerHasAllowedDownload == false
-                           select new MultipleData { download = d, User = t1, userProfile = t2 }).ToList().ToPagedList(page ?? 1, pageSize);
+                           select new MultipleData { download = d, User = t1, userProfile = t2 });
 
-            return View(multiple);
+
+
+
+            if (search != null && search != "")
+                multiple = multiple.Where(m => m.download.NoteTitle.ToLower().Contains(search.ToLower()) ||
+                m.download.NoteCategory.ToLower().Contains(search.ToLower()));
+            ViewBag.search = search;
+            return View(multiple.ToList().ToPagedList(page ?? 1, pageSize));
         }
 
 
@@ -904,7 +999,30 @@ namespace NoteMarketPlace.Controllers
       }
 
 
+        public ActionResult addReview(int reviewId, int rating , string reviews )
+        {
+            var user_email = dbobj.tblUsers.Where(m => m.EmailID.Equals(User.Identity.Name)).FirstOrDefault();
+            var tblreview_check = dbobj.tblSellerNotesReviews.Where(m => m.ReviewedByID == user_email.ID && m.NoteID == reviewId).FirstOrDefault();
 
+            var downloader = dbobj.tblDownloads.Where(m => m.NoteID == reviewId && m.Downloader == user_email.ID).FirstOrDefault();
+            if (tblreview_check != null || downloader==null)
+                return RedirectToAction("downloads");
+            else
+            {
+                tblSellerNotesReview notesReview = new tblSellerNotesReview();
+                notesReview.NoteID = reviewId;
+                notesReview.ReviewedByID = user_email.ID;
+                notesReview.AgainstDownloadsID = downloader.ID;
+                notesReview.Comments = reviews;
+                notesReview.Ratings = rating;
+                notesReview.CreatedDate = DateTime.Now;
+              
+
+                dbobj.tblSellerNotesReviews.Add(notesReview);
+                dbobj.SaveChanges();
+                return RedirectToAction("downloads");
+            }
+        }
 
       
         protected override void Initialize(RequestContext requestContext)

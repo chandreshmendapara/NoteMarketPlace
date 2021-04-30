@@ -83,7 +83,7 @@
 
 
                                 </li>
-                                <li><a class="smooth-scroll" href="#faq">Members</a></li>
+                                <li><a href="/Admin/Member">Members</a></li>
 
                                 <li>
                                     <a class="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Report</a>
@@ -107,7 +107,7 @@
                                 </li>
                                 <li>
                                     <div id="user-photo">
-                                        <img class="img-responsive img-circle dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/dashboard/user-img.png" alt="user">
+                                        <img class="img-circle img-responsive" data-toggle="dropdown" aria-expanded="true" src="data:image/png;base64, @ViewBag.UserProfile" style="height:40px; cursor:pointer" />
 
                                         <div class="dropdown-menu  dropdown-menu-left text-left">
                                             <button class="text-left dropdown-item nav-dropdown-item">Update Profile</button>
@@ -226,9 +226,9 @@
                 <div class="col-md-6 col-sm-6 text-right">
                     <ul class="pagination social">
 
-                        <li><a class="ficon img-circle" href="#" style="background-color:#6255a5;"><img src="../img/footer/facebook.png" alt=""></a></li>
-                        <li><a class="ficon img-circle" href="#" style="background-color:#6255a5;"><img src="../img/footer/linkedin.png" alt=""></a></li>
-                        <li><a class="ficon img-circle" href="#" style="background-color:#6255a5;"><img src="../img/footer/twitter.png" alt=""></a></li>
+                        <li><a class="ficon img-circle" href="@ViewBag.facebook" target="_blank" style="background-color:#6255a5;"><img src="~/img/footer/facebook.png" alt=""></a></li>
+                        <li><a class="ficon img-circle" href="@ViewBag.linkedin" target="_blank" style="background-color:#6255a5;"><img src="~/img/footer/linkedin.png" alt=""></a></li>
+                        <li><a class="ficon img-circle" href="@ViewBag.twitter" target="_blank" style="background-color:#6255a5;"><img src="~/img/footer/twitter.png" alt=""></a></li>
 
                     </ul>
                 </div>

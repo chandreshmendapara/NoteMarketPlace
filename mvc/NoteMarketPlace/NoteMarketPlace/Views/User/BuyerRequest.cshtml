@@ -56,86 +56,86 @@
                         <tbody>
 
 
-
-                            @{ int i = ViewBag.Count - 1; }
-                            @foreach (var item in Model)
+                            @if (!Model.Any())
                             {
-                              
-
-                                i = i + 1;
-                                <tr>
-                                    <td>
-                                        @i
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.download.NoteTitle)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.download.NoteCategory)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.User.EmailID)
-                                    </td>
-
-                                    <td>
-                                        @string.Concat(item.userProfile.PhoneNumber_CountryCode +" "+item.userProfile.PhoneNumber)
-                                       <!-- {
-                                            a = item.userProfile.PhoneNumber_CountryCode;
-                                            a += "-";
-                                            a += item.userProfile.PhoneNumber;
-
-                                            
-
-                                        }-->
-
-                                    </td>
-                                    @{
-
-                                        bool isPaid = item.download.IsPaid;
-                                        if (isPaid)
-                                        {
-                                            <td>Paid</td>
-
-                                        }
-                                        else
-                                        {
-                                            <td>Free</td>
-                                        }
-
-                                    }
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.download.PurchasedPrice)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.download.CreatedDate)
-                                    </td>
-
-                                    <td>
-
-                                        <a class="link-margin" href="/User/showBook/@item.download.NoteID"><img src="../img/dashboard/eye.png"></a>
-                                    </td>
-                                    <td>
-
-
-                                        <div id="dots" class="dropdown">
-
-                                            <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
-                                            <div class="dropdown-menu  dropdown-menu-right ">
-                                                <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/BuyerAllowed/@item.download.ID'">Yes, I Received</button>
-                                            </div>
-                                        </div>
-                                        
-
-                                    </td>
-
-                                </tr>
+                                <tr><td>No Data Found</td></tr>
                             }
+                            else
+                            {
 
 
+                                int i = ViewBag.Count - 1;
+                                foreach (var item in Model)
+                                {
 
 
-                            <!-- </thead> -->
-                        </tbody>
+                                    i = i + 1;
+                                    <tr>
+                                        <td>
+                                            @i
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.download.NoteTitle)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.download.NoteCategory)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.User.EmailID)
+                                        </td>
+
+                                        <td>
+                                            @string.Concat(item.userProfile.PhoneNumber_CountryCode + " " + item.userProfile.PhoneNumber)
+                        
+
+                                        </td>
+                                        @{
+
+                                            bool isPaid = item.download.IsPaid;
+                                            if (isPaid)
+                                            {
+                                                            <td>Paid</td>
+
+                                            }
+                                            else
+                                            {
+                                                            <td>Free</td>
+                                            }
+
+                                        }
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.download.PurchasedPrice)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.download.CreatedDate)
+                                        </td>
+
+                                        <td>
+
+                                            <a class="link-margin" href="/User/showBook/@item.download.NoteID"><img src="../img/dashboard/eye.png"></a>
+                                        </td>
+                                        <td>
+
+
+                                            <div id="dots" class="dropdown">
+
+                                                <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
+                                                <div class="dropdown-menu  dropdown-menu-right ">
+                                                    <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/User/BuyerAllowed/@item.download.ID'">Yes, I Received</button>
+                                                </div>
+                                            </div>
+
+
+                                        </td>
+
+                                    </tr>
+                                    }
+
+
+                                }
+
+                                <!-- </thead> -->
+                            </tbody>
                     </table>
 
 

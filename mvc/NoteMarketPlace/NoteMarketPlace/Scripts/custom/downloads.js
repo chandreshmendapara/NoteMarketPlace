@@ -10,10 +10,15 @@ hide_btn(span6, modal4);
 hide_btn(span7, modal4);
 hide_outside(modal4);
 
-function addReview(id) {
- 
+$('.add-review').unbind('click').click(function () {
+
+    var $title = $(this).parents("tr").find('td').eq(2).text();
+    var $id = $(this).parents("tr").find('td').eq(0).text();
     modal3.style.display = "block";
-}
+    $("input[name='reviewId']").val($id);
+   
+    $("#review-heading").html("Add Review-" + $title);
+});
 
 
 function hide_outside(modal) {

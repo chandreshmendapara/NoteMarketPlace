@@ -333,7 +333,7 @@
     <Content Include="Views\User\BuyerRequest.cshtml" />
     <Content Include="Views\User\downloads.cshtml" />
     <Content Include="Views\User\soldNote.cshtml" />
-    <Content Include="Views\Admin\showMember.cshtml" />
+    <Content Include="Views\Admin\Member.cshtml" />
     <Content Include="Views\User\rejectedNotes.cshtml" />
     <Content Include="Views\ChangePswd\Index.cshtml" />
     <Content Include="Views\SignUp\AccountVerification.cshtml" />
@@ -343,6 +343,9 @@
     <Content Include="Views\Home\CustomSearch.cshtml" />
     <Content Include="Views\User\publishedNote.cshtml" />
     <Content Include="Views\User\BookReview.cshtml" />
+    <Content Include="Views\Admin\editAdmin.cshtml" />
+    <Content Include="Views\Admin\memberDetails.cshtml" />
+    <Content Include="Views\Admin\memberNote.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

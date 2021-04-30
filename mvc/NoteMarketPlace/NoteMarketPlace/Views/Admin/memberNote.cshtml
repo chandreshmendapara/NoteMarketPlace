@@ -1,0 +1,120 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<NoteMarketPlace.Models.PublishedNoteDetails>
+@{
+    ViewBag.Title = "memberNote";
+}
+
+<section id="manage-spam">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="page-heading">Notes</p>
+
+            </div>
+            <div class="col-md-12">
+                <div class="all-category-table table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center" scope="col">SR NO.</th>
+                                <th class="text-center" scope="col">NOTE TITLE</th>
+                                <th class="text-center" scope="col">CATEGORY</th>
+
+                                <th class="text-center" scope="col">STATUS</th>
+
+                                <th class="text-center" scope="col">DOWNLOADED NOTES</th>
+                                <th class="text-center" scope="col">TOTAL EARNINGS</th>
+                                <th class="text-center" scope="col">DATE ADDED</th>
+                                <th class="text-center" scope="col">PUBLISHED DATE</th>
+                                <th class="text-center" scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (!Model.Any())
+                            {
+                                <tr><td>No Data Found</td></tr>
+                            }
+                            else
+                            {
+
+                                var i = ViewBag.Count - 1;
+                                foreach (var item in Model)
+                                { i = i + 1;
+
+                                   
+                                    
+                                    <tr>
+                                        <td>
+                                                @i
+                                            </td>
+                                        <td>
+                                                @Html.DisplayFor(modelItem => item.Title)
+                                        </td>
+                                        <td>
+                                                @Html.DisplayFor(modelItem => item.categoryName)
+                                        </td>
+                                        <td>
+                                                @Html.DisplayFor(modelItem => item.status)
+                                        </td>
+                                        <td>
+                                                @Html.DisplayFor(modelItem => item.totalDownloads)
+                                        </td>
+                                        <td>
+                                                @Html.DisplayFor(modelItem => item.totalEarn)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.createdDate)
+                                        </td>
+                                        @if (item.date != null)
+                                            {
+                                               <td> @Html.DisplayFor(modelItem => item.date)</td>
+                                            }
+                                            else
+                                            {
+                                                <td>NA</td>
+                                            }
+                                        
+                                            
+                                        <td>
+                                            <div id="dots" class="dropdown">
+
+                                                <img class="dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="~/img/Dashboard/dots.png" />
+                                                <div class="dropdown-menu  dropdown-menu-right ">
+                                                    <button class="text-left dropdown-item nav-dropdown-item" onclick="location.href='/Admin/adminDownload/@item.id'">Download book </button>
+                                                    
+                                                </div>
+                                            </div>
+
+
+                                        </td>
+
+                                    </tr>
+
+
+                                }
+
+                            }
+
+
+                            <!-- </thead> -->
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+                <div class="text-center">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                    @Html.PagedListPager(Model, page => Url.Action("memberDetails",new {@ViewBag.id, page }))
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</section>

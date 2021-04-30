@@ -17,11 +17,19 @@ namespace NoteMarketPlace.Models
         public string sellerName { get; set; }
         public DateTime PublishedDate { get; set; }
 
+        public string createdDate { get; set; }
+        public Nullable<DateTime> date { get; set; }
+
         public float AttachmentSize { get; set; }
 
         public string AttachmentPath { get; set; }
 
         public int totalDownloads { get; set; }
+
+        public int totalEarn { get; set; }
+
+        public string status { get; set; }
+
 
     }
 }

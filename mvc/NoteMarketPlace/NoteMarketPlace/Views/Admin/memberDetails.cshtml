@@ -1,0 +1,250 @@
+﻿@model IEnumerable<NoteMarketPlace.Models.MultipleData>
+@{
+    ViewBag.Title = "memberDetails";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+    int userId=0;
+}
+<section>
+    @foreach (var item in Model)
+    {
+        userId = item.User.ID;
+        <div class="container user-right">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="page-heading">Member Details</p>
+                </div>
+                <div class="col-md-8">
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-2">
+                            @if (item.userProfile.ProfilePicture != null)
+                            {
+                                <img class="img-responsive book-cover-photo" style="height:210px" src="data:image/jpeg;base64,@item.userProfile.ProfilePicture" alt="Book Cover Photo">
+                            }
+                            else
+                            {
+                                <img class="img-responsive book-cover-photo" style="height:210px" src="data:image/jpeg;base64,@ViewBag.UserProfile" alt="Book Cover Photo">
+
+
+                            }
+                        </div>
+                        <div class="col-md-7 col-sm-9">
+
+                            <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                                <p>First Name:</p>
+                            </div>
+                            <div class="col-md-7 col-sm-7 col-xs-7">
+
+
+                                <p class="user-ans">
+                                    @item.User.FirstName
+                                </p>
+
+
+
+                            </div>
+                            <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                                <p>Last Name:</p>
+                            </div>
+                            <div class="col-md-7 col-sm-7 col-xs-7">
+
+
+                                <p class="user-ans">
+                                    @item.User.LastName
+                                </p>
+
+
+
+                            </div>
+                            <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                                <p>Email:</p>
+                            </div>
+                            <div class="col-md-7 col-sm-7 col-xs-7">
+
+
+                                <p class="user-ans">
+                                    @item.User.EmailID
+                                </p>
+
+
+
+                            </div>
+                            <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                                <p>DOB:</p>
+                            </div>
+                            <div class="col-md-7 col-sm-7 col-xs-7">
+
+
+
+                                @if (item.userProfile.DOB != null)
+                                {
+                                    <p class="user-ans">@item.userProfile.DOB</p>
+                                }
+                                else
+                                {<p class="user-ans">NA</p>}
+
+                            </div>
+                            <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                                <p>Phone Number:</p>
+                            </div>
+                            <div class="col-md-7 col-sm-7 col-xs-7">
+
+
+
+                                @if (item.userProfile.PhoneNumber != null)
+                                {
+                                    <p class="user-ans">@item.userProfile.PhoneNumber_CountryCode @item.userProfile.PhoneNumber</p>
+                                }
+                                else
+                                {<p class="user-ans">NA</p>}
+
+                            </div>
+                            <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                                <p>College/university:</p>
+                            </div>
+                            <div class="col-md-7 col-sm-7 col-xs-7">
+
+
+
+                                @if (item.userProfile.College != null || item.userProfile.University != null)
+                                {
+                                    <p class="user-ans">@item.userProfile.College, @item.userProfile.University</p>
+                                }
+                                else
+                                {<p class="user-ans">NA</p>}
+
+                            </div>
+
+
+
+
+
+
+
+
+
+
+                        </div>
+                        <div class="col-md-1 vl"></div>
+
+
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                        <p>Address 1:</p>
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-xs-7">
+
+
+
+                        @if (item.userProfile.AddressLine1 != null)
+                        {
+                            <p class="user-ans">@item.userProfile.AddressLine1</p>
+                        }
+                        else
+                        {<p class="user-ans">NA</p>}
+
+                    </div>
+                    <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                        <p>Address 2:</p>
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-xs-7">
+
+
+
+                        @if (item.userProfile.AddressLine2 != null)
+                        {
+                            <p class="user-ans">@item.userProfile.AddressLine2</p>
+                        }
+                        else
+                        {<p class="user-ans">NA</p>}
+
+                    </div>
+                    <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                        <p>City:</p>
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-xs-7">
+
+
+
+                        @if (item.userProfile.City != null)
+                        {
+                            <p class="user-ans">@item.userProfile.City</p>
+                        }
+                        else
+                        {<p class="user-ans">NA</p>}
+
+                    </div>
+                    <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                        <p>State:</p>
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-xs-7">
+
+
+
+                        @if (item.userProfile.State != null)
+                        {
+                            <p class="user-ans">@item.userProfile.State</p>
+                        }
+                        else
+                        {<p class="user-ans">NA</p>}
+
+                    </div>
+                    <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                        <p>Country:</p>
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-xs-7">
+
+
+
+                        @if (item.userProfile.Country != null)
+                        {
+                            <p class="user-ans">@item.userProfile.Country</p>
+                        }
+                        else
+                        {<p class="user-ans">NA</p>}
+
+                    </div>
+
+                    <div class="text-left col-md-5 col-sm-5 col-xs-5">
+                        <p>Zip Code:</p>
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-xs-7">
+
+
+
+                        @if (item.userProfile.ZipCode != null)
+                        {
+                            <p class="user-ans">@item.userProfile.ZipCode</p>
+                        }
+                        else
+                        {<p class="user-ans">NA</p>}
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+
+            <hr>
+
+
+        </div>
+    }
+</section>
+@{
+    Html.RenderAction("memberNote", "Admin", new { id = userId });
+}
+
+
+

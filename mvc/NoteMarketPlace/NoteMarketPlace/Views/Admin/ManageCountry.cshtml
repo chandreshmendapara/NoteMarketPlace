@@ -52,14 +52,20 @@
                             </thead>
                             <tbody>
 
-
-
-                                @{ var i = ViewBag.Count - 1; }
-                                @foreach (var item in Model)
+                                @if (!Model.Any())
                                 {
-                                    string a = "";
+                                    <tr><td>No Data Found</td></tr>
+                                }
+                                else
+                                {
 
-                                    i = i + 1;
+
+                                    var i = ViewBag.Count - 1;
+                                    foreach (var item in Model)
+                                    {
+                                        string a = "";
+
+                                        i = i + 1;
                                     <tr>
                                         <td style="display:none">@item.Country.ID</td>
                                         <td>
@@ -77,24 +83,24 @@
 
                                         <td>
                                             @{
-                                                a = item.User.FirstName;
-                                                a += " ";
-                                                a += item.User.LastName;
+                                    a = item.User.FirstName;
+                                    a += " ";
+                                    a += item.User.LastName;
                                             }
                                             @a
                                         </td>
                                         @{
 
-                                            bool isActive = item.Country.IsActive;
-                                            if (isActive)
-                                            {
+                                    bool isActive = item.Country.IsActive;
+                                    if (isActive)
+                                    {
                                                 <td>Yes</td>
 
-                                            }
-                                            else
-                                            {
+                                    }
+                                    else
+                                    {
                                                 <td>No</td>
-                                            }
+                                    }
 
                                         }
 
@@ -104,8 +110,8 @@
                                             <button class="deleteCountry actionBtn" style="padding:0"><img src="../img/dashboard/delete.png"></button>
 
                                     </tr>
-                                }
-
+                                        }
+                                    }
 
 
 

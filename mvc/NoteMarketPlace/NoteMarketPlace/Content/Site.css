@@ -1114,6 +1114,7 @@ tbody > tr:hover {
 }
 thead > tr > th, td {
     text-align: center;
+    font-size:13px;
 }
 td > a > img {
     height: 15px;
@@ -1658,7 +1659,8 @@ footer {
 .modal-content {
     padding: 20px;
     border: 1px solid #888;
-    max-width: 30%;
+    min-width: 30%;
+    max-width:30%;
     position: absolute;
     top: 50%;
     left: 50%;

@@ -27,8 +27,14 @@ namespace NoteMarketPlace.Controllers
         public AdminController()
         {
             _Context = new NotesMarketPlaceEntities();
+
+            ViewBag.daefaultNoteImg = _Context.tblSystemConfigurations.FirstOrDefault(model => model.Key == "defaultNoteImg").Values;
+            ViewBag.facebook = _Context.tblSystemConfigurations.FirstOrDefault(model => model.Key == "FacebookURL").Values;
+            ViewBag.twitter = _Context.tblSystemConfigurations.FirstOrDefault(model => model.Key == "TwitterURL").Values;
+            ViewBag.linkedin = _Context.tblSystemConfigurations.FirstOrDefault(model => model.Key == "LinkedinURL").Values;
+
         }
-        public ActionResult Index(int? page, int? month, string search )
+        public ActionResult Index(int? p, int? month, string search )
         {
 
             var current_date = DateTime.Now.Date.AddDays(-7);
@@ -38,8 +44,8 @@ namespace NoteMarketPlace.Controllers
 
 
             int pageSize = 4;
-            if (page != null)
-                ViewBag.Count = page * pageSize - pageSize + 1;
+            if (p != null)
+                ViewBag.Count = p * pageSize - pageSize + 1;
             else
                 ViewBag.Count = 1;
 
@@ -87,7 +93,7 @@ namespace NoteMarketPlace.Controllers
 
             /* */
             ViewBag.Search = search;
-            return View(multiple.ToList().ToPagedList(page ?? 1, pageSize));
+            return View(multiple.ToList().ToPagedList(p ?? 1, pageSize));
         }
         //file size
         public float FileSize(string filePath)
@@ -107,7 +113,7 @@ namespace NoteMarketPlace.Controllers
 
 
 
-
+        [Authorize(Roles = "Super Admin")]
         public ActionResult addNoteType()
         {
             return View();
@@ -117,6 +123,7 @@ namespace NoteMarketPlace.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Super Admin")]
         public ActionResult addNoteType(tblNoteType model)
         {
             
@@ -184,7 +191,7 @@ namespace NoteMarketPlace.Controllers
 
 
 
-
+        [Authorize(Roles = "Super Admin")]
         public ActionResult addNoteCategory()
         {
 
@@ -196,6 +203,7 @@ namespace NoteMarketPlace.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Super Admin")]
         public ActionResult addNoteCategory(tblNoteCategory model)
         {
 
@@ -265,7 +273,7 @@ namespace NoteMarketPlace.Controllers
 
         }
 
-
+        [Authorize(Roles = "Super Admin")]
         public ActionResult addCountry()
         {
             return View();
@@ -273,6 +281,7 @@ namespace NoteMarketPlace.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Super Admin")]
         public ActionResult addCountry(tblCountry model)
         {
 
@@ -329,7 +338,7 @@ namespace NoteMarketPlace.Controllers
         }
 
 
-
+        [Authorize(Roles = "Super Admin")]
         public ActionResult ManageNoteType(string search, int? page)
         {
             int pageSize = 5;
@@ -357,6 +366,8 @@ namespace NoteMarketPlace.Controllers
 
         }
 
+
+        [Authorize(Roles = "Super Admin")]
         public ActionResult ManageNoteCategory(string search, int? page )
         {
             List<tblNoteCategory> tblNoteCategoriesList = _Context.tblNoteCategories.Where(m => m.IsActive == true).ToList(); 
@@ -392,7 +403,7 @@ namespace NoteMarketPlace.Controllers
         }
 
 
-
+        [Authorize(Roles = "Super Admin")]
         public ActionResult ManageCountry(string search ,int? page)
         {
             
@@ -418,18 +429,30 @@ namespace NoteMarketPlace.Controllers
 
         }
 
-        public ActionResult ManageAdmin(int ? page)
+        [Authorize(Roles = "Super Admin")]
+        public ActionResult ManageAdmin(int ? page,  string search)
         {
             int pageSize = 5;
-            List<tblCountry> tblCountriesList = _Context.tblCountries.ToList(); //new List<tblNoteCategory>();
-            List<tblUser> tblUser = _Context.tblUsers.ToList(); //new List<tblNoteCategory>();
-            ViewBag.count = page * pageSize - pageSize +1;
-            var multiple = (from c in tblCountriesList
-                            join t1 in tblUser on c.CreatedBy equals t1.ID
-                            select new MultipleData { Country = c, User = t1 }).ToList().ToPagedList(page ?? 1, pageSize);
-
-
-            return View(multiple);
+            if (page != null)
+                ViewBag.Count = page * pageSize - pageSize + 1;
+            else
+            {
+                ViewBag.Count = 1;
+            }
+            List<tblUser> users = _Context.tblUsers.ToList(); //new List<tblNoteCategory>();
+            List<tblUserProfile> userProfiles = _Context.tblUserProfiles.ToList(); //new List<tblNoteCategory>();
+           
+            var multiple = (from c in users
+                            join t1 in userProfiles on c.ID equals t1.UserID
+                            where c.RoleID==102 && c.IsActive==true
+                         
+                            select new MultipleData {  User = c, userProfile=t1 });
+            if(search!=null && search!="")
+                multiple = multiple.Where(m => m.User.FirstName.ToLower().Contains(search.ToLower()) || m.User.LastName.ToLower().Contains(search.ToLower()) 
+                || m.User.EmailID.ToLower().Contains(search.ToLower()) || m.userProfile.PhoneNumber_CountryCode.Contains(search) || 
+                m.userProfile.PhoneNumber.Contains(search));
+            ViewBag.Search = search;
+            return View(multiple.ToList().ToPagedList(page ?? 1, pageSize));
 
         }
 
@@ -439,7 +462,7 @@ namespace NoteMarketPlace.Controllers
         public ActionResult addAdmin()
         {
             NotesMarketPlaceEntities entities = new NotesMarketPlaceEntities();
-            var CountryCode = entities.tblCountries.ToList();
+            var CountryCode = entities.tblCountries.Where(m=>m.IsActive==true).ToList();
             SelectList list = new SelectList(CountryCode, "CountryCode", "CountryCode");
             ViewBag.CountryCode = list;
             return View();
@@ -452,7 +475,7 @@ namespace NoteMarketPlace.Controllers
         public ActionResult addAdmin(UserDetails model)
         {
             NotesMarketPlaceEntities entities = new NotesMarketPlaceEntities();
-            var CountryCode = entities.tblCountries.ToList();
+            var CountryCode = entities.tblCountries.Where(m => m.IsActive == true).ToList();
             SelectList list = new SelectList(CountryCode, "CountryCode", "CountryCode");
             ViewBag.CountryCode = list;
 
@@ -462,48 +485,61 @@ namespace NoteMarketPlace.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
+                if (model.Id > 0)
+                {
+                    var a = _Context.tblUsers.Find(model.Id);
+                    a.FirstName = model.FirstName;
+                    a.LastName = model.LastName;
+                    a.EmailID = model.EmailID;
+                    var b = _Context.tblUserProfiles.Where(m => m.UserID == model.Id).FirstOrDefault();
+                    b.PhoneNumber = model.PhnNo;
+                    b.PhoneNumber_CountryCode = model.CountryCode;
+                    _Context.SaveChanges();
+                }
+                else
+                {
 
-                NotesMarketPlaceEntities dbobj = new NotesMarketPlaceEntities();
-                tblUser obj = new tblUser();
-                obj.FirstName = model.FirstName;
-                obj.LastName = model.LastName;
-                obj.EmailID = model.EmailID;
-                obj.Password = "Admin@123";
-                obj.CreatedDate = DateTime.Now;
-                obj.CreatedBy = u;
-                obj.IsActive = true;
-                obj.IsEmailVerified = true;
-                obj.RoleID = 102;
+                    NotesMarketPlaceEntities dbobj = new NotesMarketPlaceEntities();
+                    tblUser obj = new tblUser();
+                    obj.FirstName = model.FirstName;
+                    obj.LastName = model.LastName;
+                    obj.EmailID = model.EmailID;
+                    obj.Password = "Admin@123";
+                    obj.CreatedDate = DateTime.Now;
+                    obj.CreatedBy = u;
+                    obj.IsActive = true;
+                    obj.IsEmailVerified = true;
+                    obj.RoleID = 102;
 
                     dbobj.tblUsers.Add(obj);
                     dbobj.SaveChanges();
-                   
-
-                int id = (from record in dbobj.tblUsers orderby record.ID descending select record.ID).First();
-
-                tblUserProfile userobj = new tblUserProfile();
-                userobj.UserID = id;
-                userobj.PhoneNumber_CountryCode = model.CountryCode;
-                userobj.PhoneNumber = model.PhnNo;
-                userobj.AddressLine1 = "addressline1";
-                userobj.AddressLine2 = "addressline2";
-                userobj.City = "city";
-                userobj.State = "State";
-                userobj.ZipCode = "123321";
-                userobj.Country = "India";
-                dbobj.tblUserProfiles.Add(userobj);
-                dbobj.SaveChanges();
-                ModelState.Clear();
-                return RedirectToAction("ManageAdmin", "Admin");
 
 
+                    int id = (from record in dbobj.tblUsers orderby record.ID descending select record.ID).First();
+
+                    tblUserProfile userobj = new tblUserProfile();
+                    userobj.UserID = id;
+                    userobj.PhoneNumber_CountryCode = model.CountryCode;
+                    userobj.PhoneNumber = model.PhnNo;
+                    userobj.AddressLine1 = "addressline1";
+                    userobj.AddressLine2 = "addressline2";
+                    userobj.City = "city";
+                    userobj.State = "State";
+                    userobj.ZipCode = "123321";
+                    userobj.Country = "India";
+                    dbobj.tblUserProfiles.Add(userobj);
+                    dbobj.SaveChanges();
+                    ModelState.Clear();
+
+                }
+              
             }
-                return View();
+            return RedirectToAction("ManageAdmin", "Admin");
 
 
         }
 
-
+        [Authorize(Roles = "Super Admin")]
         public ActionResult editCategory(int ? id)
         {
             if (id == null)
@@ -513,6 +549,8 @@ namespace NoteMarketPlace.Controllers
                 return HttpNotFound();
             return View("addNoteCategory", category);
         }
+
+        [Authorize(Roles = "Super Admin")]
         public ActionResult deleteCategory(int ? ID)
         {
             if (ID == null)
@@ -527,6 +565,7 @@ namespace NoteMarketPlace.Controllers
             return RedirectToAction("manageNoteCategory");
         }
 
+        [Authorize(Roles = "Super Admin")]
         public ActionResult editType(int? id)
         {
             if (id == null)
@@ -537,7 +576,7 @@ namespace NoteMarketPlace.Controllers
             return View("addNoteType", type);
         }
 
-
+        [Authorize(Roles = "Super Admin")]
         public ActionResult deleteType(int? ID)
         {
             if (ID == null)
@@ -552,7 +591,7 @@ namespace NoteMarketPlace.Controllers
             return RedirectToAction("manageNoteType");
         }
 
-
+        [Authorize(Roles = "Super Admin")]
         public ActionResult editCountry(int? id)
         {
             if (id == null)
@@ -563,7 +602,7 @@ namespace NoteMarketPlace.Controllers
             return View("addCountry", type);
         }
 
-
+        [Authorize(Roles = "Super Admin")]
         public ActionResult deleteCountry(int? ID)
         {
             if (ID == null)
@@ -577,6 +616,53 @@ namespace NoteMarketPlace.Controllers
 
             return RedirectToAction("manageCountry");
         }
+
+
+        [Authorize(Roles = "Super Admin")]
+        public ActionResult editAdmin(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var admin = _Context.tblUsers.Find(id);
+            if (admin == null)
+                return HttpNotFound();
+            var CountryCode = _Context.tblCountries.Where(m => m.IsActive == true).ToList();
+            SelectList list = new SelectList(CountryCode, "CountryCode", "CountryCode");
+            ViewBag.CountryCode = list;
+            List<tblUser> users = _Context.tblUsers.ToList();
+            List<tblUserProfile> userProfiles = _Context.tblUserProfiles.ToList();
+            var a = from c in users
+                    join t1 in userProfiles on c.ID equals t1.UserID
+                    where c.ID==id
+                    select new UserDetails
+                    {
+                        Id=c.ID,
+                        FirstName = c.FirstName,
+                        LastName = c.LastName,
+                        EmailID = c.EmailID,
+                        CountryCode = t1.PhoneNumber_CountryCode,
+                        PhnNo = t1.PhoneNumber
+                    };
+          
+
+            return View(a.FirstOrDefault());
+        }
+
+        [Authorize(Roles = "Super Admin")]
+        public ActionResult deleteAdmin(int? ID)
+        {
+            if (ID == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var admin = _Context.tblUsers.Find(ID);
+            if (admin == null)
+                return HttpNotFound();
+            admin.IsActive = false;
+            _Context.SaveChanges();
+
+
+            return RedirectToAction("manageAdmin");
+        }
+
 
 
 
@@ -788,7 +874,7 @@ namespace NoteMarketPlace.Controllers
 
 
 
-        public ActionResult showMember(int? page)
+        public ActionResult Member(int? page, string search)
         {
             int pageSize = 5;
             if (page != null)
@@ -801,19 +887,124 @@ namespace NoteMarketPlace.Controllers
             ViewBag.SellerList = list;
             
 
-            List<tblSellerNote> tblSellerNotesList = _Context.tblSellerNotes.ToList();
-            List<tblUser> tblUserList = _Context.tblUsers.ToList();
-            List<tblNoteCategory> tblNoteCategoriesList = _Context.tblNoteCategories.ToList();
-            List<tblReferenceData> tblReferenceDataList = _Context.tblReferenceDatas.ToList();
+            List<tblUser> users = _Context.tblUsers.ToList();
+            List<tblUserProfile> userProfiles = _Context.tblUserProfiles.ToList();
+            List<tblSellerNote> sellerNotes = _Context.tblSellerNotes.ToList();
+            List<tblDownload> downloads = _Context.tblDownloads.ToList();
 
-            var multiple = (from c in tblSellerNotesList
-                           join t1 in tblUserList on c.SellerID equals t1.ID
-                           join t3 in tblNoteCategoriesList on c.Category equals t3.ID
-                           where c.Status == 7 || c.Status == 8
-                           select new MultipleData { sellerNote = c, User = t1, NoteCategory = t3 }).ToList().ToPagedList(page ?? 1, pageSize); 
+            var multiple = (from c in users
+                            join t1 in userProfiles on c.ID equals t1.UserID
+                            let underReview = (sellerNotes.Where(m => m.SellerID == c.ID &&( m.Status == 7 || m.Status == 8)).Count())
+                            let published = (sellerNotes.Where(m => m.SellerID == c.ID && m.Status == 9).Count())
+                            let downloaded = (downloads.Where(m => m.Downloader == c.ID && m.IsAttachmentDownloaded == true).Count())
+                            let dt= (DateTime)c.CreatedDate
+                            let totalExpense=( from d in downloads where d.Downloader==c.ID select d.PurchasedPrice).Sum()
+                            let totalEarnings = (from d in downloads where d.Seller == c.ID select d.PurchasedPrice).Sum()
+                            where c.IsActive==true
+                            select new Profile {
+                                Id=c.ID,
+                                FirstName=c.FirstName,
+                                LastName=c.LastName,
+                                EmailID=c.EmailID,
+                                joinDate= dt.ToString("dd/MM/yyyy"),
+                                userBooksUnderReview=underReview,
+                                userPublishedBook=published,
+                                userDownloadedBook=downloaded,
+                                userTotalExpense= Convert.ToInt32(totalExpense),
+                                userTotalEarning= Convert.ToInt32(totalEarnings)
 
-            return View(multiple);
+
+
+                            });
+
+            if (search != null && search != "")
+                multiple = multiple.Where(m => m.FirstName.ToLower().Contains(search.ToLower()) ||
+                m.LastName.ToLower().Contains(search.ToLower()) || m.EmailID.ToLower().Contains(search.ToLower())
+                );
+            ViewBag.Search = search;
+
+            return View(multiple.OrderByDescending(x => x.joinDate).ToList().ToPagedList(page ?? 1, pageSize));
           
+        }
+
+
+
+        public ActionResult memberDetails( int ? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            List<tblUser> users = _Context.tblUsers.ToList();
+            List<tblUserProfile> userProfiles = _Context.tblUserProfiles.ToList();
+
+            var multiple = (from c in users 
+                            join t1 in userProfiles on c.ID equals t1.UserID
+                            where c.ID==id
+                            select new MultipleData{ User=c, userProfile=t1 }).ToList();
+            return View(multiple);
+
+        }
+        public PartialViewResult memberNote(int? page,int id)
+        {
+            int pageSize = 5;
+            if (page != null)
+                ViewBag.Count = page * pageSize - pageSize + 1;
+            else
+                ViewBag.Count = 1;
+            List<tblSellerNote> sellerNotes = _Context.tblSellerNotes.ToList();
+            List<tblNoteCategory> noteCategories = _Context.tblNoteCategories.ToList();
+            List<tblDownload> downloads = _Context.tblDownloads.ToList();
+
+            List<tblReferenceData> referenceDatas = _Context.tblReferenceDatas.ToList();
+            ViewBag.id = id;
+            var multiple = (from c in sellerNotes
+                            where c.SellerID == id
+                            join t1 in noteCategories on c.Category equals t1.ID
+                            join t2 in referenceDatas on c.Status equals t2.ID
+                            let bookDownloads = (_Context.tblDownloads.Where(m => m.NoteID == c.ID && m.IsSellerHasAllowedDownload == true).Count())
+                            let bookEarning = (from book in downloads where book.Seller== id && book.NoteID ==c.ID select book.PurchasedPrice).Sum()
+                            let dt =(DateTime)c.CreatedDate
+                            let s = t2.Values
+                           
+                            
+                            select new PublishedNoteDetails
+                            {
+                                id=c.ID,
+                                Title=c.Title,
+                                categoryName=t1.Name,
+                                status=s,
+                                totalDownloads=bookDownloads,
+                                totalEarn= Convert.ToInt32(bookEarning),
+                                createdDate= dt.ToString("dd/MM/yyyy"),
+                                date=c.PublishedDate
+
+
+                            }
+                            );
+
+
+
+            return PartialView(multiple.ToList().ToPagedList(page ?? 1, pageSize));
+        }
+
+
+       public ActionResult deleteUser(int? ID)
+        {
+            if (ID == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var user = _Context.tblUsers.Find(ID);
+            var user_book = _Context.tblSellerNotes.Where(m => m.SellerID == ID).ToList();
+            if (user == null)
+                return HttpNotFound();
+            user.IsActive = false;
+            user_book.ForEach(m => m.IsActive = false);
+            user_book.ForEach(m => m.Status = 11);
+
+            _Context.SaveChanges();
+
+
+            return RedirectToAction("Member");
         }
 
        [HttpGet]
@@ -884,7 +1075,7 @@ namespace NoteMarketPlace.Controllers
 
         }
 
-        public ActionResult spam(int? page)
+        public ActionResult spam(int? page, string search)
         {
 
             int pageSize = 5;
@@ -901,11 +1092,35 @@ namespace NoteMarketPlace.Controllers
                             join t1 in tblUser on c.ReportedByID equals t1.ID
                             join t2 in sellerNotes on c.NoteID equals t2.ID
                             join t3 in noteCategories on t2.Category equals t3.ID
-                            select new MultipleData { reportedIssue = c, User = t1, sellerNote = t2, NoteCategory =t3 }).ToList().ToPagedList(page ?? 1, pageSize);
-            ;
+                            select new MultipleData { reportedIssue = c, User = t1, sellerNote = t2, NoteCategory = t3 });
+           if(search!=null && search != "")
+            {
+                multiple = multiple.Where(m => m.User.FirstName.ToLower().Contains(search.ToLower()) ||
+                  m.User.LastName.ToLower().Contains(search.ToLower()) ||
+                  m.sellerNote.Title.ToLower().Contains(search.ToLower()) ||
+                  m.NoteCategory.Name.ToLower().Contains(search.ToLower())
+                 
+                );
+                ViewBag.search = search;
+            }
 
 
-            return View(multiple);
+            return View(multiple.ToList().ToPagedList(page ?? 1, pageSize));
+        }
+
+
+        public ActionResult deleteSpamReport(int? ID)
+        {
+            if (ID == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var spam = _Context.tblSellerNotesReportedIssues.Find(ID);
+            if (spam == null)
+                return HttpNotFound();
+            _Context.tblSellerNotesReportedIssues.Remove(spam);
+            _Context.SaveChanges();
+
+
+            return RedirectToAction("spam");
         }
 
 
@@ -1000,6 +1215,32 @@ namespace NoteMarketPlace.Controllers
 
 
 
+        protected override void Initialize(RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            if (requestContext.HttpContext.User.Identity.IsAuthenticated)
+            {
+                using (var _Context = new NotesMarketPlaceEntities())
+                {
+                    // get current user profile image
+                    var currentUserImg = (from details in _Context.tblUserProfiles
+                                          join users in _Context.tblUsers on details.UserID equals users.ID
+                                          where users.EmailID == requestContext.HttpContext.User.Identity.Name
+                                          select details.ProfilePicture).FirstOrDefault();
+
+                    if (currentUserImg == null)
+                    {
+                        // get deafult image
+                        var defaultImg = _Context.tblSystemConfigurations.FirstOrDefault(model => model.Key == "defaultProfilePic");
+                        ViewBag.UserProfile = defaultImg.Values;
+                    }
+                    else
+                    {
+                        ViewBag.UserProfile = currentUserImg;
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -88,7 +88,7 @@
                                                 <button class=" dropdown-item nav-dropdown-item" onclick="location.href='/User/downloads'">My Downloads</button>
                                                 <button class=" dropdown-item nav-dropdown-item" onclick="location.href='/User/soldNote'">My Sold Note</button>
                                                 <button class=" dropdown-item nav-dropdown-item" onclick="location.href='/User/rejectedNotes'">My Rejected Notes</button>
-                                                <button class=" dropdown-item nav-dropdown-item" onclick="location.href='/home/changePswd'"> Change Password</button>
+                                                <button class=" dropdown-item nav-dropdown-item" onclick="location.href='/changePswd'"> Change Password</button>
 
                                                 <button class=" dropdown-item nav-dropdown-item dd-logout" onclick="location.href='/login/logout'">LOGOUT</button>
 
@@ -187,9 +187,9 @@
                 <div class="col-md-6 col-sm-6 text-right">
                     <ul class="pagination social">
 
-                        <li><a class="ficon img-circle" href="#" style="background-color:#6255a5;"><img src="~/img/footer/facebook.png" alt=""></a></li>
-                        <li><a class="ficon img-circle" href="#" style="background-color:#6255a5;"><img src="~/img/footer/linkedin.png" alt=""></a></li>
-                        <li><a class="ficon img-circle" href="#" style="background-color:#6255a5;"><img src="~/img/footer/twitter.png" alt=""></a></li>
+                        <li><a class="ficon img-circle" href="@ViewBag.facebook" target="_blank" style="background-color:#6255a5;"><img src="~/img/footer/facebook.png" alt=""></a></li>
+                        <li><a class="ficon img-circle" href="@ViewBag.linkedin" target="_blank" style="background-color:#6255a5;"><img src="~/img/footer/linkedin.png" alt=""></a></li>
+                        <li><a class="ficon img-circle" href="@ViewBag.twitter" target="_blank" style="background-color:#6255a5;"><img src="~/img/footer/twitter.png" alt=""></a></li>
 
                     </ul>
                 </div>
