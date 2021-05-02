@@ -3,10 +3,11 @@
 @{
     ViewBag.Title = "Index";
 }
+@HtmlHelper.UnobtrusiveJavaScriptEnabled = true;
 <!-- Login Section -->
 @using (Html.BeginForm())
 {
-    
+
     @Html.AntiForgeryToken()
     <section id="login" class="login-overlay">
         <div class="login-parent">
@@ -34,11 +35,12 @@
                                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
 
                                 </div>
+
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group error">
 
-                                    
+
 
                                     @if (@ViewBag.NotValidUser != null)
                                     {
@@ -52,7 +54,7 @@
                                 <div class="form-group dis">
 
                                     <label>
-                                        @Html.CheckBoxFor(model => model.isRemember , new { style="height:11px"}) Remember me
+                                        @Html.CheckBoxFor(model => model.isRemember, new { style = "height:11px" }) Remember me
                                     </label>
                                 </div>
                             </div>

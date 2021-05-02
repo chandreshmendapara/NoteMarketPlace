@@ -3,91 +3,100 @@
     ViewBag.Title = "Index";
 }
 
-@using (Html.BeginForm())
-{
-
-    @Html.AntiForgeryToken()
-    <section id="forgot" class="forgot-overlay">
-        <div class="forgot-parent">
-            <div class="forgot-child">
-                <img class="img-responsive" src="img/home/top-logo.png" alt="">
-                <div class="forgot-details">
-                    <div class="text-center">
-                        <p>Change Password</p>
-                        <p>Enter your new password to change passoword</p>
-                    </div>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group dis">
-                                    <p>Old passowrd*</p>
-                                    <input type="password"  class="form-control" name="oldPswd" placeholder="Enter your old password" required>
+    <form action="/changePswd" onsubmit="return myValidation();" method="post">
+        <section id="forgot" class="forgot-overlay">
+            <div class="forgot-parent">
+                <div class="forgot-child">
+                    <img class="img-responsive" src="img/home/top-logo.png" alt="">
+                    <div class="forgot-details">
+                        <div class="text-center">
+                            <p>Change Password</p>
+                            <p>Enter your new password to change passoword</p>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group dis">
+                                        <p>Old passowrd*</p>
+                                        <input type="password" class="form-control" name="oldPswd" placeholder="Enter your old password" required>
+                                        @if (ViewBag.Error != null)
+                                        {
+                                            <p style="color:red">@ViewBag.Error</p>
+                                        }
+                                    </div>
+                                    <div class="form-group dis">
+                                        <p>New passowrd*</p>
+                                        <input type="password" class="form-control" id="psw" name="newPswd" placeholder="Enter your new password" required>
+                                    </div>
+                                    <div class="form-group dis">
+                                        <p>Confirm passowrd*</p>
+                                        <input type="password" class="form-control" id="cpsw" name="ConfirmPswd" placeholder="Enter your confirm password" required>
+                                    </div>
                                 </div>
-                                <div class="form-group dis">
-                                    <p>New passowrd*</p>
-                                    <input type="password" class="form-control" id="psw" name="newPswd" placeholder="Enter your new password" required>
-                                </div>
-                                <div class="form-group dis">
-                                    <p>Confirm passowrd*</p>
-                                    <input type="password" class="form-control" name="ConfirmPswd" placeholder="Enter your confirm password" required>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group error">
+                                <div class="col-md-12">
+                                    <div class="form-group error">
 
 
 
-                                    @if (@ViewBag.NotValidUser != null)
-                                    {
+                                        @if (@ViewBag.NotValidUser != null)
+                                        {
 
-                                        <label style="color:#A94442"> @ViewBag.NotValidUser</label>
-                                    }
+                                            <label style="color:#A94442"> @ViewBag.NotValidUser</label>
+                                        }
+                                    </div>
+
                                 </div>
 
-                            </div>
+                                <div class="col-md-12">
+                                    <div class="form-group dis">
 
-                            <div class="col-md-12">
-                                <div class="form-group dis">
-
-                                    <Button class="form-control">
-                                        Submit
-                                    </Button>
+                                        <Button class="form-control">
+                                            Submit
+                                        </Button>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-12">
-                                <div id="message">
-                                    <h6>Password must contain the following:</h6>
-                                    <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-                                    <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-                                    <p id="number" class="invalid">A <b>number</b></p>
-                                    <p id="special" class="invalid">A <b>Special Character</b></p>
+                                <div class="col-md-12">
+                                    <div id="message">
+                                        <h6>Password must contain the following:</h6>
+                                        <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                                        <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                                        <p id="number" class="invalid">A <b>number</b></p>
+                                        <p id="special" class="invalid">A <b>Special Character</b></p>
 
-                                    <p id="length" class="invalid">Minimum <b>6 characters</b></p>
+                                        <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                                    </div>
                                 </div>
+
                             </div>
 
                         </div>
-
                     </div>
+
                 </div>
 
             </div>
 
-        </div>
 
-       
 
-    </section>
-}
+        </section>
+
+    </form>
+
 
 <script>
     var myInput = document.getElementById("psw");
+    var confirm = document.getElementById("cpsw");
     var letter = document.getElementById("letter");
     var capital = document.getElementById("capital");
     var number = document.getElementById("number");
     var length = document.getElementById("length");
     var special = document.getElementById("special");
+    var lowerCaseLetters = /[a-z]/g;
+    var upperCaseLetters = /[A-Z]/g;
+    var numbers = /[0-9]/g;
+ 
+    var specialList = /[`!@@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/g;
     // When the user clicks on the password field, show the message box
     myInput.onfocus = function () {
         document.getElementById("message").style.display = "block";
@@ -101,7 +110,7 @@
     // When the user starts to type something inside the password field
     myInput.onkeyup = function () {
         // Validate lowercase letters
-        var lowerCaseLetters = /[a-z]/g;
+        
         if (myInput.value.match(lowerCaseLetters)) {
             letter.classList.remove("invalid");
             letter.classList.add("valid");
@@ -111,7 +120,7 @@
         }
 
         // Validate capital letters
-        var upperCaseLetters = /[A-Z]/g;
+        
         if (myInput.value.match(upperCaseLetters)) {
             capital.classList.remove("invalid");
             capital.classList.add("valid");
@@ -121,7 +130,7 @@
         }
 
         // Validate numbers
-        var numbers = /[0-9]/g;
+       
         if (myInput.value.match(numbers)) {
             number.classList.remove("invalid");
             number.classList.add("valid");
@@ -131,8 +140,8 @@
         }
 
          // Validate special character
-        var numbers = /[!"#$%&'()*+,-./:;<=>?@@[\]^_`{|}~]/g;
-        if (myInput.value.match(numbers)) {
+        
+        if (myInput.value.match(specialList)) {
             special.classList.remove("invalid");
             special.classList.add("valid");
         } else {
@@ -141,7 +150,7 @@
         }
 
         // Validate length
-        if (myInput.value.length >= 6 && myInput.value.length<=24) {
+        if (myInput.value.length >= 8 && myInput.value.length<=24) {
             length.classList.remove("invalid");
             length.classList.add("valid");
         } else {
@@ -149,6 +158,31 @@
             length.classList.add("invalid");
         }
     }
+
+function myValidation()
+{
+  
+
+    if (myInput.value === confirm.value && myInput.value.length >= 8 && numbers.test(myInput.value) && specialList.test(myInput.value)
+        && lowerCaseLetters.test(myInput.value) && upperCaseLetters.test(myInput.value)
+
+    ) {
+       
+            return true;
+   
+    }
+  
+    alert("Oops! Validation failed!");
+   
+     document.getElementById("message").style.display = "block";
+  
+   
+        return false;
+
+   
+}
+
+
 
 </script>
 
